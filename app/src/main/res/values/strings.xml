@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">UPIPaymentAlert</string>
+    <string name="all_upi_payments">All UPI payments</string>
+    <string name="grant_permissions">GRANT REQUIRED PERMISSIONS</string>
+    <string name="permissions_granted">Permissions: all required permissions granted and battery optimization is disabled for this app.</string>
+    <string name="test_sound">TEST SOUND</string>
+    <string name="test_sound_amount">TEST SOUND WITH AMOUNT</string>
+    <string name="announcement_volume">Announcement Volume</string>
+</resources>

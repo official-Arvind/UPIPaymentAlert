@@ -1,0 +1,13 @@
+# =====================================================
+#  UPI Payment Alert — robots.txt
+#  https://official-arvind.github.io/UPIPaymentAlert/
+# =====================================================
+
+# Allow all crawlers to index everything
+User-agent: *
+Allow: /
+
+# Sitemap location — tells Google/Bing where to find it
+Sitemap: https://official-arvind.github.io/UPIPaymentAlert/sitemap.xml
+
+# Crawl-delay: none (GitHub Pages is fast, no need to throttle)
