@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080b14" />
+  <title>Troubleshooting &amp; FAQ — UPI Payment Alert Docs</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="apple-touch-icon" href="logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .doc-page { padding: 120px 0 80px; }
+    .doc-container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    .doc-content h1 { font-size: 40px; font-weight: 800; margin-bottom: 24px; color: var(--text-primary); }
+    .doc-content h2 { font-size: 24px; font-weight: 700; margin-top: 40px; margin-bottom: 16px; color: var(--text-primary); border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 8px; }
+    .doc-content p { font-size: 16px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 20px; }
+    .doc-content ul { margin-bottom: 24px; padding-left: 24px; color: var(--text-secondary); }
+    .doc-content li { font-size: 16px; line-height: 1.7; margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+
+  <!-- ======= HEADER / NAV ======= -->
+  <header class="site-header scrolled" id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link" aria-label="UPI Payment Alert home">
+        <img src="logo.png" alt="UPI Payment Alert logo" class="logo-img" />
+        <span class="logo-name">UPI Payment Alert</span>
+        <span class="logo-tag">v2.0-Gold</span>
+      </a>
+      <nav class="main-nav" id="main-nav">
+        <a href="index.html#features" class="nav-link">Features</a>
+        <a href="index.html#how-it-works" class="nav-link">How It Works</a>
+        <a href="index.html#docs" class="nav-link">Docs</a>
+        <a href="index.html#faq" class="nav-link">FAQ</a>
+        <a href="https://github.com/official-arvind/UPIPaymentAlert" class="nav-link nav-link--gh" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/official-arvind/UPIPaymentAlert/releases/download/v2.0-gold/app-debug.apk" download class="btn btn-sm">Download</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="doc-page">
+    <div class="doc-container">
+      <article class="doc-content">
+        <h1>Troubleshooting &amp; FAQ</h1>
+        <p>If you encounter issues with voice alerts, missing announcements, or background service shutdowns, follow the steps below.</p>
+        
+        <h2>1. The service stops announcing after some time</h2>
+        <p>This is almost always caused by Android's aggressive battery saving protocols killing background services:</p>
+        <ul>
+          <li>Open the app and click the <strong>"Grant Required Permissions"</strong> button to double-check that battery optimization is fully disabled.</li>
+          <li>Go to your phone settings -> Applications -> UPI Payment Alert -> Battery -> select <strong>"Unrestricted"</strong>.</li>
+          <li>Lock the app in your device's recent tasks drawer if your OS is highly restrictive (e.g. MIUI, ColorOS).</li>
+        </ul>
+
+        <h2>2. Test sounds work, but actual notifications do not announce</h2>
+        <p>If manual tests function correctly but live payments are missed:</p>
+        <ul>
+          <li>Ensure <strong>Notification Access</strong> is enabled for the app. Toggle it off and on again in settings to reset.</li>
+          <li>Verify your payment apps (GPay, PhonePe, Paytm) actually post a notification drawer alert containing the exact amount received. The parser relies on text content in the alert.</li>
+          <li>Ensure your bank pushes a credit transaction SMS alert. Verify your SMS inbox receives the transaction message.</li>
+        </ul>
+
+        <h2>3. Pronunciation issues / Robotic sound</h2>
+        <p>The app leverages the device's native TTS engine. For the best sound quality:</p>
+        <ul>
+          <li>Install the official <strong>Speech Services by Google</strong> from the Play Store.</li>
+          <li>Go to Settings -> System -> Languages &amp; Input -> <strong>Text-to-Speech Output</strong>. Set Preferred Engine to "Speech Services by Google".</li>
+          <li>Ensure the voice data for your selected language (English or Hindi) is downloaded to your device for offline speech synthesis.</li>
+        </ul>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer-bottom">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <a href="index.html" class="footer-logo">
+          <img src="logo.png" alt="UPI Payment Alert" class="footer-logo-img" />
+          <span>UPI Payment Alert</span>
+        </a>
+      </div>
+      <div class="footer-bottom-bar" style="margin-top:20px; border:none; padding:0;">
+        <p>Built by <a href="https://github.com/official-arvind" target="_blank" rel="noopener">Arvind</a>. MIT licensed.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
