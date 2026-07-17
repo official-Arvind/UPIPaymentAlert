@@ -43,8 +43,8 @@ public class NotificationListener extends NotificationListenerService {
 
         String messageBody = title + " " + text;
         
-        // If it doesn't look like a received payment, ignore
-        if (!messageBody.toLowerCase().contains("received") && !messageBody.toLowerCase().contains("paid to you") && !messageBody.toLowerCase().contains("credited")) {
+        // Check if it is a credit transaction
+        if (!smsParser.isCreditTransaction(messageBody)) {
             return;
         }
 

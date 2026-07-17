@@ -71,4 +71,51 @@ public class SmsParser {
             return textToSpeak.toString();
         }
     }
+
+    public boolean isCreditTransaction(String body) {
+        if (body == null || body.isEmpty()) {
+            return false;
+        }
+
+        String lowerBody = body.toLowerCase();
+
+        // 1. Explicit debit/failure/restricted keywords rejection
+        if (lowerBody.contains("debited") || 
+            lowerBody.contains("debit") || 
+            lowerBody.contains("withdrawn") || 
+            lowerBody.contains("withdrawal") || 
+            lowerBody.contains("failed") || 
+            lowerBody.contains("declined") || 
+            lowerBody.contains("spent") || 
+            lowerBody.contains("deducted") || 
+            lowerBody.contains("charges")) {
+            return false;
+        }
+
+        // Context checks for paid/sent/transfer verbs
+        if (lowerBody.contains("paid") && !lowerBody.contains("paid to you") && !lowerBody.contains("paid you")) {
+            return false;
+        }
+        if (lowerBody.contains("sent") && !lowerBody.contains("sent to you") && !lowerBody.contains("sent you")) {
+            return false;
+        }
+        if (lowerBody.contains("transfer to")) {
+            return false;
+        }
+
+        // 2. Explicit credit/deposit keywords confirmation
+        return lowerBody.contains("credited") || 
+               lowerBody.contains("received") || 
+               lowerBody.contains("deposited") || 
+               lowerBody.contains("deposit") || 
+               lowerBody.contains("added") || 
+               lowerBody.contains("paid to you") || 
+               lowerBody.contains("paid you") || 
+               lowerBody.contains("sent to you") || 
+               lowerBody.contains("sent you") || 
+               lowerBody.contains("transfer from") || 
+               lowerBody.contains("प्राप्त") || 
+               lowerBody.contains("जमा") || 
+               lowerBody.contains("मिले");
+    }
 }

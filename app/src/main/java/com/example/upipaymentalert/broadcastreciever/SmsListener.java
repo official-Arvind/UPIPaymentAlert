@@ -27,6 +27,12 @@ public class SmsListener extends BroadcastReceiver {
             }
 
             String textToDisplay = "Address: " + address + "\n\nBody: " + messageBody;
+            
+            // Check if it is a credit transaction
+            if (!smsParser.isCreditTransaction(messageBody.toString())) {
+                return;
+            }
+
             SharedPreferences prefs = context.getSharedPreferences("UPI_PREFS", Context.MODE_PRIVATE);
             String lang = prefs.getString("language", "English");
             String textToRead = smsParser.getAmountFromMessageBody(messageBody.toString(), lang);
