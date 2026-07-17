@@ -6,7 +6,7 @@
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=700&size=22&duration=3000&pause=800&color=f97316&center=true&vCenter=true&multiline=false&width=700&lines=Dual+SMS+%26+Notification+Listener+%E2%9A%A1;Independent+Volume+Override+%F0%9F%94%8A;Segmented+Speech+Speed+%E2%8F%B1%EF%B8%8F;100%25+Offline+Privacy+%F0%9F%9B%A1%EF%B8%8F;Built+by+Arvind+Ji+%F0%9F%9A%80)](https://github.com/official-arvind/UPIPaymentAlert)
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=700&size=22&duration=3000&pause=800&color=f97316&center=true&vCenter=true&multiline=false&width=700&lines=Dual+SMS+%26+Notification+Listener+%E2%9A%A1;Independent+Volume+Override+%F0%9F%94%8A;Segmented+Speech+Speed+%E2%8F%B1%EF%B8%8F;SMS+Forwarder+%F0%9F%93%A4;100%25+Offline+Privacy+%F0%9F%9B%A1%EF%B8%8F;Built+by+Arvind+Ji+%F0%9F%9A%80)](https://github.com/official-arvind/UPIPaymentAlert)
 
 <br/>
 
@@ -73,6 +73,7 @@ Unlike commercial soundboxes, it requires **no subscription fees**, **no interne
 - 🔊 **Independent Volume Override** — Temporarily sets output to a chosen percentage, restoring system volume immediately after speech.
 - ⏱️ **Segmented Speech Speed** — Custom slider sets the speed rate of the currency amount independently of other words.
 - 🗣️ **Hindi & English Support** — Features customized voice modules for English and formal Hindi (`"प्राप्त हुए"`).
+- 📤 **SMS Forwarder** — Route incoming alerts via carrier SMS with Target Application and Transaction Type (Credit/Debit) filtering logic.
 - 🔒 **100% Offline Privacy** — Zero cloud servers, no user accounts, and does not request `android.permission.INTERNET`.
 
 ---
