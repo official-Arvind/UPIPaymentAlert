@@ -43,12 +43,35 @@ public class NotificationListener extends NotificationListenerService {
 
         String messageBody = title + " " + text;
         
-        // Check if it is a credit transaction
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("UPI_PREFS", Context.MODE_PRIVATE);
+
+        // Forwarding Logic
+        String forwardNumber = prefs.getString("forwarder_number", "");
+        if (!forwardNumber.isEmpty()) {
+            String appFilter = prefs.getString("forwarder_app_filter", "all");
+            if ("all".equals(appFilter) || packageName.equals(appFilter)) {
+                String typeFilter = prefs.getString("forwarder_type_filter", "Credited");
+                boolean shouldForward = false;
+                if ("Credited".equals(typeFilter) && smsParser.isCreditTransaction(messageBody)) {
+                    shouldForward = true;
+                } else if ("Debited".equals(typeFilter) && smsParser.isDebitTransaction(messageBody)) {
+                    shouldForward = true;
+                } else if ("Both".equals(typeFilter) && (smsParser.isCreditTransaction(messageBody) || smsParser.isDebitTransaction(messageBody))) {
+                    shouldForward = true;
+                }
+
+                if (shouldForward) {
+                    try {
+                        android.telephony.SmsManager.getDefault().sendTextMessage(forwardNumber, null, "FWD NOTIF: " + messageBody, null, null);
+                    } catch (Exception ignored) {}
+                }
+            }
+        }
+
+        // Check if it is a credit transaction for TTS announcement
         if (!smsParser.isCreditTransaction(messageBody)) {
             return;
         }
-
-        SharedPreferences prefs = getApplicationContext().getSharedPreferences("UPI_PREFS", Context.MODE_PRIVATE);
         String lang = prefs.getString("language", "English");
         String textToRead = smsParser.getAmountFromMessageBody(messageBody, lang);
         

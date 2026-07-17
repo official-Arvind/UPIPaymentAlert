@@ -118,4 +118,34 @@ public class SmsParser {
                lowerBody.contains("जमा") || 
                lowerBody.contains("मिले");
     }
+
+    public boolean isDebitTransaction(String body) {
+        if (body == null || body.isEmpty()) {
+            return false;
+        }
+        
+        String lowerBody = body.toLowerCase();
+        
+        // 1. Explicit credit keywords rejection
+        if (lowerBody.contains("credited") || 
+            lowerBody.contains("received") || 
+            lowerBody.contains("deposited") || 
+            lowerBody.contains("deposit") || 
+            lowerBody.contains("प्राप्त") || 
+            lowerBody.contains("जमा") || 
+            lowerBody.contains("मिले")) {
+            return false;
+        }
+        
+        // 2. Explicit debit keywords confirmation
+        return lowerBody.contains("debited") || 
+               lowerBody.contains("debit") || 
+               lowerBody.contains("withdrawn") || 
+               lowerBody.contains("withdrawal") || 
+               lowerBody.contains("spent") || 
+               lowerBody.contains("deducted") || 
+               lowerBody.contains("charges") ||
+               lowerBody.contains("paid") ||
+               lowerBody.contains("sent");
+    }
 }

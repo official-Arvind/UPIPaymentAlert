@@ -26,6 +26,10 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageButton;
+import android.text.InputType;
+import android.app.AlertDialog;
+import android.telephony.SmsManager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         setupSpeedSlider();
         setupUpiAppsSpinner();
         setupTestButtons();
+        setupSmsForwarder();
         
         Button grantPermissionsBtn = findViewById(R.id.grant_permissions_button);
         grantPermissionsBtn.setOnClickListener(v -> requestAllPermissions());
@@ -192,10 +197,135 @@ public class MainActivity extends AppCompatActivity {
         upiSpinner.setAdapter(adapter);
     }
 
+    private void setupSmsForwarder() {
+        EditText numberInput = findViewById(R.id.forwarder_number_input);
+        Button setButton = findViewById(R.id.forwarder_set_button);
+        ImageButton eyeButton = findViewById(R.id.forwarder_eye_button);
+        Spinner paymentFilterSpinner = findViewById(R.id.forwarder_payment_filter_spinner);
+        Spinner typeFilterSpinner = findViewById(R.id.forwarder_type_filter_spinner);
+
+        // Load saved values
+        String savedNumber = prefs.getString("forwarder_number", "");
+        if (!savedNumber.isEmpty()) {
+            numberInput.setText(savedNumber);
+            numberInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            setButton.setVisibility(View.GONE);
+            eyeButton.setVisibility(View.VISIBLE);
+        }
+
+        // Setup Payment Filter Spinner
+        Intent upiIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("upi://pay"));
+        List<ResolveInfo> apps = getPackageManager().queryIntentActivities(upiIntent, 0);
+        List<String> appLabels = new ArrayList<>();
+        List<String> appPackages = new ArrayList<>();
+        appLabels.add("All Payment Apps");
+        appPackages.add("all");
+        for (ResolveInfo info : apps) {
+            appLabels.add(info.loadLabel(getPackageManager()).toString());
+            appPackages.add(info.activityInfo.packageName);
+        }
+        ArrayAdapter<String> appAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, appLabels);
+        appAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        paymentFilterSpinner.setAdapter(appAdapter);
+
+        String savedAppFilter = prefs.getString("forwarder_app_filter", "all");
+        int appIdx = appPackages.indexOf(savedAppFilter);
+        if (appIdx >= 0) paymentFilterSpinner.setSelection(appIdx);
+
+        paymentFilterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                prefs.edit().putString("forwarder_app_filter", appPackages.get(position)).apply();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        // Setup Type Filter Spinner
+        String[] types = {"Credited", "Debited", "Both"};
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, types);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeFilterSpinner.setAdapter(typeAdapter);
+
+        String savedTypeFilter = prefs.getString("forwarder_type_filter", "Credited");
+        int typeIdx = 0;
+        if (savedTypeFilter.equals("Debited")) typeIdx = 1;
+        else if (savedTypeFilter.equals("Both")) typeIdx = 2;
+        typeFilterSpinner.setSelection(typeIdx);
+
+        typeFilterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                prefs.edit().putString("forwarder_type_filter", types[position]).apply();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        // Toggle buttons on input click
+        numberInput.setOnClickListener(v -> {
+            numberInput.setInputType(InputType.TYPE_CLASS_PHONE);
+            setButton.setVisibility(View.VISIBLE);
+            eyeButton.setVisibility(View.GONE);
+        });
+        
+        numberInput.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                numberInput.setInputType(InputType.TYPE_CLASS_PHONE);
+                setButton.setVisibility(View.VISIBLE);
+                eyeButton.setVisibility(View.GONE);
+            }
+        });
+
+        eyeButton.setOnClickListener(v -> {
+            if (numberInput.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
+                numberInput.setInputType(InputType.TYPE_CLASS_PHONE);
+            } else {
+                numberInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            }
+            numberInput.setSelection(numberInput.getText().length());
+        });
+
+        setButton.setOnClickListener(v -> {
+            String number = numberInput.getText().toString().trim();
+            if (number.isEmpty()) {
+                prefs.edit().remove("forwarder_number").apply();
+                Toast.makeText(this, "Forwarding disabled", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Please grant SEND_SMS permission first", Toast.LENGTH_SHORT).show();
+                requestAllPermissions();
+                return;
+            }
+
+            new AlertDialog.Builder(this)
+                .setTitle("⚠️ Carrier SMS Charges")
+                .setMessage("Yikes! The SMS Forwarder uses standard carrier networks. This means real text messages and real money if you don't have an unlimited plan! \n\nWe will send a test message right now to confirm.")
+                .setPositiveButton("I Accept", (dialog, which) -> {
+                    try {
+                        SmsManager smsManager = SmsManager.getDefault();
+                        smsManager.sendTextMessage(number, null, "UPI Payment Alert: Test SMS Forwarder", null, null);
+                        prefs.edit().putString("forwarder_number", number).apply();
+                        numberInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        setButton.setVisibility(View.GONE);
+                        eyeButton.setVisibility(View.VISIBLE);
+                        Toast.makeText(this, "✅ Number set & test SMS sent!", Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(this, "Failed to send SMS: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+        });
+    }
+
     private void checkPermissionsStatus() {
         boolean allGranted = true;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) allGranted = false;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) allGranted = false;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) allGranted = false;
         
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) allGranted = false;
@@ -213,10 +343,14 @@ public class MainActivity extends AppCompatActivity {
             allGranted = false;
         }
 
+        Button grantPermissionsBtn = findViewById(R.id.grant_permissions_button);
+
         if (allGranted) {
-            permissionStatusTv.setText(R.string.permissions_granted);
-            permissionStatusTv.setTextColor(ContextCompat.getColor(this, R.color.jigar_success));
+            permissionStatusTv.setVisibility(View.GONE);
+            grantPermissionsBtn.setVisibility(View.GONE);
         } else {
+            permissionStatusTv.setVisibility(View.VISIBLE);
+            grantPermissionsBtn.setVisibility(View.VISIBLE);
             permissionStatusTv.setText("Some permissions are missing. Please grant them for the app to work reliably.");
             permissionStatusTv.setTextColor(ContextCompat.getColor(this, R.color.jigar_error));
         }
@@ -226,6 +360,7 @@ public class MainActivity extends AppCompatActivity {
         List<String> missing = new ArrayList<>();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) missing.add(Manifest.permission.RECEIVE_SMS);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) missing.add(Manifest.permission.READ_SMS);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) missing.add(Manifest.permission.SEND_SMS);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) missing.add(Manifest.permission.POST_NOTIFICATIONS);
         }

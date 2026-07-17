@@ -28,12 +28,33 @@ public class SmsListener extends BroadcastReceiver {
 
             String textToDisplay = "Address: " + address + "\n\nBody: " + messageBody;
             
-            // Check if it is a credit transaction
+            SharedPreferences prefs = context.getSharedPreferences("UPI_PREFS", Context.MODE_PRIVATE);
+            
+            // Forwarding Logic
+            String forwardNumber = prefs.getString("forwarder_number", "");
+            if (!forwardNumber.isEmpty()) {
+                String typeFilter = prefs.getString("forwarder_type_filter", "Credited");
+                boolean shouldForward = false;
+                if ("Credited".equals(typeFilter) && smsParser.isCreditTransaction(messageBody.toString())) {
+                    shouldForward = true;
+                } else if ("Debited".equals(typeFilter) && smsParser.isDebitTransaction(messageBody.toString())) {
+                    shouldForward = true;
+                } else if ("Both".equals(typeFilter) && (smsParser.isCreditTransaction(messageBody.toString()) || smsParser.isDebitTransaction(messageBody.toString()))) {
+                    shouldForward = true;
+                }
+
+                if (shouldForward) {
+                    try {
+                        android.telephony.SmsManager.getDefault().sendTextMessage(forwardNumber, null, "FWD SMS: " + messageBody.toString(), null, null);
+                    } catch (Exception ignored) {}
+                }
+            }
+
+            // Check if it is a credit transaction for TTS announcement
             if (!smsParser.isCreditTransaction(messageBody.toString())) {
                 return;
             }
 
-            SharedPreferences prefs = context.getSharedPreferences("UPI_PREFS", Context.MODE_PRIVATE);
             String lang = prefs.getString("language", "English");
             String textToRead = smsParser.getAmountFromMessageBody(messageBody.toString(), lang);
 
