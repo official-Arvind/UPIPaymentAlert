@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tts_rupees_only_with_sender">%1$s ಅವರಿಂದ |%2$s| ರೂಪಾಯಿ ಜಮೆಯಾಗಿದೆ</string>
+    <string name="tts_rupees_and_paise_with_sender">%1$s ಅವರಿಂದ |%2$s| ರೂಪಾಯಿ ಮತ್ತು |%3$s| ಪೈಸೆ ಜಮೆಯಾಗಿದೆ</string>
+    <string name="tts_rupees_only_no_sender">|%1$s| ರೂಪಾಯಿ ಜಮೆಯಾಗಿದೆ</string>
+    <string name="tts_rupees_and_paise_no_sender">|%1$s| ರೂಪಾಯಿ ಮತ್ತು |%2$s| ಪೈಸೆ ಜಮೆಯಾಗಿದೆ</string>
+    <string name="tts_unknown_amount">ಅಜ್ಞಾತ ಮೊತ್ತದ ಪಾವತಿ ಸ್ವೀಕರಿಸಲಾಗಿದೆ</string>
+</resources>

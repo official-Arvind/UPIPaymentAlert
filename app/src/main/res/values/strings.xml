@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">UPI Payment Alert</string>
+    <string name="all_upi_payments">All UPI payments</string>
+    <string name="grant_permissions">GRANT REQUIRED PERMISSIONS</string>
+    <string name="permissions_granted">Permissions: all required permissions granted and battery optimization is disabled for this app.</string>
+    <string name="test_sound">TEST SOUND</string>
+    <string name="test_sound_amount">TEST SOUND WITH AMOUNT</string>
+    <string name="announcement_volume">Announcement Volume</string>
+
+    <!-- Settings drawer -->
+    <string name="settings">Settings</string>
+    <string name="language">Language (TTS)</string>
+    <string name="mute_announcements">Mute Announcements</string>
+    <string name="mute_subtitle">Silences all incoming TTS alerts instantly</string>
+    <string name="volume">Volume</string>
+    <string name="speech_speed">Speech Speed</string>
+    <string name="announce_sender">Announce Sender Name</string>
+    <string name="announce_sender_subtitle">Reads: Received ₹50 from Arvind Ji</string>
+    <string name="upi_apps">UPI Apps</string>
+    <string name="sms_forwarder">SMS Forwarder</string>
+    <string name="forward_to_number">Forward to number</string>
+    <string name="set">Set</string>
+    <string name="forward_payment_type">Forward Payment Type</string>
+    <string name="forward_app">Forward App</string>
+    <string name="test_sounds">Test Sounds</string>
+    <string name="test_default_sound">Test Default Sound</string>
+    <string name="amount">Amount</string>
+    <string name="test_amount">Test Amount</string>
+    <string name="app_info">App Info</string>
+    <string name="app_version">App Version</string>
+    <string name="app_language">App Language</string>
+    <string name="app_language_change">Change</string>
+
+    <!-- Activation screen -->
+    <string name="activation_required">Activation Required</string>
+    <string name="activation_subtitle">Enter your 8-character access code to unlock</string>
+    <string name="access_code">ACCESS CODE</string>
+    <string name="activate">ACTIVATE</string>
+    <string name="activated_successfully">Activated Successfully!</string>
+    <string name="need_key">Need a key? Contact us</string>
+    <string name="verifying">Verifying your code…</string>
+
+    <!-- Permissions & status -->
+    <string name="permissions_missing">Some permissions are missing. Please grant them for the app to work reliably.</string>
+
+    <!-- App language dialog -->
+    <string name="select_app_language">Select App Language</string>
+    <string name="language_english">English</string>
+    <string name="language_hindi">हिंदी (Hindi)</string>
+    <string name="cancel">Cancel</string>
+</resources>

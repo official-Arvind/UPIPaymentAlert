@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">UPI Payment Alert</string>
+    <string name="all_upi_payments">అన్ని UPI చెల్లింపులు</string>
+    <string name="grant_permissions">అనుమతులను మంజూరు చేయండి</string>
+    <string name="permissions_granted">అనుమతులు: అవసరమైన అన్ని అనుమతులు మంజూరు చేయబడ్డాయి మరియు బ్యాటరీ ఆప్టిమైజేషన్ నిలిపివేయబడింది.</string>
+    <string name="test_sound">ధ్వనిని పరీక్షించండి</string>
+    <string name="test_sound_amount">మొత్తంతో ధ్వనిని పరీక్షించండి</string>
+    <string name="announcement_volume">ప్రకటన వాల్యూమ్</string>
+    <string name="settings">సెట్టింగులు</string>
+    <string name="language">భాష (TTS)</string>
+    <string name="mute_announcements">ప్రకటనలను మ్యూట్ చేయండి</string>
+    <string name="mute_subtitle">వచ్చే అన్ని TTS హెచ్చరికలను తక్షణమే మ్యూట్ చేస్తుంది</string>
+    <string name="volume">వాల్యూమ్</string>
+    <string name="speech_speed">మాట్లాడే వేగం</string>
+    <string name="announce_sender">పంపినవారి పేరును ప్రకటించండి</string>
+    <string name="announce_sender_subtitle">చదువుతుంది: అరవింద్ జీ నుండి ₹50 పొందారు</string>
+    <string name="upi_apps">UPI యాప్స్</string>
+    <string name="sms_forwarder">SMS ఫార్వార్డర్</string>
+    <string name="forward_to_number">నంబర్‌కు ఫార్వార్డ్ చేయండి</string>
+    <string name="set">సెట్ చేయండి</string>
+    <string name="forward_payment_type">చెల్లింపు రకాన్ని ఫార్వార్డ్ చేయండి</string>
+    <string name="forward_app">యాప్ ఫార్వార్డ్</string>
+    <string name="test_sounds">ధ్వనులను పరీక్షించండి</string>
+    <string name="test_default_sound">డిఫాల్ట్ ధ్వనిని పరీక్షించండి</string>
+    <string name="amount">మొత్తం</string>
+    <string name="test_amount">టెస్ట్ మొత్తం</string>
+    <string name="app_info">యాప్ సమాచారం</string>
+    <string name="app_version">యాప్ వెర్షన్</string>
+    <string name="app_language">యాప్ భాష</string>
+    <string name="app_language_change">మార్చండి</string>
+    <string name="activation_required">యాక్టివేషన్ అవసరం</string>
+    <string name="activation_subtitle">అన్‌లాక్ చేయడానికి మీ 8-అక్షరాల యాక్సెస్ కోడ్‌ను నమోదు చేయండి</string>
+    <string name="access_code">యాక్సెస్ కోడ్</string>
+    <string name="activate">యాక్టివేట్ చేయండి</string>
+    <string name="activated_successfully">విజయవంతంగా యాక్టివేట్ చేయబడింది!</string>
+    <string name="need_key">కీ కావాలా? మమ్మల్ని సంప్రదించండి</string>
+    <string name="verifying">మీ కోడ్‌ని ధృవీకరిస్తోంది…</string>
+    <string name="permissions_missing">కొన్ని అనుమతులు లేవు. యాప్ సరిగ్గా పని చేయడానికి దయచేసి వాటిని మంజూరు చేయండి.</string>
+    <string name="select_app_language">యాప్ భాషను ఎంచుకోండి</string>
+    <string name="language_english">English</string>
+    <string name="language_hindi">हिंदी (Hindi)</string>
+    <string name="cancel">రద్దు చేయి</string>
+</resources>

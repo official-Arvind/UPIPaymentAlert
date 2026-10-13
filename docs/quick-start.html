@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080b14" />
+  <title>Quick Start Guide — UPI Payment Alert Docs</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="apple-touch-icon" href="logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .doc-page { padding: 120px 0 80px; }
+    .doc-container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    .doc-content h1 { font-size: 40px; font-weight: 800; margin-bottom: 24px; color: var(--text-primary); }
+    .doc-content h2 { font-size: 24px; font-weight: 700; margin-top: 40px; margin-bottom: 16px; color: var(--text-primary); border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 8px; }
+    .doc-content p { font-size: 16px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 20px; }
+    .doc-content ol, .doc-content ul { margin-bottom: 24px; padding-left: 24px; color: var(--text-secondary); }
+    .doc-content li { font-size: 16px; line-height: 1.7; margin-bottom: 12px; }
+    .doc-content code { font-family: 'JetBrains Mono', monospace; font-size: 14px; background: rgba(255,255,255,0.05); padding: 2px 6px; border-radius: 4px; color: var(--text-primary); }
+    .doc-content .warning-box { background: rgba(245,158,11,0.1); border-left: 4px solid #f59e0b; padding: 16px; border-radius: 4px; margin-bottom: 24px; }
+    .doc-content .warning-box p { margin-bottom: 0; color: #fbbf24; }
+  </style>
+</head>
+<body>
+
+  <!-- ======= HEADER / NAV ======= -->
+  <header class="site-header scrolled" id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link" aria-label="UPI Payment Alert home">
+        <img src="logo.png" alt="UPI Payment Alert logo" class="logo-img" />
+        <span class="logo-name">UPI Payment Alert</span>
+        <span class="logo-tag">v2.0-Gold</span>
+      </a>
+      <nav class="main-nav" id="main-nav">
+        <a href="index.html#features" class="nav-link">Features</a>
+        <a href="index.html#how-it-works" class="nav-link">How It Works</a>
+        <a href="index.html#docs" class="nav-link">Docs</a>
+        <a href="index.html#faq" class="nav-link">FAQ</a>
+        <a href="https://github.com/official-arvind/UPIPaymentAlert" class="nav-link nav-link--gh" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/official-arvind/UPIPaymentAlert/releases/download/v2.0-gold/app-debug.apk" download class="btn btn-sm">Download</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="doc-page">
+    <div class="doc-container">
+      <article class="doc-content">
+        <h1>Quick Start Guide</h1>
+        <p>This guide will help you install and configure the UPI Payment Alert voice speaker application on your Android device in less than two minutes.</p>
+        
+        <h2>Step 1: Download &amp; Install the APK</h2>
+        <p>Since this is a standalone utility application, download the latest compiled installation file directly using the link below:</p>
+        <ul>
+          <li><strong>Download:</strong> <a href="https://github.com/official-arvind/UPIPaymentAlert/releases/download/v2.0-gold/app-debug.apk" download style="color:#f97316;">UPI Payment Alert v2.0-Gold APK</a></li>
+        </ul>
+        <p>Transfer the APK to your phone (if downloaded on a PC) and tap the file to install it. You may need to authorize your file manager to install applications from unknown sources.</p>
+
+        <h2>Step 2: Grant Permissions</h2>
+        <p>For the background service to parse incoming payments, two system permissions must be granted:</p>
+        <ol>
+          <li><strong>Notification Access:</strong> Allows the app to detect alerts pushed by GPay, PhonePe, Paytm, BHIM, and bank applications.</li>
+          <li><strong>SMS Permission:</strong> Allows the app to parse credit transaction SMS alerts pushed by your bank.</li>
+        </ol>
+        <p>Tap the <strong>"Grant Required Permissions"</strong> button in the center of the app to launch the permission authorization wizard.</p>
+
+        <div class="warning-box">
+          <p><strong>⚠️ Crucial Step: Disable Battery Optimization</strong><br/>
+          Android will actively kill background tasks to save power. When prompted by the app, select "Allow" to bypass battery optimizations. This keeps the foreground listener service unkillable.</p>
+        </div>
+
+        <h2>Step 3: Test and Align Volumes</h2>
+        <p>Configure the speaker behavior to fit your environment:</p>
+        <ol>
+          <li>Select your preferred announcement language (<strong>English</strong> or <strong>Hindi</strong>).</li>
+          <li>Adjust the <strong>Announcement Volume</strong> slider. This controls the target volume level of the announcement stream.</li>
+          <li>Adjust the <strong>Announcement Speed</strong> slider. This controls how fast the currency amount (numbers) is read.</li>
+          <li>Click the <strong>"Test Sound"</strong> or <strong>"Test Sound with Amount"</strong> button to verify the TTS output.</li>
+        </ol>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer-bottom">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <a href="index.html" class="footer-logo">
+          <img src="logo.png" alt="UPI Payment Alert" class="footer-logo-img" />
+          <span>UPI Payment Alert</span>
+        </a>
+      </div>
+      <div class="footer-bottom-bar" style="margin-top:20px; border:none; padding:0;">
+        <p>Built by <a href="https://github.com/official-arvind" target="_blank" rel="noopener">Arvind</a>. MIT licensed.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

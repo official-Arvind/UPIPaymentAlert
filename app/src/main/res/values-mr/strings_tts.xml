@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tts_rupees_only_with_sender">%1$s कडून |%2$s| रुपये मिळाले</string>
+    <string name="tts_rupees_and_paise_with_sender">%1$s कडून |%2$s| रुपये आणि |%3$s| पैसे मिळाले</string>
+    <string name="tts_rupees_only_no_sender">|%1$s| रुपये मिळाले</string>
+    <string name="tts_rupees_and_paise_no_sender">|%1$s| रुपये आणि |%2$s| पैसे मिळाले</string>
+    <string name="tts_unknown_amount">अज्ञात रकमेचे पेमेंट मिळाले</string>
+</resources>

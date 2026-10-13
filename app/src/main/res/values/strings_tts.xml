@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tts_rupees_only_with_sender">Received |%2$s| rupees from %1$s</string>
+    <string name="tts_rupees_and_paise_with_sender">Received |%2$s| rupees and |%3$s| paisa from %1$s</string>
+    <string name="tts_rupees_only_no_sender">Received |%1$s| rupees</string>
+    <string name="tts_rupees_and_paise_no_sender">Received |%1$s| rupees and |%2$s| paisa</string>
+    <string name="tts_unknown_amount">Received payment of an unknown amount</string>
+</resources>

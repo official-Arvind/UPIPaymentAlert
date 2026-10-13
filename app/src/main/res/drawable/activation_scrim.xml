@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gradient background scrim for activation overlay -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="135"
+        android:startColor="#E6080B14"
+        android:centerColor="#F0080B14"
+        android:endColor="#E6121622"
+        android:type="linear" />
+</shape>

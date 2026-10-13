@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tts_rupees_only_with_sender">%1$s থেকে |%2$s| টাকা পাওয়া গেছে</string>
+    <string name="tts_rupees_and_paise_with_sender">%1$s থেকে |%2$s| টাকা আর |%3$s| পয়সা পাওয়া গেছে</string>
+    <string name="tts_rupees_only_no_sender">|%1$s| টাকা পাওয়া গেছে</string>
+    <string name="tts_rupees_and_paise_no_sender">|%1$s| টাকা আর |%2$s| পয়সা পাওয়া গেছে</string>
+    <string name="tts_unknown_amount">অজানা পরিমাণ পেমেন্ট পাওয়া গেছে</string>
+</resources>

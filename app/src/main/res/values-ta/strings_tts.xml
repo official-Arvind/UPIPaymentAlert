@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tts_rupees_only_with_sender">%1$s இடமிருந்து |%2$s| ரூபாய் பெறப்பட்டது</string>
+    <string name="tts_rupees_and_paise_with_sender">%1$s இடமிருந்து |%2$s| ரூபாய் மற்றும் |%3$s| காசுகள் பெறப்பட்டது</string>
+    <string name="tts_rupees_only_no_sender">|%1$s| ரூபாய் பெறப்பட்டது</string>
+    <string name="tts_rupees_and_paise_no_sender">|%1$s| ரூபாய் மற்றும் |%2$s| காசுகள் பெறப்பட்டது</string>
+    <string name="tts_unknown_amount">தெரியாத தொகையின் கட்டணம் பெறப்பட்டது</string>
+</resources>

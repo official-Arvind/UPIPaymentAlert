@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">UPI Payment Alert</string>
+    <string name="all_upi_payments">બધા UPI પેમેન્ટ્સ</string>
+    <string name="grant_permissions">જરૂરી પરવાનગીઓ આપો</string>
+    <string name="permissions_granted">પરવાનગીઓ: બધી જરૂરી પરવાનગીઓ અપાઈ ગઈ છે અને બેટરી ઑપ્ટિમાઇઝેશન બંધ છે.</string>
+    <string name="test_sound">સાઉન્ડ ટેસ્ટ કરો</string>
+    <string name="test_sound_amount">રકમ સાથે સાઉન્ડ ટેસ્ટ કરો</string>
+    <string name="announcement_volume">ઘોષણાનો અવાજ</string>
+    <string name="settings">સેટિંગ્સ</string>
+    <string name="language">ભાષા (TTS)</string>
+    <string name="mute_announcements">ઘોષણાઓ મ્યૂટ કરો</string>
+    <string name="mute_subtitle">બધા આવતા TTS એલર્ટ્સને તરત જ શાંત કરે છે</string>
+    <string name="volume">અવાજ</string>
+    <string name="speech_speed">બોલવાની ઝડપ</string>
+    <string name="announce_sender">મોકલનારનું નામ બોલો</string>
+    <string name="announce_sender_subtitle">વાંચે છે: અરવિંદ જી પાસેથી ₹50 મળ્યા</string>
+    <string name="upi_apps">UPI ઍપ્સ</string>
+    <string name="sms_forwarder">SMS ફૉરવર્ડર</string>
+    <string name="forward_to_number">આ નંબર પર ફૉરવર્ડ કરો</string>
+    <string name="set">સેટ કરો</string>
+    <string name="forward_payment_type">પેમેન્ટનો પ્રકાર ફૉરવર્ડ કરો</string>
+    <string name="forward_app">ઍપ ફૉરવર્ડ કરો</string>
+    <string name="test_sounds">સાઉન્ડ્સ ટેસ્ટ કરો</string>
+    <string name="test_default_sound">ડિફૉલ્ટ સાઉન્ડ ટેસ્ટ કરો</string>
+    <string name="amount">રકમ</string>
+    <string name="test_amount">ટેસ્ટ રકમ</string>
+    <string name="app_info">ઍપની માહિતી</string>
+    <string name="app_version">ઍપનું વર્ઝન</string>
+    <string name="app_language">ઍપની ભાષા</string>
+    <string name="app_language_change">બદલો</string>
+    <string name="activation_required">ઍક્ટિવેશન જરૂરી</string>
+    <string name="activation_subtitle">અનલૉક કરવા માટે તમારો 8-અક્ષરનો ઍક્સેસ કોડ દાખલ કરો</string>
+    <string name="access_code">ઍક્સેસ કોડ</string>
+    <string name="activate">ઍક્ટિવેટ કરો</string>
+    <string name="activated_successfully">સફળતાપૂર્વક ઍક્ટિવેટ થઈ ગયું!</string>
+    <string name="need_key">કી જોઈએ છે? અમારો સંપર્ક કરો</string>
+    <string name="verifying">તમારો કોડ ચકાસવામાં આવી રહ્યો છે…</string>
+    <string name="permissions_missing">કેટલીક પરવાનગીઓ ખૂટે છે. ઍપને યોગ્ય રીતે કામ કરવા માટે કૃપા કરીને તે આપો.</string>
+    <string name="select_app_language">ઍપની ભાષા પસંદ કરો</string>
+    <string name="language_english">English</string>
+    <string name="language_hindi">हिंदी (Hindi)</string>
+    <string name="cancel">રદ કરો</string>
+</resources>

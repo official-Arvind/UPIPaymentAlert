@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://official-arvind.github.io/UPIPaymentAlert/</loc>
+    <lastmod>2026-07-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://official-arvind.github.io/UPIPaymentAlert/logo.png</image:loc>
+      <image:title>UPI Payment Alert - Free Android Voice Speaker App</image:title>
+    </image:image>
+  </url>
+
+  <!-- Changelog -->
+  <url>
+    <loc>https://official-arvind.github.io/UPIPaymentAlert/CHANGELOG.md</loc>
+    <lastmod>2026-07-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+</urlset>

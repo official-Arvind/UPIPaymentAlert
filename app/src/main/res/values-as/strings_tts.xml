@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tts_rupees_only_with_sender">%1$s ৰ পৰা |%2$s| টকা পোৱা গল</string>
+    <string name="tts_rupees_and_paise_with_sender">%1$s ৰ পৰা |%2$s| টকা আৰু |%3$s| পইচা পোৱা গল</string>
+    <string name="tts_rupees_only_no_sender">|%1$s| টকা পোৱা গল</string>
+    <string name="tts_rupees_and_paise_no_sender">|%1$s| টকা আৰু |%2$s| পইচা পোৱা গল</string>
+    <string name="tts_unknown_amount">অজ্ঞাত পৰিমাণৰ ধন পোৱা গ\'ল</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tts_rupees_only_with_sender">%1$s ൽ നിന്ന് |%2$s| രൂപ ലഭിച്ചു</string>
+    <string name="tts_rupees_and_paise_with_sender">%1$s ൽ നിന്ന് |%2$s| രൂപ |%3$s| പൈസ ലഭിച്ചു</string>
+    <string name="tts_rupees_only_no_sender">|%1$s| രൂപ ലഭിച്ചു</string>
+    <string name="tts_rupees_and_paise_no_sender">|%1$s| രൂപ |%2$s| പൈസ ലഭിച്ചു</string>
+    <string name="tts_unknown_amount">അജ്ഞാതമായ തുക ലഭിച്ചു</string>
+</resources>

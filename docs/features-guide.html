@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080b14" />
+  <title>Advanced Features Guide — UPI Payment Alert Docs</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="apple-touch-icon" href="logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .doc-page { padding: 120px 0 80px; }
+    .doc-container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    .doc-content h1 { font-size: 40px; font-weight: 800; margin-bottom: 24px; color: var(--text-primary); }
+    .doc-content h2 { font-size: 24px; font-weight: 700; margin-top: 40px; margin-bottom: 16px; color: var(--text-primary); border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 8px; }
+    .doc-content p { font-size: 16px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 20px; }
+    .doc-content code { font-family: 'JetBrains Mono', monospace; font-size: 14px; background: rgba(255,255,255,0.05); padding: 2px 6px; border-radius: 4px; color: var(--text-primary); }
+  </style>
+</head>
+<body>
+
+  <!-- ======= HEADER / NAV ======= -->
+  <header class="site-header scrolled" id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link" aria-label="UPI Payment Alert home">
+        <img src="logo.png" alt="UPI Payment Alert logo" class="logo-img" />
+        <span class="logo-name">UPI Payment Alert</span>
+        <span class="logo-tag">v2.0-Gold</span>
+      </a>
+      <nav class="main-nav" id="main-nav">
+        <a href="index.html#features" class="nav-link">Features</a>
+        <a href="index.html#how-it-works" class="nav-link">How It Works</a>
+        <a href="index.html#docs" class="nav-link">Docs</a>
+        <a href="index.html#faq" class="nav-link">FAQ</a>
+        <a href="https://github.com/official-arvind/UPIPaymentAlert" class="nav-link nav-link--gh" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/official-arvind/UPIPaymentAlert/releases/download/v2.0-gold/app-debug.apk" download class="btn btn-sm">Download</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="doc-page">
+    <div class="doc-container">
+      <article class="doc-content">
+        <h1>Advanced Features Guide</h1>
+        <p>Explore the architecture, parsing mechanisms, and audio management engines running under the hood of the UPI Payment Alert Gold Edition.</p>
+        
+        <h2>1. Dual SMS &amp; Notification Listeners</h2>
+        <p>The app employs two distinct listeners running concurrently within a sticky foreground lifecycle:</p>
+        <ul>
+          <li><strong>Notification Listener Service:</strong> Binds to the Android Notification Manager. When a notification containing transactional text is posted, the listener intercepts it and extracts the string.</li>
+          <li><strong>Broadcast Receiver SMS Listener:</strong> Listens for incoming transactional SMS intents. It parses the body text of messages from banking transaction senders.</li>
+        </ul>
+
+        <h2>2. Independent Volume Override</h2>
+        <p>To guarantee alerts are heard even when the device's music volume is set to zero or muted, the app overrides system controls dynamically:</p>
+        <ol>
+          <li>Before an announcement begins, the app captures the current volume level of the <code>STREAM_MUSIC</code> channel.</li>
+          <li>It temporarily sets the stream volume to the percentage value set by the user's slider.</li>
+          <li>The TTS engine announces the payment details.</li>
+          <li>As soon as the TTS engine signals completion (or encounters an error), the stream volume is restored to its original value.</li>
+        </ol>
+
+        <h2>3. Segmented Speech Rate Control</h2>
+        <p>Instead of slowing down the entire phrase, the app targets the currency amount specifically:</p>
+        <p>The phrase is structured using piped delimiters (e.g., <code>"Received |500| rupees"</code>). The app loops through the segments, queueing them sequentially:</p>
+        <ul>
+          <li><strong>Even Segments:</strong> Read at the standard baseline speed of <code>0.9x</code>.</li>
+          <li><strong>Odd Segments (Amount):</strong> Read at the custom speed specified by your Announcement Speed slider.</li>
+        </ul>
+        <p>This allows you to hear the structural announcement at a natural pace while pronouncing the numbers slowly and clearly.</p>
+
+        <h2>4. Sliding Window Deduplication</h2>
+        <p>Multi-channel alerts (e.g., a notification and an SMS for the same transaction) can cause duplicate announcements. The app maintains a <code>ConcurrentHashMap</code> of recent announcements. If the same phrase is processed within 60 seconds, it is discarded.</p>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer-bottom">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <a href="index.html" class="footer-logo">
+          <img src="logo.png" alt="UPI Payment Alert" class="footer-logo-img" />
+          <span>UPI Payment Alert</span>
+        </a>
+      </div>
+      <div class="footer-bottom-bar" style="margin-top:20px; border:none; padding:0;">
+        <p>Built by <a href="https://github.com/official-arvind" target="_blank" rel="noopener">Arvind</a>. MIT licensed.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

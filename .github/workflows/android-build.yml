@@ -1,0 +1,165 @@
+name: Android CI - Build Release APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+ 
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ANDROID_SDK_ROOT: ${{ github.workspace }}/android-sdk
+      ANDROID_HOME: ${{ github.workspace }}/android-sdk
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Android command-line tools and SDK
+        run: |
+          set -e
+          mkdir -p $ANDROID_SDK_ROOT/cmdline-tools
+          cd $ANDROID_SDK_ROOT
+          echo "Downloading Android command line tools"
+          wget -q https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O cmdline.zip
+          unzip -q cmdline.zip -d cmdline-tools
+          # Ensure path consistent
+          mkdir -p cmdline-tools/latest
+          mv cmdline-tools/cmdline-tools/* cmdline-tools/latest/ || true
+          export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+          yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT --licenses || true
+          sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+
+      - name: Download Dependencies and Build
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean assembleRelease --no-daemon
+
+      - name: Locate and list produced APK
+        run: |
+          ls -R app/build/outputs/apk || true
+
+      - name: Prepare keystore and sign APK
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          BUILD_TOOLS: 34.0.0
+        run: |
+          set -e
+          APK=app/build/outputs/apk/release/app-release.apk
+          if [ ! -f "$APK" ]; then
+            APK=app/build/outputs/apk/release/app-release-unsigned.apk
+          fi
+          if [ ! -f "$APK" ]; then
+            APK=$(ls app/build/outputs/apk/release/*.apk 2>/dev/null | head -n1 || true)
+          fi
+          if [ -z "$APK" ] || [ ! -f "$APK" ]; then
+            echo "Release APK not found in app/build/outputs/apk/release/"
+            ls -la app/build/outputs/apk/release || true
+            exit 1
+          fi
+
+          # provide defaults if secrets are not set
+          : ${KEYSTORE_PASSWORD:=changeit}
+          : ${KEY_ALIAS:=upload}
+          : ${KEY_PASSWORD:=$KEYSTORE_PASSWORD}
+
+          if [ -n "$ANDROID_KEYSTORE_BASE64" ]; then
+            echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > release.keystore
+          else
+            echo "Generating ephemeral keystore (not for Play Store uploads)"
+            keytool -genkeypair -v -keystore release.keystore -storepass "$KEYSTORE_PASSWORD" -keypass "$KEY_PASSWORD" -alias "$KEY_ALIAS" -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=UPI Payment Alert, OU=Dev, O=UPI, L=City, S=State, C=IN"
+          fi
+
+          APKSIGNER=$ANDROID_SDK_ROOT/build-tools/$BUILD_TOOLS/apksigner
+          if [ ! -x "$APKSIGNER" ]; then
+            APKSIGNER=$ANDROID_SDK_ROOT/build-tools/$BUILD_TOOLS/apksigner.jar
+          fi
+
+          OUTPUT=app-release-signed.apk
+          $ANDROID_SDK_ROOT/build-tools/$BUILD_TOOLS/apksigner sign --ks release.keystore --ks-pass pass:$KEYSTORE_PASSWORD --key-pass pass:$KEY_PASSWORD --out $OUTPUT $APK
+          echo "Signed APK produced: $OUTPUT"
+
+      - name: Get versionName and generate tag
+        id: get_version
+        run: |
+          VERSION=$(grep -m1 "versionName" app/build.gradle | sed -E 's/.*versionName \"(.*)\".*/\1/')
+          SAFE=$(echo "$VERSION" | tr ' ' '-' | sed 's/[^A-Za-z0-9._-]/-/g')
+          TAG="${SAFE}-${GITHUB_RUN_NUMBER}"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release (with Personal Access Token)
+        if: ${{ secrets.RELEASE_PAT != '' }}
+        env:
+          RELEASE_PAT: ${{ secrets.RELEASE_PAT }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          TAG: ${{ steps.get_version.outputs.tag }}
+          VERSION: ${{ steps.get_version.outputs.version }}
+        run: |
+          set -euo pipefail
+          echo "Using provided RELEASE_PAT to create release $TAG"
+          BODY=$(awk '{printf "%s\\n",$0}' CHANGELOG.md | sed 's/"/\\"/g') || BODY="Release $VERSION"
+          PAYLOAD=$(printf '{"tag_name":"%s","name":"%s","body":"%s","draft":false,"prerelease":false}' "$TAG" "$VERSION (build $GITHUB_RUN_NUMBER)" "$BODY")
+          RESPONSE=$(curl -sS -X POST -H "Authorization: token $RELEASE_PAT" -H "Content-Type: application/json" -d "$PAYLOAD" "https://api.github.com/repos/$GITHUB_REPOSITORY/releases")
+          UPLOAD_URL=$(echo "$RESPONSE" | grep -oP '"upload_url":\s*"\K[^"]+' || true)
+          if [ -z "$UPLOAD_URL" ]; then
+            echo "Failed to create release. Response:" >&2
+            echo "$RESPONSE" >&2
+            exit 1
+          fi
+          # strip the template suffix '{?name,label}'
+          UPLOAD_URL=$(echo "$UPLOAD_URL" | sed 's/{.*//')
+          echo "Release created. Upload URL: $UPLOAD_URL"
+          echo "Uploading signed APK with retries"
+          for i in 1 2 3; do
+            if curl -sS --fail -H "Authorization: token $RELEASE_PAT" -H "Content-Type: application/vnd.android.package-archive" --data-binary @app-release-signed.apk "$UPLOAD_URL?name=app-release-signed.apk"; then
+              echo "Upload succeeded"
+              exit 0
+            else
+              echo "Upload attempt $i failed, retrying..." >&2
+              sleep $((i * 5))
+            fi
+          done
+          echo "Failed to upload asset after retries" >&2
+          exit 1
+
+      - name: Create GitHub Release (GITHUB_TOKEN fallback)
+        if: ${{ secrets.RELEASE_PAT == '' }}
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ steps.get_version.outputs.tag }}
+          release_name: ${{ steps.get_version.outputs.version }} (build ${{ github.run_number }})
+          body: |
+            $(cat CHANGELOG.md)
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload signed APK to Release (GITHUB_TOKEN fallback)
+        if: ${{ secrets.RELEASE_PAT == '' }}
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: app-release-signed.apk
+          asset_name: app-release-signed.apk
+          asset_content_type: application/vnd.android.package-archive
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-apk
+          path: app/build/outputs/apk/release/

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tts_rupees_only_with_sender">%1$s ଠାରୁ |%2$s| ଟଙ୍କା ମିଳିଲା</string>
+    <string name="tts_rupees_and_paise_with_sender">%1$s ଠାରୁ |%2$s| ଟଙ୍କା ଏବଂ |%3$s| ପଇସା ମିଳିଲା</string>
+    <string name="tts_rupees_only_no_sender">|%1$s| ଟଙ୍କା ମିଳିଲା</string>
+    <string name="tts_rupees_and_paise_no_sender">|%1$s| ଟଙ୍କା ଏବଂ |%2$s| ପଇସା ମିଳିଲା</string>
+    <string name="tts_unknown_amount">ଅଜଣା ରାଶିର ପେମେଣ୍ଟ ମିଳିଲା</string>
+</resources>

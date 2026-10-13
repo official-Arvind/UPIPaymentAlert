@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">UPI Payment Alert</string>
+    <string name="all_upi_payments">सभी UPI भुगतान</string>
+    <string name="grant_permissions">आवश्यक अनुमतियां दें</string>
+    <string name="permissions_granted">अनुमतियां: सभी अनुमतियां दे दी गई हैं और बैटरी ऑप्टिमाइज़ेशन बंद है।</string>
+    <string name="test_sound">साउंड टेस्ट करें</string>
+    <string name="test_sound_amount">राशि के साथ साउंड टेस्ट करें</string>
+    <string name="announcement_volume">घोषणा की आवाज़</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="language">भाषा (TTS)</string>
+    <string name="mute_announcements">घोषणाएं म्यूट करें</string>
+    <string name="mute_subtitle">सभी आने वाले TTS अलर्ट को तुरंत शांत करता है</string>
+    <string name="volume">आवाज़</string>
+    <string name="speech_speed">बोलने की गति</string>
+    <string name="announce_sender">भेजने वाले का नाम बोलें</string>
+    <string name="announce_sender_subtitle">पढ़ता है: अरविंद जी से ₹50 प्राप्त हुए</string>
+    <string name="upi_apps">UPI ऐप्स</string>
+    <string name="sms_forwarder">SMS फॉरवर्डर</string>
+    <string name="forward_to_number">इस नंबर पर फॉरवर्ड करें</string>
+    <string name="set">सेट करें</string>
+    <string name="forward_payment_type">भुगतान का प्रकार फॉरवर्ड करें</string>
+    <string name="forward_app">ऐप फॉरवर्ड करें</string>
+    <string name="test_sounds">साउंड्स टेस्ट करें</string>
+    <string name="test_default_sound">डिफ़ॉल्ट साउंड टेस्ट करें</string>
+    <string name="amount">राशि</string>
+    <string name="test_amount">टेस्ट राशि</string>
+    <string name="app_info">ऐप की जानकारी</string>
+    <string name="app_version">ऐप का संस्करण</string>
+    <string name="app_language">ऐप की भाषा</string>
+    <string name="app_language_change">बदलें</string>
+    <string name="activation_required">एक्टिवेशन आवश्यक</string>
+    <string name="activation_subtitle">अनलॉक करने के लिए अपना 8-अक्षरों का एक्सेस कोड दर्ज करें</string>
+    <string name="access_code">एक्सेस कोड</string>
+    <string name="activate">एक्टिवेट करें</string>
+    <string name="activated_successfully">सफलतापूर्वक एक्टिवेट हो गया!</string>
+    <string name="need_key">कुंजी चाहिए? हमसे संपर्क करें</string>
+    <string name="verifying">आपका कोड जाँचा जा रहा है…</string>
+    <string name="permissions_missing">कुछ अनुमतियां गायब हैं। कृपया ऐप को सही से काम करने के लिए इन्हें दें।</string>
+    <string name="select_app_language">ऐप की भाषा चुनें</string>
+    <string name="language_english">English</string>
+    <string name="language_hindi">हिंदी (Hindi)</string>
+    <string name="cancel">रद्द करें</string>
+</resources>

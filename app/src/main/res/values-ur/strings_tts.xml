@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tts_rupees_only_with_sender">%1$s سے |%2$s| روپے موصول ہوئے</string>
+    <string name="tts_rupees_and_paise_with_sender">%1$s سے |%2$s| روپے اور |%3$s| پیسے موصول ہوئے</string>
+    <string name="tts_rupees_only_no_sender">|%1$s| روپے موصول ہوئے</string>
+    <string name="tts_rupees_and_paise_no_sender">|%1$s| روپے اور |%2$s| پیسے موصول ہوئے</string>
+    <string name="tts_unknown_amount">نامعلوم رقم کی ادائیگی موصول ہوئی</string>
+</resources>
