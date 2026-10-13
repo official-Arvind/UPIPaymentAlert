@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Downloading — UPI Payment Alert &amp; Soundbox</title>
+<meta name="description" content="Your UPI Payment Alert & Soundbox download has started. Choose Complete or Play Store Edition." />
+<link rel="icon" type="image/png" href="assets/app_logo.png" />
+<!-- fonts vendored locally — the page must survive blocked CDNs -->
+<link href="vendor/fonts.css" rel="stylesheet">
+<!-- Vercel Web Analytics (first-party path; silent 404 off-Vercel).
+     Every visit here = one Download click — THIS page's pageviews are the private counter. -->
+<!-- GitHub Pages Analytics ready -->
+<style>
+/* tokens — mirror landing.html :root */
+:root{
+  --bg:#1B1147; --bg-deep:#140C38; --bg-abyss:#0a0622;
+  --text:#FFFFFF; --text2:#B4ACEC; --text3:#9C91AC;
+  --credit:#3DDC97; --debit:#FF7A8A;
+  --amber:#F6A037; --coral:#ED6266; --magenta:#E8249D; --violet:#6D59DB;
+  --glass:rgba(255,255,255,.06); --glass-strong:rgba(255,255,255,.10);
+  --hair:rgba(255,255,255,.12); --hair-soft:rgba(255,255,255,.07);
+  --aurora:linear-gradient(125deg,#F6A037 0%,#ED6266 32%,#E8249D 62%,#6D59DB 100%);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --el-float:0 14px 34px -10px rgba(232,36,157,.55);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Space Grotesk','Inter',system-ui,-apple-system,sans-serif;color:var(--text);background:var(--bg-abyss);
+  min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.5}
+body::before{content:"";position:fixed;inset:0;z-index:-1;
+  background:radial-gradient(150% 90% at 50% -10%,#221950 0%,var(--bg-deep) 46%,var(--bg-abyss) 100%)}
+.aurora{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+.blob{position:absolute;border-radius:50%;filter:blur(78px)}
+.bl-m{width:48vw;height:48vw;background:var(--magenta);opacity:.15;top:-14vw;right:-10vw}
+.bl-v{width:44vw;height:44vw;background:var(--violet);opacity:.14;top:38vh;left:-16vw}
+.grain{position:fixed;inset:-50%;z-index:55;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+.tab{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+::selection{background:rgba(232,36,157,.4)}
+
+.sitenav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
+  max-width:1280px;margin:0 auto;padding:20px clamp(20px,5vw,52px)}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:16.5px;letter-spacing:-.01em;color:#fff;text-decoration:none}
+.brand .mark{width:30px;height:30px;border-radius:9px;display:block;box-shadow:var(--el-float)}
+.nav-guide{font-size:13px;font-weight:600;color:var(--text2);text-decoration:none;padding:9px 8px;transition:color .2s}
+.nav-guide:hover{color:#fff}
+
+.wrap{position:relative;z-index:2;max-width:640px;margin:0 auto;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:clamp(80px,12vh,120px) clamp(22px,5vw,64px) 60px}
+
+.dlmark{width:74px;height:74px;border-radius:24px;background:var(--aurora);display:grid;place-items:center;
+  box-shadow:var(--el-float);position:relative}
+.dlmark svg{width:32px;height:32px;stroke:#fff;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.dlmark .ring{position:absolute;inset:-1px;border-radius:24px;border:2px solid rgba(232,36,157,.55);
+  animation:ring 2.2s var(--ease) infinite}
+@keyframes ring{0%{opacity:0;transform:scale(1)}20%{opacity:.9}70%,100%{opacity:0;transform:scale(1.28)}}
+.dlmark svg .arrow{animation:drop 2.2s var(--ease) infinite}
+@keyframes drop{0%{transform:translateY(-3px);opacity:0}25%{opacity:1}55%{transform:translateY(2px)}80%,100%{transform:translateY(2px);opacity:1}}
+@media (prefers-reduced-motion: reduce){.dlmark .ring,.dlmark svg .arrow{animation:none}}
+
+h1{font-family:'Space Grotesk';font-weight:700;letter-spacing:-.035em;line-height:1.05;
+  font-size:clamp(30px,5.4vw,46px);margin-top:26px}
+h1 .hl{background:var(--aurora);-webkit-background-clip:text;background-clip:text;color:transparent}
+.meta{margin-top:12px;font-size:13px;color:var(--text3)}
+.meta b{color:var(--text2);font-weight:600}
+.meta a{color:var(--text2);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.meta a:hover{color:#fff}
+.retry{margin-top:16px;font-size:13px;color:var(--text3)}
+.retry a{color:var(--text2);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.retry a:hover{color:#fff}
+
+.next{margin-top:40px;width:100%;border-radius:26px;padding:26px clamp(20px,4vw,32px);text-align:left;
+  background:rgba(13,9,32,.78);border:1px solid var(--hair);
+  box-shadow:0 26px 70px -30px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.07)}
+.next .nh{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text2)}
+.next h2{font-family:'Space Grotesk';font-weight:700;font-size:clamp(19px,2.6vw,24px);letter-spacing:-.02em;margin-top:8px}
+.next p{font-size:14px;color:var(--text2);margin-top:8px;line-height:1.6}
+.steps{margin-top:18px;display:flex;flex-direction:column}
+.step{display:flex;align-items:center;gap:13px;padding:11px 0}
+.step + .step{border-top:1px solid var(--hair-soft)}
+.step .sn{width:24px;height:24px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;
+  font-size:11px;font-weight:700;color:#fff;background:rgba(255,255,255,.08);border:1px solid var(--hair)}
+.step .st{font-size:13.5px;color:#fff;font-weight:600}
+.step .sd{font-size:11.5px;color:var(--text3);display:block;font-weight:400;margin-top:1px}
+.step .sm{margin-left:auto;font-size:10px;color:var(--text3);white-space:nowrap}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:inherit;font-weight:600;font-size:15px;
+  padding:15px 26px;border-radius:999px;cursor:pointer;text-decoration:none;color:#fff;border:1px solid transparent;white-space:nowrap;
+  transition:transform .16s var(--ease),filter .16s var(--ease),background .2s}
+.btn svg{width:18px;height:18px}
+.btn-primary{background:var(--aurora);box-shadow:var(--el-float)}
+.btn-primary:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn-ghost{background:rgba(255,255,255,.08);border-color:var(--hair)}
+.btn-ghost:hover{transform:translateY(-2px);background:rgba(255,255,255,.14)}
+
+.trust{margin-top:30px;display:flex;gap:18px;flex-wrap:wrap;justify-content:center;font-size:11.5px;color:var(--text3)}
+.trust span{display:inline-flex;align-items:center;gap:6px}
+.trust svg{width:13px;height:13px;stroke:var(--credit);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><span class="blob bl-m"></span><span class="blob bl-v"></span></div>
+<div class="grain" aria-hidden="true"></div>
+
+<nav class="sitenav">
+  <a class="brand" href="./index.html" aria-label="UPI Payment Alert"><img class="mark" src="assets/app_logo.png" alt="UPI Payment Alert" width="30" height="30" /></a>
+  <div style="display:flex;gap:12px;align-items:center;">
+    <a class="nav-guide" href="./install.html">Install guide</a>
+    <a class="nav-guide" href="./privacy.html">Privacy</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <div class="dlmark" aria-hidden="true">
+    <span class="ring"></span>
+    <svg viewBox="0 0 24 24"><g class="arrow"><path d="M12 4v11M7 10.5l5 5 5-5"/></g><path d="M5 19.5h14"/></svg>
+  </div>
+  <h1>Your download <span class="hl">has started.</span></h1>
+  <p class="meta tab"><b>UPIPaymentAlert-Complete.apk</b> · v1.0.2 · 5.1&nbsp;MB · Android&nbsp;8.0+ · <a href="./versions.html">What's&nbsp;new</a></p>
+  <p class="retry">Nothing happening? <a href="./UPIPaymentAlert-Complete.apk" download>Tap to download Complete Edition</a></p>
+
+  <div class="next" style="margin-top:24px;">
+    <span class="nh">Choose Your Edition</span>
+    <h2>Dual-Channel Editions</h2>
+    <p>Select the version that best matches your merchant needs:</p>
+    <div class="steps">
+      <div class="step">
+        <span class="sn" style="background:var(--aurora);">★</span>
+        <span><span class="st">Complete Edition (Recommended)</span><span class="sd">Instant Voice Soundbox + SMS Reader + Notification Listener + Bluetooth Booster</span></span>
+        <a class="btn btn-primary" href="./UPIPaymentAlert-Complete.apk" download style="padding:8px 16px;font-size:12px;margin-left:auto;">Download APK</a>
+      </div>
+      <div class="step">
+        <span class="sn">P</span>
+        <span><span class="st">Play Store Edition</span><span class="sd">100% Policy-Compliant Notification-only Soundbox (no SMS permission requested)</span></span>
+        <a class="btn btn-ghost" href="./UPIPaymentAlert-Playstore.apk" download style="padding:8px 16px;font-size:12px;margin-left:auto;">Download APK</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="next">
+    <span class="nh">Quick Setup</span>
+    <h2>Grant Permissions in 2 Minutes</h2>
+    <p>Because UPI Payment Alert operates as an offline soundbox, it needs system permission to catch incoming payment alerts:</p>
+    <div class="steps">
+      <div class="step">
+        <span class="sn">1</span>
+        <span><span class="st">Install Unknown Apps</span><span class="sd">Allow your browser to install the APK (one-time toggle)</span></span>
+        <span class="sm">~30 sec</span>
+      </div>
+      <div class="step">
+        <span class="sn">2</span>
+        <span><span class="st">Notification Access</span><span class="sd">Enable "UPI Payment Alert" in system Notification Listener settings</span></span>
+        <span class="sm">~30 sec</span>
+      </div>
+      <div class="step">
+        <span class="sn">3</span>
+        <span><span class="st">Battery Optimization</span><span class="sd">Set to "Unrestricted" so your soundbox never sleeps in background</span></span>
+        <span class="sm">~1 min</span>
+      </div>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="./install.html">Open the install guide
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-ghost" href="./index.html">Back to the site</a>
+    </div>
+  </div>
+
+  <div class="trust">
+    <span><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>100% offline — zero cloud data leak</span>
+    <span><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Zero monthly rental fees</span>
+    <span><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Runs locally in encrypted SQLite</span>
+  </div>
+  <p style="text-align:center;color:var(--text3);font-size:12.5px;margin-top:36px;">Crafted with ❤️ by Arvind Ji · <a href="./privacy.html" style="color:var(--text2)">Privacy Policy</a> · <a href="./install.html" style="color:var(--text2)">Install Guide</a> · <a href="./versions.html" style="color:var(--text2)">Changelog</a></p>
+</main>
+
+<script>
+/* auto-start Complete Edition APK */
+setTimeout(() => {
+  const a = document.createElement('a');
+  a.href = './UPIPaymentAlert-Complete.apk'; a.download = '';
+  document.body.appendChild(a); a.click(); a.remove();
+}, 600);
+</script>
+</body>
+</html>
