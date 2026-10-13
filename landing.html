@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en" class="static">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UPI Payment Alert — Instant Voice Soundbox &amp; On-Device Ledger</title>
+<meta name="description" content="Turn your phone into a high-volume UPI soundbox for PhonePe, Google Pay, Paytm, BHIM and bank SMS. 100% offline privacy, zero monthly fees, dual-channel detection." />
+<meta property="og:title" content="UPI Payment Alert — Instant Voice Soundbox &amp; On-Device Ledger" />
+<meta property="og:description" content="Instant spoken voice alerts for PhonePe, Google Pay, Paytm, BHIM &amp; Bank SMS. 100% offline on your device, zero cloud leaks." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<link rel="icon" type="image/png" href="assets/app_logo.png" />
+<!-- always open this scroll-driven story at the top — kill the browser's mid-page scroll restore on refresh -->
+<script>if('scrollRestoration' in history){history.scrollRestoration='manual';}</script>
+<!--
+  ════════════════════════════════════════════════════════════════════════════════
+  ITERATION 5 · "landing.html" — THE THREE.JS REBUILD (real glass · real metal)
+  ─ The phone is now a REAL WebGL object: a procedural Pixel 8 Pro — polished
+    metal frame · glossy glass back + full-width camera visor · OLED screen
+    (Canvas2D-painted v2 app screens as live textures).
+  ─ Engine: Lenis + GSAP ScrollTrigger scrub → ONE pure state(T) driving the
+    Three.js scene + DOM copy. Same purity contract as iteration 4.
+  ─ Staging (the red-pen): SLOW, Apple-smooth travel between beats; close-up
+    two-point-perspective panels — CHART = phone huge at the LEFT edge, the
+    spend ribbon popping out of the glass; CATEGORIES = phone RIGHT, the donut
+    rising as a REAL extruded glossy staircase; MAP = centred lie-back with the
+    app's skyline BARS standing out of the city; MODE = the hero card lifts off
+    the screen as a real 3D card and flips; GLANCE = dive into the widget, then
+    a SEAMLESS recede into the outro (no hard cut).
+  ─ Copy never overlaps the phone: each beat has a reserved column/band; copy
+    fades during travel and returns once the phone settles.
+  ░ ALL TUNING → web/landing3d.js (beat clock + staging tables at the top) ░
+  Static fallback: no-WebGL / no-JS / reduce-motion → stacked text page.
+  <880px runs the FULL 3D story with a stacked mobile staging (copy band on top).
+  ════════════════════════════════════════════════════════════════════════════════
+-->
+<!-- fonts vendored locally (web/vendor/fonts.css) — the page must survive blocked CDNs;
+     same reason three.js lives in web/vendor/ instead of jsdelivr -->
+<link href="vendor/fonts.css" rel="stylesheet" />
+<!-- Vercel Web Analytics (first-party path — zero-CDN holds; silently 404s off-Vercel/locally).
+     Pageviews of download.html ARE the private download counter. -->
+<!-- GitHub Pages Analytics ready -->
+<script type="importmap">
+{ "imports": {
+    "three": "./vendor/three.module.js",
+    "three/addons/": "./vendor/addons/"
+} }
+</script>
+<style>
+/* ═══════════ tokens (mirror design-system/tokens.json) ═══════════ */
+:root{
+  --bg:#1B1147; --bg-deep:#140C38; --bg-abyss:#0a0622;
+  --text:#FFFFFF; --text2:#B4ACEC; --text3:#9C91AC;
+  --credit:#3DDC97; --debit:#FF7A8A;
+  --amber:#F6A037; --coral:#ED6266; --magenta:#E8249D; --violet:#6D59DB;
+  --glass:rgba(255,255,255,.06); --glass-strong:rgba(255,255,255,.10);
+  --hair:rgba(255,255,255,.12); --hair-soft:rgba(255,255,255,.07);
+  --aurora:linear-gradient(125deg,#F6A037 0%,#ED6266 32%,#E8249D 62%,#6D59DB 100%);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --el-float:0 14px 34px -10px rgba(232,36,157,.55);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scrollbar-width:thin;scrollbar-color:rgba(180,172,236,.25) transparent}
+body{font-family:'Space Grotesk','Inter',system-ui,-apple-system,sans-serif;color:var(--text);background:var(--bg-abyss);
+  min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.5}
+body::before{content:"";position:fixed;inset:0;z-index:-1;
+  background:radial-gradient(150% 90% at 50% -10%,#221950 0%,var(--bg-deep) 46%,var(--bg-abyss) 100%)}
+.sg{font-family:'Space Grotesk',sans-serif}
+.tab{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+a{color:inherit}
+::selection{background:rgba(232,36,157,.4)}
+
+/* ═══════════ aurora field (state(T) owns opacities per beat) ═══════════ */
+.aurora{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+.blob{position:absolute;border-radius:50%;filter:blur(78px);will-change:opacity,transform}
+.bl-m{width:48vw;height:48vw;background:var(--magenta);opacity:.22;top:-14vw;right:-10vw}
+.bl-v{width:44vw;height:44vw;background:var(--violet);opacity:.20;top:38vh;left:-16vw}
+.bl-a{width:36vw;height:36vw;background:var(--amber);opacity:.10;bottom:-10vw;right:4vw}
+.bl-c{width:30vw;height:30vw;background:var(--coral);opacity:.13;bottom:-12vw;left:10vw}
+.bl-g{width:34vw;height:34vw;background:var(--credit);opacity:0;top:30vh;left:30vw}
+.bl-s{width:38vw;height:38vw;background:#38BDF8;opacity:0;top:18vh;right:-8vw}
+
+/* film grain */
+.grain{position:fixed;inset:-50%;z-index:55;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+
+/* ═══════════ THE WEBGL STAGE (fixed, phone in FRONT of wordmark + ink) ═══════════ */
+#gl{position:fixed;inset:0;z-index:3;display:block;pointer-events:none}
+/* ═══════════ Buttermax hero — the ink rides ABOVE the DOM wordmark (solid body
+   covers the glyphs; the covered glyphs are re-composited FULL PINK in the ink
+   shader via a rasterized glyph mask — see heroink.js setGlyphMask) ═══════════ */
+#ink{position:fixed;inset:0;z-index:2;display:block;pointer-events:none}
+.heroword{position:fixed;inset:0;z-index:1;display:grid;place-items:center;pointer-events:none;
+  text-align:center;padding:0}
+.wordstack{position:relative}
+.wm-main{position:relative;font-family:'Space Grotesk';font-weight:700;letter-spacing:-.045em;line-height:.84;margin:0;
+  font-size:15.2vw;color:#fff;text-transform:uppercase;white-space:nowrap}
+/* ═ the ambient glint (red-pen round 6e): letters stay SOLID — the base background
+   layer IS the solid fill (white / aurora), painted through background-clip:text —
+   and every 7s an aurora shine band sweeps across the wordmark above it.
+   No borders, no translucency; the cursor-blob shimmer (heroink) is separate. ═ */
+.wm-main .hline > span{
+  background:
+    linear-gradient(112deg,rgba(255,255,255,0) 30%,rgba(246,160,55,.85) 44%,rgba(232,36,157,.90) 50%,rgba(109,89,219,.85) 56%,rgba(255,255,255,0) 70%) 0 0/320% 100% no-repeat,
+    linear-gradient(0deg,#fff,#fff);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:wmGlint 7s linear infinite}
+.wm-main .hline + .hline > span{animation-delay:.42s}       /* the sweep reads left → right */
+@keyframes wmGlint{0%{background-position:230% 0,0 0}100%{background-position:-130% 0,0 0}}
+.wm-script{position:absolute;right:14%;bottom:-.28em;z-index:1;font-family:'Permanent Marker',cursive;
+  font-weight:400;font-size:6.2vw;line-height:1;transform:rotate(-6deg);
+  filter:drop-shadow(0 6px 22px rgba(232,36,157,.35))}
+/* gradient clips per-letter — background-clip:text on the parent doesn't paint
+   through inline-block children (the clip-path reveal needs inline-block) */
+.wm-script i{font-style:normal;display:inline-block;clip-path:inset(-15% 105% -25% -5%);
+  background:
+    linear-gradient(112deg,rgba(255,255,255,0) 34%,rgba(255,255,255,.95) 48%,rgba(255,255,255,0) 62%) 0 0/340% 100% no-repeat,
+    var(--aurora) 0 0/100% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes wmGlintT{0%{background-position:240% 0,0 0}100%{background-position:-140% 0,0 0}}
+@keyframes wmdraw{to{clip-path:inset(-15% -8% -25% -5%)}}
+/* ⚠ must COMPOSE with wmdraw — a bare animation here would drop wmdraw's forwards
+   fill and re-hide the handwritten letters. The nth-child stagger delays below
+   apply to BOTH animations, which just phases the glint per letter — a ripple. */
+.heroword.draw .wm-script i{animation:wmdraw .10s ease-out forwards,wmGlintT 7s linear infinite}
+.heroword.draw .wm-script i:nth-child(2){animation-delay:.07s}
+.heroword.draw .wm-script i:nth-child(3){animation-delay:.14s}
+.heroword.draw .wm-script i:nth-child(4){animation-delay:.21s}
+.heroword.draw .wm-script i:nth-child(5){animation-delay:.28s}
+.heroword.draw .wm-script i:nth-child(6){animation-delay:.35s}
+.heroword.draw .wm-script i:nth-child(7){animation-delay:.42s}
+/* the one-line wordmark: both split-line wrappers sit inline (the load-rise tween
+   targets .heroword .hline > span — untouched) */
+.wm-main .hline{display:inline-block;overflow:hidden;vertical-align:top}
+.wm-main .hline + .hline{margin-left:.18em}
+/* small caption under-left of the giant word — the buttermax "GOLD STANDARD" slot */
+.wm-cap{display:block;text-align:left;margin-top:1.6vw;font-size:11px;font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--text2);
+  opacity:0;transition:opacity .8s var(--ease)}
+.heroword.draw .wm-cap{opacity:1}
+html.static #ink,html.static .heroword,html.static .poketoast{display:none}
+
+/* ═══════════ nav — brand left · actions right (buttermax frame) ═══════════ */
+.sitenav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
+  max-width:1280px;margin:0 auto;padding:20px clamp(20px,5vw,52px)}
+.sitenav .brand{color:#fff;text-decoration:none}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:16.5px;letter-spacing:-.01em}
+.brand .mark{width:30px;height:30px;border-radius:9px;display:block;box-shadow:var(--el-float)}
+.nav-cta{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:#fff;text-decoration:none;
+  background:rgba(16,10,44,.72);border:1px solid var(--hair);padding:9px 16px;border-radius:999px;
+  transition:transform .16s var(--ease),background .2s}
+.nav-cta:hover{transform:translateY(-1px);background:rgba(28,18,72,.85)}
+.nav-cta .dl{width:15px;height:15px}
+.nav-guide{font-size:13px;font-weight:600;color:var(--text2);text-decoration:none;padding:9px 8px;transition:color .2s}
+.nav-guide:hover{color:#fff}
+@media (max-width:560px){.nav-guide{display:none}}   /* keep the mobile nav to logo + download */
+
+/* ═══════════ buttons ═══════════ */
+.cta-row{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:inherit;font-weight:600;font-size:15px;
+  padding:15px 26px;border-radius:999px;cursor:pointer;text-decoration:none;color:#fff;border:1px solid transparent;white-space:nowrap;
+  transition:transform .16s var(--ease),filter .16s var(--ease),background .2s}
+.btn svg{width:18px;height:18px}
+.btn-primary{background:var(--aurora);box-shadow:var(--el-float)}
+.btn-primary:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn-ghost{background:rgba(255,255,255,.08);border-color:var(--hair)}
+.btn-ghost:hover{transform:translateY(-2px);background:rgba(255,255,255,.14)}
+
+/* ═══════════ the scroll driver (tall, empty — everything visual is fixed) ═══════════ */
+#scrolly{position:relative;z-index:1;height:2523vh}   /* ░ SPEED — taller = slower · 2200 × 50.0/43.6 keeps per-beat speed ░ */
+
+/* ═══════════ copy beats — each gets a reserved zone the phone never enters ═══════════ */
+.beats{position:fixed;inset:0;z-index:8;pointer-events:none}
+.beat{position:absolute;inset:0;opacity:0;max-width:1280px;margin:0 auto;padding:0 clamp(22px,5vw,64px)}
+.beat.b-hero{opacity:1}
+.beat .binner{position:absolute;will-change:transform,opacity}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text2)}
+.eyebrow::before{content:"";width:22px;height:1px;background:linear-gradient(to right,var(--magenta),var(--violet))}
+.beat h2,.beat h1{font-family:'Space Grotesk';font-weight:700;letter-spacing:-.035em;line-height:1.02;margin:18px 0 0}
+.beat .sub{color:var(--text2);font-size:clamp(15px,1.7vw,18px);margin-top:16px;line-height:1.6}
+.beat h2 .hl,.beat h1 .grad{background:var(--aurora);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* hero: wordmark up top (phone kisses its bottom edge) · tagline + CTAs together at the bottom */
+.b-hero .binner{top:auto;bottom:19.5vh;left:0;right:0;text-align:center}
+.hero-tag{font-family:'Space Grotesk';font-weight:700;letter-spacing:-.03em;line-height:1.05;
+  font-size:clamp(22px,2.7vw,36px)}
+.hero-tag .grad{background:var(--aurora);-webkit-background-clip:text;background-clip:text;color:transparent}
+.b-hero .sub{max-width:46ch;margin-left:auto;margin-right:auto;font-size:14px;margin-top:8px}
+.hero-bottom{position:absolute;bottom:4.5vh;left:0;right:0;text-align:center;pointer-events:auto}
+.hero-bottom .cta-row{justify-content:center}
+.scroll-hint{margin-top:18px}
+.scroll-hint .shl{display:block;font-family:'Space Grotesk';font-size:11px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.14em;color:var(--text2);opacity:.92;margin-bottom:6px}
+.scroll-hint .chev{display:block;width:22px;height:22px;margin:0 auto;opacity:.9;
+  animation:bob 1.8s var(--ease) infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+
+/* ═══════════ the poke toast — a GLASS speech bubble (brand glass, whisper fill),
+   alternating LEFT / RIGHT of the phone per toast (red-pen round 5) ═══════════ */
+.poketoast{position:fixed;top:42vh;z-index:12;transform:translateY(12px) scale(.94);
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:13px 18px;
+  -webkit-backdrop-filter:blur(20px) saturate(1.35);backdrop-filter:blur(20px) saturate(1.35);
+  font-family:'Space Grotesk';font-weight:600;font-size:14px;line-height:1.45;color:#fff;max-width:34ch;
+  text-align:left;opacity:0;pointer-events:none;
+  box-shadow:0 18px 44px -18px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.12);
+  transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.poketoast.tl{left:clamp(20px,10vw,220px);right:auto}
+.poketoast.tr{right:clamp(20px,10vw,220px);left:auto}
+.poketoast.on{opacity:1;transform:translateY(0) scale(1)}
+
+/* capture: copy LEFT (phone travels right) */
+.b-capture .binner{left:clamp(22px,5vw,64px);top:50%;transform:translateY(-50%);max-width:min(36vw,440px)}
+.b-capture h2{font-size:clamp(28px,3.4vw,48px)}
+/* chart: copy RIGHT (phone huge at the left edge) */
+.b-chart .binner{right:clamp(22px,5vw,64px);top:50%;transform:translateY(-50%);max-width:min(36vw,440px);text-align:right}
+.b-chart h2{font-size:clamp(28px,3.4vw,48px)}
+/* donut: copy LEFT (phone huge at the right edge) */
+.b-donut .binner{left:clamp(22px,5vw,64px);top:50%;transform:translateY(-50%);max-width:min(36vw,440px)}
+.b-donut h2{font-size:clamp(28px,3.4vw,48px)}
+/* map: copy TOP-CENTER band (phone lies back at the bottom, pillars rise below the heading) */
+.b-where .binner{top:clamp(46px,8vh,92px);left:0;right:0;transform:none;max-width:none;text-align:center}
+.b-where h2{font-size:clamp(28px,3.4vw,46px)}
+.b-where .sub{max-width:54ch;margin:12px auto 0}
+/* mode: copy LEFT (phone right) */
+.b-mode .binner{left:clamp(22px,5vw,64px);top:50%;transform:translateY(-50%);max-width:min(36vw,440px)}
+.b-mode h2{font-size:clamp(28px,3.4vw,48px)}
+/* widget: copy TOP band (fades before the dive fills) */
+.b-widget .binner{top:7vh;left:0;right:0;text-align:center}
+.b-widget h2{font-size:clamp(28px,3.6vw,50px)}
+.b-widget .sub{max-width:46ch;margin-left:auto;margin-right:auto}
+/* legible: the full-zoom HOLD — copy in the bottom band, clear of the zoomed widget */
+/* the dive's copy lives INSIDE the phone: centred in the band between the widget's aurora ring and
+   the dock. `top` is overwritten in px by landing3d.js `placeDiveCopy()` (the band's midpoint differs
+   desktop vs mobile); 84.2vh is the desktop value, standing in until the engine boots.
+   `translate` (not `transform`) — the beat engine owns transform. */
+.b-legible .binner{top:84.2vh;bottom:auto;left:0;right:0;text-align:center;translate:0 -50%}
+.b-legible h2{font-size:clamp(24px,3vw,42px);text-shadow:0 4px 24px rgba(10,6,34,.85)}
+.b-legible .sub{max-width:42ch;margin-left:auto;margin-right:auto;text-shadow:0 2px 12px rgba(10,6,34,.85)}
+/* the in-copy mini Chart·Categories·Map toggle — mirrors the app's segmented control */
+.minitoggle{display:inline-flex;background:rgba(255,255,255,.06);border:1px solid var(--hair);
+  border-radius:999px;padding:3px;gap:2px;margin-top:18px}
+.minitoggle span{font-size:11.5px;font-weight:600;color:var(--text2);padding:6px 14px;border-radius:999px;letter-spacing:.01em}
+.minitoggle span.on{background:rgba(255,255,255,.14);color:#fff;box-shadow:0 1px 6px -1px rgba(0,0,0,.4)}
+/* split-line hero reveal wrappers */
+.hline{display:block;overflow:hidden}
+.hline > span{display:block;will-change:transform}
+
+/* ═══════════ the payment STREAM (capture beat — pulled into the phone) ═══════════ */
+.stream{position:fixed;inset:0;z-index:7;pointer-events:none}
+.pay{position:absolute;left:0;top:0;will-change:transform,opacity;opacity:0}
+.pay .inner{display:flex;align-items:center;gap:10px;white-space:nowrap;
+  background:rgba(14,9,38,.92);border:1px solid var(--hair);border-radius:16px;padding:11px 16px;
+  box-shadow:0 18px 44px -18px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.08)}
+.pay .ck{width:26px;height:26px;border-radius:50%;background:rgba(61,220,151,.16);border:1px solid rgba(61,220,151,.4);
+  display:grid;place-items:center;flex-shrink:0}
+.pay .ck svg{width:13px;height:13px;stroke:var(--credit)}
+.pay .pmain{font-family:'Space Grotesk';font-size:14.5px;font-weight:600}
+.pay .pmeta{font-size:11.5px;color:var(--text3);margin-top:1px}
+.pay.sms .inner{border-left:3px solid rgba(180,172,236,.5);border-radius:12px;background:rgba(10,7,30,.94)}
+.pay.sms .bank{font-size:9.5px;font-weight:700;letter-spacing:.08em;color:var(--text2);
+  background:rgba(255,255,255,.08);border:1px solid var(--hair);border-radius:6px;padding:3px 7px;flex-shrink:0}
+.pay.sms .pmain{font-size:12.5px;font-weight:500;color:#ddd6f6}
+.pay.sms .pmain b{font-family:'Space Grotesk';color:#fff}
+
+/* ═══════════ progress rail ═══════════ */
+.rail{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:62;display:flex;flex-direction:column;
+  align-items:center;gap:0}
+.rail .rln{width:1.5px;height:34px;background:rgba(255,255,255,.13);position:relative;overflow:hidden}
+.rail .rln i{position:absolute;left:0;top:0;width:100%;height:100%;background:var(--aurora);
+  transform:scaleY(0);transform-origin:top}
+.rail .rnd{position:relative;width:22px;height:22px;display:grid;place-items:center;cursor:pointer;
+  background:none;border:0;padding:0;font:inherit;color:inherit}
+.rail .rnd:focus-visible{outline:none}
+.rail .rnd:focus-visible::before{background:#fff;box-shadow:0 0 0 2px rgba(232,36,157,.8),0 0 10px rgba(232,36,157,.9);transform:scale(1.25)}
+.rail .rnd:focus-visible .rlb{opacity:1;transform:translateY(-50%) translateX(0)}
+.rail .rnd::before{content:"";width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.28);
+  transition:background .3s,box-shadow .3s,transform .3s var(--ease)}
+.rail .rnd.on::before{background:#fff;box-shadow:0 0 10px rgba(232,36,157,.9),0 0 3px #fff;transform:scale(1.25)}
+.rail .rnd .rlb{position:absolute;right:26px;top:50%;transform:translateY(-50%) translateX(6px);white-space:nowrap;
+  font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text2);
+  opacity:0;transition:opacity .25s,transform .25s var(--ease);pointer-events:none}
+.rail .rnd:hover .rlb{opacity:1;transform:translateY(-50%) translateX(0)}
+
+/* ═══════════ outro — the dive recedes INTO this (seamless) ═══════════ */
+/* outro — now a plain FINAL block (the "What's different" section above is the recede catch).
+   SOLID abyss: the section above and the footer below are the same #0a0622, so any transparency
+   here lets the fixed page glow bleed through as a visible band (red-pen 2026-07-09). */
+.outro{position:relative;z-index:10;margin-top:0;padding:0;pointer-events:none}
+.outro .panel{pointer-events:auto;position:relative;
+  background:#0a0622;
+  padding:clamp(56px,9vh,104px) 24px clamp(70px,10vh,120px);text-align:center}
+.outro h2{font-family:'Space Grotesk';font-size:clamp(34px,5vw,64px);font-weight:700;letter-spacing:-.03em}
+.outro h2 .grad{background:var(--aurora);-webkit-background-clip:text;background-clip:text;color:transparent}
+.outro p{color:var(--text2);margin-top:16px;font-size:17px}
+.outro .cta-row{justify-content:center;margin-top:34px}
+/* the guide line is a sibling of the sub — same 17px/text2 (inherited from `.outro p`, which
+   out-specifies a bare `.outro-guide`) on the same 34px rhythm. The doubled class is load-bearing. */
+.outro .outro-guide{margin-top:34px}
+.outro-guide a{color:var(--text);font-weight:600;text-decoration:underline;
+  text-decoration-color:rgba(255,255,255,.4);text-decoration-thickness:1.5px;text-underline-offset:4px;
+  transition:text-decoration-color .18s var(--ease)}
+.outro-guide a:hover{text-decoration-color:#fff}
+.outro .meta{margin-top:34px;display:flex;justify-content:center;gap:26px;flex-wrap:wrap;color:var(--text3);font-size:12.5px}
+.outro .meta span{display:flex;align-items:center;gap:7px}
+.outro .meta i{width:5px;height:5px;border-radius:50%;background:var(--text3);font-style:normal}
+.outro .meta a{display:flex;align-items:center;color:var(--text2);font-weight:600;text-decoration:underline;
+  text-underline-offset:3px;text-decoration-color:rgba(255,255,255,.3);transition:color .18s var(--ease)}
+.outro .meta a:hover{color:#fff}
+footer{position:relative;z-index:10;text-align:center;padding:10px 20px 44px;color:var(--text3);font-size:12.5px;background:#0a0622}
+footer a{color:var(--text2)}
+
+/* ═══════════ "What's different" — normal-flow section BELOW the outro (2026-07-09).
+   Plain scrolling DOM after the story ends: touches NO beat-clock / STAGE / #scrolly.
+   Opaque bg (the outro/footer pattern) so the fixed canvases never bleed through. ═══════════ */
+/* the section IS the recede catch now (moved ABOVE the outro so the outro stays the final footer):
+   -130vh pulls it up to overlap #scrolly's tail + a transparent→abyss runway the fading phone melts into. */
+.whatsdiff{position:relative;z-index:10;pointer-events:none;
+  margin-top:-130vh;padding:130vh clamp(22px,5vw,64px) clamp(64px,9vh,96px);
+  background:linear-gradient(180deg,rgba(10,6,34,0) 0,#0a0622 118vh)}
+.wd-in{max-width:1060px;margin:0 auto;pointer-events:auto}
+html.static .whatsdiff{margin-top:0;padding-top:clamp(40px,7vh,72px);background:#0a0622}
+.whatsdiff .hl{background:var(--aurora);-webkit-background-clip:text;background-clip:text;color:transparent}
+.wd-head{text-align:center;max-width:680px;margin:0 auto}
+.wd-head .eyebrow{justify-content:center}
+.wd-head h2{font-family:'Space Grotesk';font-weight:700;letter-spacing:-.035em;line-height:1.05;
+  font-size:clamp(28px,3.6vw,46px);margin:18px 0 0}
+.wd-sub{color:var(--text2);font-size:clamp(14.5px,1.7vw,17px);margin-top:14px;line-height:1.6}
+.wd-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4.5vw,68px);align-items:center;
+  margin-top:clamp(58px,9vh,92px)}
+.wd-row.flip .wd-copy{order:2}
+.wd-row.flip .wd-vis{order:1}
+.wd-kicker{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text2)}
+.wd-kicker::before{content:"";width:22px;height:1px;background:linear-gradient(to right,var(--magenta),var(--violet))}
+.wd-copy h3{font-family:'Space Grotesk';font-weight:700;letter-spacing:-.025em;line-height:1.14;
+  font-size:clamp(21px,2.4vw,30px);margin-top:14px}
+.wd-copy p{color:var(--text2);font-size:14.5px;margin-top:12px;line-height:1.65}
+.wd-copy p b{color:#fff;font-weight:600}
+.wd-vis{display:flex;flex-direction:column;align-items:center;min-width:0}
+.wd-vishint{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:16px;text-align:center}
+/* the four capture apps */
+.wd-apps{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.wd-chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:#fff;
+  background:rgba(255,255,255,.06);border:1px solid var(--hair);border-radius:999px;padding:7px 13px 7px 9px}
+.wd-chip .dot{width:18px;height:18px;border-radius:6px;display:grid;place-items:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0}
+/* row 1 — the mini split ledger (them vs UET) */
+.wd-ledger{display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.4vw,16px);width:100%}
+.wd-panel{border-radius:20px;padding:14px 14px 11px;background:rgba(13,9,32,.72);border:1px solid var(--hair);
+  box-shadow:0 20px 50px -26px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.07)}
+.wd-panel.theirs{background:rgba(10,7,26,.55);border-color:var(--hair-soft)}
+.wd-phead{display:flex;align-items:center;gap:8px;padding-bottom:10px;border-bottom:1px solid var(--hair-soft);margin-bottom:2px}
+.wd-pmark{width:20px;height:20px;border-radius:7px;flex-shrink:0;display:grid;place-items:center;font-weight:700;font-size:11px;color:#fff}
+.wd-panel.theirs .wd-pmark{background:rgba(255,255,255,.08);border:1px solid var(--hair)}
+.wd-panel.uet .wd-pmark{background:var(--aurora);box-shadow:0 5px 14px -5px rgba(232,36,157,.6)}
+.wd-ptitle{font-size:11.5px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wd-panel.theirs .wd-ptitle{color:var(--text2)}
+.wd-r{display:flex;align-items:center;gap:8px;padding:10px 2px;font-size:12px;min-height:41px}
+.wd-r + .wd-r{border-top:1px solid var(--hair-soft)}
+.wd-r .nm{font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wd-r .via{font-size:9.5px;color:var(--text3);flex-shrink:0}
+.wd-r .val{margin-left:auto;font-family:'Space Grotesk';font-weight:600;color:#fff;flex-shrink:0;
+  font-variant-numeric:tabular-nums}
+.wd-r.smallpay .val{color:var(--amber)}
+.wd-r.ghost{border:1.5px dashed rgba(255,255,255,.13);border-radius:10px;padding:8px 10px;margin:6px 0;min-height:41px}
+.wd-r.ghost + .wd-r,.wd-r + .wd-r.ghost{border-top:none}
+.wd-r.ghost .gtxt{font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wd-r.ghost .gtxt b{color:var(--text2);font-weight:600}
+.wd-r.ghost .gwhy{margin-left:auto;font-size:8.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--coral);opacity:.85;flex-shrink:0}
+.wd-pfoot{margin-top:6px;padding-top:10px;border-top:1px solid var(--hair-soft);display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.wd-pfoot .tot{font-family:'Space Grotesk';font-weight:700;font-size:15px;color:#fff;font-variant-numeric:tabular-nums}
+.wd-panel.theirs .wd-pfoot .tot{color:var(--text2)}
+.wd-pfoot .cap{font-size:10px;color:var(--text3)}
+.wd-pfoot .miss{margin-left:auto;font-size:10px;font-weight:600;color:var(--coral)}
+.wd-pfoot .ok{margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;color:var(--credit)}
+.wd-pfoot .ok svg{width:11px;height:11px;stroke:var(--credit);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+/* row 2 — the money-stack budget widget, the FULL B1 mockup treatment (red-pen 2026-07-09):
+   hint above, B1-size widget, month scrubber below, burn flash, card-ridge inset in the copy */
+/* NOTE: widget scaled ~30% smaller vs B1 at Goushik's call (red-pen 2026-07-09) */
+.wd-widget{position:relative;width:min(308px,100%);border-radius:27px;padding:24px 28px;
+  display:flex;align-items:center;gap:27px;
+  background:radial-gradient(120% 120% at 50% 38%,rgba(13,9,32,.9) 0%,rgba(13,9,32,.88) 50%,rgba(13,9,32,.62) 100%);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 24px 64px -30px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.09)}
+.wd-widget::before{content:"";position:absolute;inset:0;border-radius:27px;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(255,255,255,.06),rgba(255,255,255,0) 34%)}
+.wd-stack{display:flex;flex-direction:column-reverse;gap:7px;flex-shrink:0}
+.wd-note{width:56px;height:13px;border-radius:5px;position:relative;overflow:hidden;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);
+  transition:background .7s var(--ease),border-color .7s var(--ease),box-shadow .7s var(--ease)}
+.wd-note::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;border-radius:5px 5px 0 0;
+  background:rgba(255,255,255,.28);opacity:0;transition:opacity .7s var(--ease)}
+.wd-note.lit{background:linear-gradient(90deg,#6D59DB 0%,#8E63D9 55%,var(--magenta) 100%);
+  border-color:transparent;box-shadow:0 0 10px rgba(141,99,217,.55)}
+.wd-note.lit::after{opacity:1}
+.wd-note.wd-burn{animation:wdBurn .8s var(--ease)}
+@keyframes wdBurn{0%{filter:brightness(1.6)}100%{filter:none}}
+.wd-pct{font-family:'Space Grotesk';font-weight:700;font-size:53px;line-height:1;color:#fff;
+  font-variant-numeric:tabular-nums;text-shadow:0 3px 18px rgba(0,0,0,.55)}
+.wd-plbl{font-size:9px;font-weight:600;letter-spacing:.22em;color:#E6E1F9;margin-top:7px;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.wd-pcap{font-size:9px;color:var(--text3);margin-top:10px;font-variant-numeric:tabular-nums}
+/* the month scrubber under the widget (the drain's clock) — matches the widget width */
+.wd-monthbar{width:min(308px,100%);margin-top:16px}
+.wd-mtop{display:flex;justify-content:space-between;font-size:9.5px;color:var(--text3);margin-bottom:6px}
+.wd-mday{color:var(--text2);font-weight:600;font-variant-numeric:tabular-nums}
+.wd-mtrack{height:3px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.wd-mfill{height:100%;width:0%;border-radius:999px;background:var(--aurora)}
+/* the "also on the card" ridge inset under the copy (B1) */
+.wd-inset{margin-top:26px;border-radius:20px;padding:16px 18px;max-width:400px;
+  background:linear-gradient(120deg,rgba(42,31,110,.92),rgba(28,20,80,.95));
+  border:1px solid var(--hair);box-shadow:0 18px 44px -20px rgba(0,0,0,.7)}
+.wd-capline{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:9px}
+.wd-capline .l{background:linear-gradient(to bottom,#FFF 0%,#FFF 52%,#B4ACEC 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.wd-capline .r{background:linear-gradient(to bottom,#FFD79A 0%,#F6A037 60%,#E6892B 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+/* overflow:hidden on BOTH — the fill's amber glow stays clipped in the groove (as the canvas twin
+   does, landing3d.js paintBudgetLine) and the gloss stays inside the fill's rounded caps */
+.wd-ridge{height:16px;border-radius:8px;background:linear-gradient(to bottom,#140d33,#1a1350);position:relative;overflow:hidden;
+  box-shadow:inset 0 3px 5px rgba(0,0,0,.55), inset 0 -1px 0 rgba(255,255,255,.07)}
+.wd-ridge .fill{position:absolute;left:2px;top:2px;bottom:2px;width:calc((100% - 4px) * .82);border-radius:6px;overflow:hidden;
+  background:var(--amber);box-shadow:0 0 11px rgba(246,160,55,.45)}
+.wd-ridge .fill::after{content:"";position:absolute;left:0;right:0;top:0;height:1.5px;background:rgba(255,255,255,.42)}
+.wd-insetcap{font-size:11px;color:var(--text3);margin-top:10px}
+/* row 3 — the app-info privacy card */
+.wd-appinfo{border-radius:24px;padding:18px 20px 14px;width:min(400px,100%);
+  background:rgba(13,9,32,.78);border:1px solid var(--hair);
+  box-shadow:0 24px 60px -28px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.07)}
+.wd-aihead{display:flex;align-items:center;gap:10px;padding-bottom:12px;border-bottom:1px solid var(--hair-soft)}
+.wd-aihead .mark2{width:28px;height:28px;border-radius:9px;background:var(--aurora);display:grid;place-items:center;
+  font-weight:700;font-size:13px;color:#fff;box-shadow:0 6px 16px -6px rgba(232,36,157,.6)}
+.wd-aihead .t{font-size:13px;font-weight:600;color:#fff}
+.wd-aihead .h{margin-left:auto;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3)}
+.wd-ai{display:flex;align-items:center;gap:10px;padding:11.5px 0;font-size:12.5px;color:var(--text2)}
+.wd-ai + .wd-ai{border-top:1px solid var(--hair-soft)}
+.wd-ai .v{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-weight:600;color:#fff;text-align:right}
+.wd-ai .v.good{color:var(--credit)}
+.wd-ai .v svg{width:12px;height:12px;stroke:currentColor;stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.wd-aifoot{margin-top:2px;padding:11px 0 2px;border-top:1px solid var(--hair-soft);font-size:10.5px;color:var(--text3);line-height:1.55}
+/* section CTA */
+.wd-cta{text-align:center;margin-top:clamp(56px,8vh,84px)}
+.wd-cta .cta-row{justify-content:center}
+.wd-ctasub{margin-top:14px;font-size:12px;color:var(--text3)}
+/* scroll-in reveal — .pre is added by JS only (no-JS/static stays fully visible) */
+.whatsdiff .pre{opacity:0;transform:translateY(22px)}
+.whatsdiff .pre.inview{opacity:1;transform:none;transition:opacity .75s var(--ease),transform .75s var(--ease)}
+@media (max-width:879px){
+  .wd-row{grid-template-columns:1fr;gap:24px;margin-top:56px}
+  .wd-row.flip .wd-copy{order:0}
+  .wd-row.flip .wd-vis{order:0}
+  .wd-copy h3{font-size:clamp(20px,5.6vw,24px)}
+  .wd-widget{padding:22px 24px;gap:24px}
+  .wd-pct{font-size:46px}
+  .wd-r .via{display:none}
+}
+@media (prefers-reduced-motion: reduce){
+  .whatsdiff .pre{opacity:1;transform:none}
+  .wd-note{transition:none}
+}
+
+.devnote{position:fixed;left:14px;bottom:12px;z-index:70;font-size:10.5px;color:var(--text3);
+  background:rgba(16,10,44,.72);border:1px solid var(--hair);padding:5px 10px;border-radius:8px}
+
+/* ═══════════ MOBILE (<880px) — the SAME 3D story, stacked staging: every side-column
+   beat becomes a centered TOP band and the phone owns the lower two-thirds (the
+   engine's mobile STAGE table matches — see landing3d.js). ═══════════ */
+@media (max-width:879px){
+  .b-capture .binner,.b-chart .binner,.b-donut .binner,.b-mode .binner{
+    left:20px;right:20px;top:8.5vh;bottom:auto;max-width:none;text-align:center;transform:none}
+  .beat h2{font-size:clamp(24px,7vw,32px)}
+  .b-where .binner{top:7.5vh;left:16px;right:16px}
+  .b-where h2{font-size:clamp(19px,5.4vw,28px)}
+  /* the phone's own screen shows the segmented control on these close-ups — the
+     in-copy toggle would sit on the phone's top bezel */
+  .b-chart .minitoggle,.b-donut .minitoggle{display:none}
+  .beat .sub{font-size:13.5px;margin-top:10px;max-width:38ch;margin-left:auto;margin-right:auto}
+  .minitoggle{margin-top:12px}
+  .b-chart .eyebrow{flex-direction:row !important}   /* undo the mirrored desktop row */
+  /* the wordmark rides UP to the phone's top end (red-pen 2026-07-08 — mobile ONLY;
+     desktop keeps the round-6 centre). Phone top at hero ≈ 25.6vh, so -24vh puts the
+     wordmark centre right on it. The ink glyph mask measures live rects → stays glued. */
+  .wordstack{transform:translateY(-29vh)}
+  .b-hero .binner{bottom:20vh}
+  .b-hero .sub{max-width:34ch}
+  /* lifted off the bottom edge (was 3.5vh): at 3.5vh the scroll cue sat ~24px from the
+     viewport floor, i.e. under a mobile browser's URL bar — the one element that must be seen. */
+  .hero-bottom{bottom:6.5vh}
+  .hero-bottom .btn{padding:13px 20px;font-size:14px}
+  .wm-script{right:7%}
+  .rail{right:8px}
+  .rail .rnd .rlb{display:none}
+  .rail .rln{height:26px}
+  .pay .inner{padding:9px 12px;gap:8px}
+  .pay .pmain{font-size:13px}
+  .pay.sms .pmain{font-size:11.5px}
+  .poketoast{top:12vh;max-width:30ch;font-size:13px}
+  #scrolly{height:1900vh}   /* shorter swipe distance — same beat clock, same pacing ratio */
+}
+
+/* ═══════════ STATIC FALLBACK (no-WebGL · no-JS · reduce-motion) ═══════════ */
+.fbk{display:none}
+html.static #gl,html.static .beats,html.static .stream,html.static .rail,
+html.static .grain,html.static .devnote{display:none}
+html.static #scrolly{height:auto}
+html.static .fbk{display:block;position:relative;z-index:4;max-width:680px;margin:0 auto;padding:0 24px}
+html.static .fbk.intro{padding-top:120px}
+html.static .fbk .fb{padding:34px 0;border-bottom:1px solid var(--hair-soft);text-align:center}
+html.static .fbk h1{font-family:'Space Grotesk';font-size:clamp(30px,8vw,44px);font-weight:700;letter-spacing:-.03em;line-height:1.05}
+html.static .fbk h1 .grad,html.static .fbk .grad{background:var(--aurora);-webkit-background-clip:text;background-clip:text;color:transparent}
+html.static .fbk .fb-tag{font-family:'Space Grotesk';font-weight:700;font-size:clamp(17px,4.6vw,21px);letter-spacing:-.02em;color:var(--text);margin:0 0 14px}
+html.static .fb-wm{text-transform:uppercase}
+html.static .fb-script{font-family:'Permanent Marker',cursive;font-weight:400;font-size:.62em;text-transform:none;
+  display:inline-block;transform:rotate(-5deg);margin-left:-.22em;
+  background:var(--aurora);-webkit-background-clip:text;background-clip:text;color:transparent}
+html.static .fbk h2{font-family:'Space Grotesk';font-size:clamp(22px,5.6vw,30px);font-weight:700;letter-spacing:-.02em}
+html.static .fbk p{color:var(--text2);margin-top:10px;font-size:15px;line-height:1.6}
+html.static .fbk .cta-row{justify-content:center;margin-top:22px}
+html.static .outro{margin-top:0;padding-top:0}
+html.static .outro .panel{background:transparent;padding-top:40px}
+@media (prefers-reduced-motion: reduce){.scroll-hint .chev{animation:none}}
+
+/* ═══════════ loading splash — covers the boot wait (Three.js + 3.2MB phone + fonts)
+   so the static fallback never flashes as an ugly "loading screen". Logo-only + a CSS
+   loader (NO web-font text — fonts are part of what we're waiting for). Shown by default;
+   the module/gate clears it in every path (window.__hideSplash). ═══════════ */
+#splash{position:fixed;inset:0;z-index:200;display:grid;place-items:center;
+  background:radial-gradient(150% 90% at 50% -10%,#221950 0%,var(--bg-deep) 46%,var(--bg-abyss) 100%);
+  transition:opacity .5s var(--ease)}
+#splash.hide{opacity:0;pointer-events:none}
+.sp-inner{display:flex;flex-direction:column;align-items:center;gap:24px}
+.sp-logo{width:76px;height:76px;border-radius:20px;display:block;
+  filter:drop-shadow(0 12px 40px rgba(232,36,157,.45));animation:spPulse 1.8s var(--ease) infinite}
+@keyframes spPulse{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.06);opacity:1}}
+.sp-bar{width:150px;height:3px;border-radius:99px;background:rgba(255,255,255,.10);overflow:hidden}
+.sp-bar i{display:block;height:100%;width:40%;border-radius:99px;background:var(--aurora);
+  animation:spSlide 1.15s var(--ease) infinite}
+@keyframes spSlide{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
+@media (prefers-reduced-motion: reduce){.sp-logo,.sp-bar i{animation:none}}
+</style>
+</head>
+<body>
+
+<!-- ░ loading splash — first paint; cleared by window.__hideSplash (see the boot gate) ░ -->
+<div id="splash" aria-hidden="true">
+  <div class="sp-inner">
+    <img class="sp-logo" src="assets/app_logo.png" alt="" width="76" height="76" />
+    <div class="sp-bar"><i></i></div>
+  </div>
+</div>
+
+<div class="aurora" aria-hidden="true">
+  <span class="blob bl-m"></span><span class="blob bl-v"></span><span class="blob bl-a"></span>
+  <span class="blob bl-c"></span><span class="blob bl-g"></span><span class="blob bl-s"></span>
+</div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ░ Buttermax-style hero: full-bleed DOM wordmark BELOW the ink (#ink covers it,
+     re-compositing covered glyphs FULL PINK); the phone (#gl) floats dead-center in front ░ -->
+<div class="heroword" id="heroword">
+  <div class="wordstack">
+    <h1 class="wm-main"><span class="hline"><span class="w1">UPI</span></span><span class="hline"><span class="w2">Payment</span></span><span
+      class="wm-script" aria-label="Alert"><i>A</i><i>l</i><i>e</i><i>r</i><i>t</i></span></h1>
+    <span class="wm-cap">INSTANT VOICE SOUNDBOX · 100% OFFLINE PRIVACY · DUAL-CHANNEL</span>
+  </div>
+</div>
+<canvas id="ink" aria-hidden="true"></canvas>
+
+<canvas id="gl" aria-hidden="true"></canvas>
+
+<div class="poketoast" id="poketoast" role="status" aria-live="polite"></div>
+
+<nav class="sitenav">
+  <a class="brand" href="#" aria-label="UPI Payment Alert"><img class="mark" src="assets/app_logo.png" alt="UPI Payment Alert" width="30" height="30" /></a>
+  <div class="nav-actions">
+    <a class="nav-guide" href="./install.html">Install guide</a>
+    <a class="nav-guide" href="./privacy.html">Privacy</a>
+    <a class="nav-cta" href="./download.html">
+      <svg class="dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+      Download APK</a>
+  </div>
+</nav>
+
+<!-- ░ progress rail — the story spine ░ -->
+<nav class="rail" id="rail" aria-label="Story progress">
+  <button type="button" class="rnd" data-t="hero" aria-label="Jump to start"><span class="rlb">Start</span></button>
+  <div class="rln" aria-hidden="true"><i></i></div>
+  <button type="button" class="rnd" data-t="capture" aria-label="Jump to Capture"><span class="rlb">Capture</span></button>
+  <div class="rln" aria-hidden="true"><i></i></div>
+  <button type="button" class="rnd" data-t="insights" aria-label="Jump to Insights"><span class="rlb">Insights</span></button>
+  <div class="rln" aria-hidden="true"><i></i></div>
+  <button type="button" class="rnd" data-t="mode" aria-label="Jump to Your call"><span class="rlb">Your call</span></button>
+  <div class="rln" aria-hidden="true"><i></i></div>
+  <button type="button" class="rnd" data-t="glance" aria-label="Jump to Glance"><span class="rlb">Glance</span></button>
+</nav>
+
+<!-- static-mode intro (visible only when html.static) -->
+<div class="fbk intro"><div class="fb" style="border-bottom:none;padding-bottom:6px">
+  <p class="fb-tag">Money arrives. <span class="grad">It announces.</span></p>
+  <h1 class="fb-wm">UPI Payment <span class="fb-script">Alert</span></h1>
+  <p>Turn your phone into a high-volume UPI soundbox for PhonePe, Google Pay, Paytm, BHIM and Bank SMS. 100% offline on your device, zero cloud leaks.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="./download.html">Download APK</a>
+    <a class="btn btn-ghost" href="./install.html">Install guide</a>
+  </div>
+</div></div>
+
+<!-- ░ copy beats (fixed overlay — reserved zones, never over the phone) ░ -->
+<div class="beats">
+  <section class="beat b-hero" data-b="1">
+    <div class="binner">
+      <p class="hero-tag">Money arrives. <span class="grad">It speaks.</span></p>
+      <p class="sub">Turn your phone into a powerful UPI soundbox for PhonePe, GPay, Paytm, BHIM &amp; Bank SMS — 100% offline on your device, zero cloud leaks.</p>
+    </div>
+    <div class="hero-bottom"><div class="hbin">
+      <div class="cta-row">
+        <a class="btn btn-primary" href="./download.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Download APK</a>
+        <a class="btn btn-ghost" href="./install.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Install guide</a>
+      </div>
+      <div class="scroll-hint"><span class="shl">Start scrolling</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+    </div></div>
+  </section>
+
+  <section class="beat b-capture" data-b="2"><div class="binner">
+    <span class="eyebrow">01 · Instant Voice Alert</span>
+    <h2>Payment received.<br/><span class="hl">Spoken loud &amp; clear.</span></h2>
+    <p class="sub">Instant voice announcements in Hindi &amp; English for PhonePe, Google Pay, Paytm, BHIM and direct Bank SMS. Never miss a customer payment in the rush.</p>
+  </div></section>
+
+  <section class="beat b-chart" data-b="3"><div class="binner">
+    <span class="eyebrow" style="flex-direction:row-reverse">02 · Dual-Channel Engine</span>
+    <h2>Notification or SMS.<br/><span class="hl">Nothing slips through.</span></h2>
+    <p class="sub">High-speed push notification listener backed by raw Bank SMS inbox parsing. Works even in poor network or offline areas.</p>
+    <div class="minitoggle"><span class="on">Chart</span><span>Categories</span><span>Map</span></div>
+  </div></section>
+
+  <section class="beat b-donut" data-b="4"><div class="binner">
+    <span class="eyebrow">03 · Merchant Ledger</span>
+    <h2>Where it<br/><span class="hl">all came from.</span></h2>
+    <p class="sub">Track daily collections, customer trends, and payment methods in one glossy visual ledger. 100% on-device SQLite.</p>
+    <div class="minitoggle"><span>Chart</span><span class="on">Categories</span><span>Map</span></div>
+  </div></section>
+
+  <section class="beat b-where" data-b="5"><div class="binner">
+    <span class="eyebrow" style="justify-content:center">04 · Counter Insights</span>
+    <h2>Your store &amp; counter, <span class="hl">mapped in 3D.</span></h2>
+    <p class="sub">Every payment lands on a glowing map of your city. Track multiple shop counters or delivery zones with zero cloud data leak.</p>
+    <div class="minitoggle"><span>Chart</span><span>Categories</span><span class="on">Map</span></div>
+  </div></section>
+
+  <section class="beat b-mode" data-b="6"><div class="binner">
+    <span class="eyebrow">05 · Bluetooth Booster</span>
+    <h2>Silent phone?<br/><span class="hl">Loud soundbox.</span></h2>
+    <p class="sub">Overrides silent mode and streams loud audio alerts directly to your shop Bluetooth speaker or USB soundbox. Your pocket is your soundbox.</p>
+  </div></section>
+
+  <section class="beat b-widget" data-b="7"><div class="binner">
+    <span class="eyebrow" style="justify-content:center">06 · Glance — Home-screen Soundbox Widget</span>
+    <h2>On your home screen.<br/><span class="hl">One-tap mute &amp; live balance.</span></h2>
+    <p class="sub">One tap to mute or test sound alerts. Available bank balances masked safely until you reveal them.</p>
+  </div></section>
+
+  <!-- the dive's copy — no eyebrow: it sits INSIDE the phone, centred between the widget's
+       aurora ring and the dock (see `.b-legible .binner`) -->
+  <section class="beat b-legible" data-b="8"><div class="binner">
+    <h2>Your money, <span class="hl">instantly announced.</span></h2>
+    <p class="sub">One tap reveals balance · Screen-off re-masks.</p>
+  </div></section>
+</div>
+
+<!-- ░ the payment stream (gets captured as you scroll) ░ -->
+<div class="stream" aria-hidden="true">
+  <div class="pay sms" data-p="1"><div class="inner"><img src="assets/logos/phonepe.svg" alt="PhonePe" width="28" height="28" style="border-radius:7px;flex-shrink:0;" /><div><div class="pmain sg" style="color:var(--credit)">Received <b>₹2,000</b> · Rohan</div><div class="pmeta">🔊 "PhonePe par ₹2,000 prapt hue"</div></div></div></div>
+  <div class="pay" data-p="2"><div class="inner"><img src="assets/logos/gpay.svg" alt="GPay" width="28" height="28" style="flex-shrink:0;" /><div><div class="pmain sg" style="color:var(--credit)">Received <b>₹1,200</b> · Priya S</div><div class="pmeta">🔊 "Received ₹1,200 on Google Pay"</div></div></div></div>
+  <div class="pay" data-p="3"><div class="inner"><img src="assets/logos/paytm.svg" alt="Paytm" width="28" height="28" style="border-radius:7px;flex-shrink:0;" /><div><div class="pmain sg" style="color:var(--credit)">Received <b>₹385</b> · QR Pay</div><div class="pmeta">🔊 "Paytm par ₹385 prapt hue"</div></div></div></div>
+  <div class="pay sms" data-p="4"><div class="inner"><img src="assets/logos/sbi.svg" alt="SBI" width="28" height="28" style="border-radius:7px;flex-shrink:0;" /><div><div class="pmain sg" style="color:var(--credit)">A/c ••0398 credited <b>₹1,500</b></div><div class="pmeta">🔊 "State Bank of India credited ₹1,500"</div></div></div></div>
+  <div class="pay sms" data-p="5"><div class="inner"><img src="assets/logos/hdfc.svg" alt="HDFC" width="28" height="28" style="border-radius:7px;flex-shrink:0;" /><div><div class="pmain sg" style="color:var(--credit)">A/c ••1234 credited <b>₹4,500</b></div><div class="pmeta">🔊 "HDFC Bank credited ₹4,500"</div></div></div></div>
+</div>
+
+<!-- ░ the scroll driver ░ -->
+<main id="scrolly"></main>
+
+<!-- static-mode beats -->
+<div class="fbk">
+  <div class="fb"><h2>Payment received. Spoken instantly.</h2><p>Instant spoken voice alerts in Hindi &amp; English the millisecond a UPI payment lands.</p></div>
+  <div class="fb"><h2>Notification or SMS. Nothing slips through.</h2><p>Dual-channel engine catches PhonePe, GPay, Paytm, BHIM and bank SMS even with spotty connectivity.</p></div>
+  <div class="fb"><h2>Where it all came from.</h2><p>Private on-device ledger with customer totals, credit/debit filtering, and daily summaries.</p></div>
+  <div class="fb"><h2>Silent phone? Loud soundbox.</h2><p>Bypasses silent mode and broadcasts directly to your counter Bluetooth speaker.</p></div>
+  <div class="fb"><h2>On your home screen. Masked until it's you.</h2><p>Quick soundbox mute/unmute and encrypted balance peek at a glance.</p></div>
+</div>
+
+<!-- ░ "What's different" ░ -->
+<section class="whatsdiff" id="different">
+  <div class="wd-in">
+    <div class="wd-head">
+      <span class="eyebrow">Why this soundbox</span>
+      <h2>What makes <span class="hl">UPI Payment Alert</span> different?</h2>
+      <p class="wd-sub">No monthly hardware rent, no cloud tracking, and dual-channel reliability.</p>
+    </div>
+
+    <!-- 1 · zero rent -->
+    <div class="wd-row">
+      <div class="wd-copy">
+        <span class="wd-kicker">01 · Zero Hardware Rent</span>
+        <h3>Turn your phone into a <span class="hl">Soundbox</span>.</h3>
+        <p>Merchant soundboxes cost ₹125 to ₹150 every single month in rental fees. UPI Payment Alert turns your existing Android phone into a high-volume soundbox with <b>instant voice announcements in Hindi, English &amp; regional voices</b>. Save thousands every year.</p>
+        <div class="wd-apps">
+          <span class="wd-chip"><img src="assets/logos/phonepe.svg" alt="PhonePe" width="18" height="18" style="border-radius:4px;display:block;" />PhonePe</span>
+          <span class="wd-chip"><img src="assets/logos/gpay.svg" alt="Google Pay" width="18" height="18" style="display:block;" />Google Pay</span>
+          <span class="wd-chip"><img src="assets/logos/paytm.svg" alt="Paytm" width="18" height="18" style="border-radius:4px;display:block;" />Paytm</span>
+          <span class="wd-chip"><img src="assets/logos/bhim.svg" alt="BHIM UPI" width="18" height="18" style="border-radius:4px;display:block;" />BHIM UPI</span>
+          <span class="wd-chip"><img src="assets/logos/sbi.svg" alt="SBI" width="18" height="18" style="border-radius:4px;display:block;" />SBI</span>
+          <span class="wd-chip"><img src="assets/logos/hdfc.svg" alt="HDFC" width="18" height="18" style="border-radius:4px;display:block;" />HDFC</span>
+          <span class="wd-chip"><img src="assets/logos/icici.svg" alt="ICICI" width="18" height="18" style="border-radius:4px;display:block;" />ICICI</span>
+          <span class="wd-chip"><img src="assets/logos/axis.svg" alt="Axis" width="18" height="18" style="border-radius:4px;display:block;" />Axis Bank</span>
+        </div>
+      </div>
+      <div class="wd-vis">
+        <div class="wd-ledger">
+          <div class="wd-panel theirs">
+            <div class="wd-phead"><span class="wd-pmark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#9C91AC" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span class="wd-ptitle">Rented Hardware Box</span></div>
+            <div class="wd-r ghost"><span class="gtxt">Monthly Rental</span><span class="gwhy">₹125 / month</span></div>
+            <div class="wd-r"><span class="nm">Setup Security</span><span class="via">Deposit</span><span class="val">₹500</span></div>
+            <div class="wd-r ghost"><span class="gtxt">Battery Degradation</span><span class="gwhy">dies in 6 hrs</span></div>
+            <div class="wd-r"><span class="nm">Network Drop</span><span class="via">Offline</span><span class="val">Silent</span></div>
+            <div class="wd-pfoot"><span class="tot">₹1,500+/yr</span><span class="cap">recurring cost</span><span class="miss">wasted money</span></div>
+          </div>
+          <div class="wd-panel uet">
+            <div class="wd-phead"><img src="assets/app_logo.png" alt="" width="20" height="20" style="border-radius:5px;" /><span class="wd-ptitle">UPI Payment Alert</span></div>
+            <div class="wd-r smallpay"><img src="assets/logos/phonepe.svg" alt="" width="16" height="16" style="border-radius:4px;flex-shrink:0;" /><span class="nm">PhonePe · Rohan</span><span class="via">Voice</span><span class="val">+₹2,000</span></div>
+            <div class="wd-r"><img src="assets/logos/gpay.svg" alt="" width="16" height="16" style="flex-shrink:0;" /><span class="nm">GPay · Priya</span><span class="via">Voice</span><span class="val">+₹1,200</span></div>
+            <div class="wd-r smallpay"><img src="assets/logos/paytm.svg" alt="" width="16" height="16" style="border-radius:4px;flex-shrink:0;" /><span class="nm">Paytm · Vijay</span><span class="via">Voice</span><span class="val">+₹385</span></div>
+            <div class="wd-r"><img src="assets/logos/hdfc.svg" alt="" width="16" height="16" style="border-radius:4px;flex-shrink:0;" /><span class="nm">HDFC SMS Credit</span><span class="via">Voice</span><span class="val">+₹4,500</span></div>
+            <div class="wd-pfoot"><span class="tot">₹0 Rent</span><span class="cap">Lifetime</span><span class="ok"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>100% Free &amp; Offline</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 · dual-channel -->
+    <div class="wd-row flip">
+      <div class="wd-copy">
+        <span class="wd-kicker">02 · Dual-Channel Reliability</span>
+        <h3>Notification + SMS fallback. <span class="hl">Never miss a payment.</span></h3>
+        <p>In crowded bazaars or rural areas where 4G internet lags, app push notifications might delay. Our smart dual-channel engine automatically falls back to <b>raw Bank SMS parsing</b> (SBI, HDFC, ICICI, Axis, PNB, BOB, Kotak, IDBI, Canara, etc.). The second money hits, it announces.</p>
+        <div class="wd-inset">
+          <div class="wd-capline"><span class="l tab">Dual-Engine Active</span><span class="r tab">0.05s announcement</span></div>
+          <div class="wd-ridge"><div class="fill"></div></div>
+          <div class="wd-insetcap">Supports Hindi, English, Hinglish, Marathi, Tamil, Telugu, Bengali, Gujarati &amp; custom TTS speech engines.</div>
+        </div>
+      </div>
+      <div class="wd-vis">
+        <span class="wd-vishint">Bluetooth &amp; Volume Override</span>
+        <div class="wd-widget" id="wdWidget">
+          <div class="wd-stack" id="wdStack">
+            <span class="wd-note lit"></span><span class="wd-note lit"></span><span class="wd-note lit"></span>
+            <span class="wd-note lit"></span><span class="wd-note lit"></span><span class="wd-note lit"></span>
+          </div>
+          <div>
+            <div class="wd-pct" id="wdPct">100%</div>
+            <div class="wd-plbl">SOUNDBOX VOLUME</div>
+            <div class="wd-pcap" id="wdCap">Overrides silent mode</div>
+          </div>
+        </div>
+        <div class="wd-monthbar">
+          <div class="wd-mtop"><span class="wd-mday" id="wdDay">Connected</span><span>Bluetooth Speaker Active</span></div>
+          <div class="wd-mtrack"><div class="wd-mfill" id="wdMfill" style="width:100%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 · on-device privacy -->
+    <div class="wd-row">
+      <div class="wd-copy">
+        <span class="wd-kicker">03 · 100% Privacy</span>
+        <h3>Stays on your phone. <span class="hl">Zero cloud tracking.</span></h3>
+        <p>Unlike third-party fintech apps that upload your customer names and merchant turnover to remote servers, UPI Payment Alert runs <b>100% locally on your phone</b>. No accounts, no data selling, no advertising. Export your statements to HTML &amp; CSV whenever you want.</p>
+      </div>
+      <div class="wd-vis">
+        <div class="wd-appinfo">
+          <div class="wd-aihead"><span class="mark2">🔊</span><span class="t">UPI Payment Alert</span><span class="h">Privacy info</span></div>
+          <div class="wd-ai">Financial data upload<span class="v good"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Never uploaded</span></div>
+          <div class="wd-ai">Cloud analytics &amp; tracking<span class="v good"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Zero tracking</span></div>
+          <div class="wd-ai">Transaction ledger<span class="v good"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Encrypted on-device SQLite</span></div>
+          <div class="wd-aifoot">Your transactions remain strictly between you, your bank, and your customer.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- outro (closing footer — Download + Setup) -->
+<section class="outro"><div class="panel">
+  <h2>Your private UPI soundbox, <span class="grad">ready now</span>.</h2>
+  <p>100% Offline. On-Device Voice Soundbox &amp; Merchant Ledger.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="./download.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Download APK</a>
+    <a class="btn btn-ghost" href="./install.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Install guide</a>
+  </div>
+  <p class="outro-guide">Need help setting up permissions? <a href="./install.html">Follow the 2-minute install guide →</a></p>
+  <div class="meta">
+    <span>PhonePe · Google Pay · Paytm · BHIM</span><i></i>
+    <span>SBI · HDFC · ICICI · Axis &amp; All Indian Banks</span><i></i>
+    <span>100% on-device — no cloud</span><i></i>
+    <span>Android 8.0+</span><i></i>
+    <a href="./versions.html">v1.0.2 · What's new</a><i></i>
+    <a href="./privacy.html">Privacy Policy</a>
+  </div>
+</div></section>
+
+<footer>Crafted with ❤️ by Arvind Ji · <a href="./privacy.html">Privacy Policy</a> · <a href="./install.html">Install Guide</a> · <a href="./versions.html">v1.0.2 Changelog</a></footer>
+
+<div class="devnote">iteration 5 · three.js · lenis + gsap</div>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script>
+/* boot gate — ships static-first; the module opts OUT when WebGL allows.
+   __NARROW no longer blocks the 3D story — it picks the MOBILE staging table
+   (crossing 880px reloads so the table + layout constants rebuild). */
+window.__REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+window.__NARROW = window.innerWidth < 880;
+/* the loading splash clears in EVERY path (or it would permanently hide the static fallback):
+   the module calls this on its first 3D frame + before its early returns; here we add the
+   ultimate catch-all (module never loaded) + the pure-static reduce-motion case. */
+window.__hideSplash = () => { const s = document.getElementById('splash');
+  if (s && !s.classList.contains('hide')) { s.classList.add('hide'); setTimeout(() => s.remove(), 600); } };
+setTimeout(window.__hideSplash, 7000);            // catch-all: network died / module failed to parse
+if (window.__REDUCE) window.__hideSplash();        // reduce-motion → no 3D coming, reveal the static page now
+if (!location.search.includes('dev')) document.querySelector('.devnote')?.remove();
+window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener?.('change', () => location.reload());
+let __rsz; window.addEventListener('resize', () => { clearTimeout(__rsz);
+  __rsz = setTimeout(() => { if ((window.innerWidth < 880) !== window.__NARROW) location.reload(); }, 250); });
+</script>
+<script>
+/* "What's different" section — scroll-in reveal + the widget's drain loop.
+   Self-contained (runs even when the 3D module bails); pure no-JS keeps everything visible. */
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const blocks = document.querySelectorAll('.whatsdiff .wd-head, .whatsdiff .wd-row');
+  if (!reduce && 'IntersectionObserver' in window) {
+    blocks.forEach(el => el.classList.add('pre'));
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('inview'); io.unobserve(e.target); }
+    }), { threshold: .16 });
+    blocks.forEach(el => io.observe(el));
+  }
+  /* the drain: the month plays out on a slow loop once the widget is on screen — the full B1
+     treatment: % + ₹ left + the June day counter + the aurora month bar + a burn flash on the
+     tier that just emptied. (no-JS / reduce-motion default = the hardcoded mid-drain DOM.) */
+  const widget = document.getElementById('wdWidget');
+  if (!widget || reduce) return;
+  const notes = widget.querySelectorAll('.wd-note');
+  const pctEl = document.getElementById('wdPct'), capEl = document.getElementById('wdCap');
+  const dayEl = document.getElementById('wdDay'), fillEl = document.getElementById('wdMfill');
+  const CAP = 24000, END = 18640, DUR = 10000, HOLD = 3000;   /* ends at 22% left — the app's demo numbers */
+  const fmt = n => '₹' + Math.round(n).toLocaleString('en-IN');
+  const ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  let start = null, running = false, lastLit = 6;
+  function frame(now) {
+    if (start === null) start = now;
+    let t = (now - start) / DUR;
+    if (t >= 1 + HOLD / DUR) { start = now; t = 0; lastLit = 6;
+      notes.forEach(n => n.classList.remove('wd-burn')); }
+    const k = Math.min(1, t);
+    const left = Math.max(0, 1 - END * ease(k) / CAP);
+    pctEl.textContent = Math.round(left * 100) + '%';
+    capEl.textContent = fmt(CAP * left) + ' of ' + fmt(CAP) + ' left';
+    dayEl.textContent = 'June ' + Math.max(1, Math.min(30, Math.ceil(k * 30)));
+    fillEl.style.width = (k * 100) + '%';
+    const lit = Math.max(left > 0 ? 1 : 0, Math.ceil(left * 6));   /* the app's tier rule: 22% → 2 lit */
+    notes.forEach((n, i) => n.classList.toggle('lit', i < lit));
+    if (lit < lastLit && lit < 6) {                                 /* flash the tier that just emptied */
+      const n2 = notes[lit];
+      if (n2) { n2.classList.remove('wd-burn'); void n2.offsetWidth; n2.classList.add('wd-burn'); }
+      lastLit = lit;
+    }
+    requestAnimationFrame(frame);
+  }
+  new IntersectionObserver((es, o) => {
+    if (es.some(e => e.isIntersecting) && !running) { running = true; requestAnimationFrame(frame); o.disconnect(); }
+  }, { threshold: .4 }).observe(widget);
+})();
+</script>
+<script type="module" src="landing3d.js"></script>
+<script>
+  // Vercel Web Analytics custom events — count button clicks (alongside automatic page views).
+  // Event delegation catches every Download and Install-guide link without per-button wiring.
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (/download\.html/.test(href)) window.va('event', { name: 'download_apk' });
+    else if (/install\.html/.test(href)) window.va('event', { name: 'install_guide' });
+  }, true);
+</script>
+</body>
+</html>

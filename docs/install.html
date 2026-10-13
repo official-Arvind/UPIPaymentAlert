@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Install UPI Payment Alert — the 2-minute setup</title>
+<meta name="description" content="A step-by-step guide to installing the UPI Payment Alert &amp; Soundbox APK on your Android phone — tailored to your exact phone and Android version." />
+<meta property="og:title" content="Install UPI Payment Alert — the 2-minute setup" />
+<meta property="og:description" content="Step-by-step soundbox setup guide, tailored to your phone." />
+<meta property="og:type" content="website" />
+<link rel="icon" type="image/png" href="assets/app_logo.png" />
+<!-- fonts vendored locally (web/vendor/fonts.css) — the page must survive blocked CDNs -->
+<link href="vendor/fonts.css" rel="stylesheet" />
+<!-- Vercel Web Analytics (first-party; silent 404 off-Vercel) -->
+<!-- GitHub Pages Analytics ready -->
+<style>
+/* ═══════════ tokens (mirror landing.html / design-system/tokens.json) ═══════════ */
+:root{
+  --bg:#1B1147; --bg-deep:#140C38; --bg-abyss:#0a0622;
+  --text:#FFFFFF; --text2:#B4ACEC; --text3:#9C91AC;
+  --credit:#3DDC97; --debit:#FF7A8A;
+  --amber:#F6A037; --coral:#ED6266; --magenta:#E8249D; --violet:#6D59DB;
+  --glass:rgba(255,255,255,.06); --glass-strong:rgba(255,255,255,.10);
+  --hair:rgba(255,255,255,.12); --hair-soft:rgba(255,255,255,.07);
+  --aurora:linear-gradient(125deg,#F6A037 0%,#ED6266 32%,#E8249D 62%,#6D59DB 100%);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --el-float:0 14px 34px -10px rgba(232,36,157,.55);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scrollbar-width:thin;scrollbar-color:rgba(180,172,236,.25) transparent;scroll-behavior:smooth}
+body{font-family:'Space Grotesk','Inter',system-ui,-apple-system,sans-serif;color:var(--text);
+  background:var(--bg-abyss);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.5}
+body::before{content:"";position:fixed;inset:0;z-index:-1;
+  background:radial-gradient(150% 90% at 50% -10%,#221950 0%,var(--bg-deep) 46%,var(--bg-abyss) 100%)}
+a{color:inherit}
+::selection{background:rgba(232,36,157,.4)}
+.tab{font-variant-numeric:tabular-nums}
+
+/* soft aurora field */
+.aurora{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+.blob{position:absolute;border-radius:50%;filter:blur(80px)}
+.bl-m{width:46vw;height:46vw;background:var(--magenta);opacity:.16;top:-16vw;right:-12vw}
+.bl-v{width:42vw;height:42vw;background:var(--violet);opacity:.16;top:52vh;left:-18vw}
+.bl-a{width:32vw;height:32vw;background:var(--amber);opacity:.07;bottom:-8vw;right:2vw}
+
+/* ═══════════ nav ═══════════ */
+.sitenav{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
+  max-width:1180px;margin:0 auto;padding:18px clamp(18px,5vw,44px);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:#fff;font-weight:700;font-size:16.5px;letter-spacing:-.01em}
+.brand .mark{width:30px;height:30px;border-radius:9px;display:block;box-shadow:var(--el-float)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.nav-cta{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:#fff;text-decoration:none;
+  background:rgba(16,10,44,.72);border:1px solid var(--hair);padding:9px 16px;border-radius:999px;
+  transition:transform .16s var(--ease),background .2s}
+.nav-cta:hover{transform:translateY(-1px);background:rgba(28,18,72,.85)}
+.nav-cta .dl{width:15px;height:15px}
+.nav-back{font-size:13px;font-weight:600;color:var(--text2);text-decoration:none;padding:9px 6px;transition:color .2s}
+.nav-back:hover{color:#fff}
+
+/* ═══════════ shell ═══════════ */
+.wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:0 clamp(18px,5vw,44px) 100px}
+.hero{text-align:center;padding:52px 0 30px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text2);justify-content:center}
+.eyebrow::before,.eyebrow::after{content:"";width:22px;height:1px;background:linear-gradient(to right,var(--magenta),var(--violet))}
+.hero h1{font-family:'Space Grotesk';font-weight:700;letter-spacing:-.035em;line-height:1.04;
+  font-size:clamp(30px,5.4vw,52px);margin:16px 0 0}
+.hero h1 .grad{background:var(--aurora);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{color:var(--text2);font-size:clamp(15px,1.9vw,18px);margin:16px auto 0;max-width:560px;line-height:1.6}
+.hero .reassure{display:inline-flex;align-items:center;gap:9px;margin-top:22px;font-size:13px;color:var(--text2);
+  background:var(--glass);border:1px solid var(--hair);padding:9px 16px;border-radius:999px}
+.hero .reassure svg{width:15px;height:15px;color:var(--credit)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:inherit;font-weight:600;font-size:15px;
+  padding:14px 24px;border-radius:999px;cursor:pointer;text-decoration:none;color:#fff;border:1px solid transparent;white-space:nowrap;
+  transition:transform .16s var(--ease),filter .16s var(--ease),background .2s}
+.btn svg{width:18px;height:18px}
+.btn-primary{background:var(--aurora);box-shadow:var(--el-float)}
+.btn-primary:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn-ghost{background:rgba(255,255,255,.08);border-color:var(--hair)}
+.btn-ghost:hover{transform:translateY(-2px);background:rgba(255,255,255,.14)}
+
+/* ═══════════ detector ═══════════ */
+.detector{background:linear-gradient(160deg,rgba(42,31,110,.55),rgba(20,12,56,.55));
+  border:1px solid var(--hair);border-radius:22px;padding:22px clamp(18px,3vw,28px);margin-top:14px}
+.detector .row1{display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:space-between}
+.detector .lead{font-weight:600;font-size:15.5px}
+.detector .lead .muted{color:var(--text3);font-weight:500}
+.detect-btn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-weight:600;font-size:14px;color:#fff;cursor:pointer;
+  background:var(--glass-strong);border:1px solid var(--hair);padding:11px 18px;border-radius:999px;transition:transform .16s var(--ease),background .2s}
+.detect-btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.16)}
+.detect-btn svg{width:16px;height:16px}
+.pill-result{display:none;align-items:center;gap:9px;font-size:14px;font-weight:600;
+  background:rgba(61,220,151,.12);border:1px solid rgba(61,220,151,.35);color:#eafff5;padding:9px 15px;border-radius:999px}
+.pill-result.show{display:inline-flex}
+.pill-result svg{width:15px;height:15px;color:var(--credit)}
+.picker{margin-top:20px}
+.picker .plabel{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{font-family:inherit;font-size:13.5px;font-weight:600;color:var(--text2);cursor:pointer;
+  background:var(--glass);border:1px solid var(--hair);padding:9px 15px;border-radius:999px;transition:all .18s var(--ease)}
+.chip:hover{color:#fff;background:var(--glass-strong)}
+.chip[aria-pressed="true"]{color:#fff;background:rgba(232,36,157,.16);border-color:var(--magenta)}
+.ver-toggle{margin-top:18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:13.5px;color:var(--text2)}
+.ver-seg{display:inline-flex;background:var(--glass);border:1px solid var(--hair);border-radius:999px;padding:3px}
+.ver-seg button{font-family:inherit;font-size:12.5px;font-weight:600;color:var(--text2);cursor:pointer;background:transparent;border:0;padding:7px 13px;border-radius:999px;transition:all .18s var(--ease)}
+.ver-seg button[aria-pressed="true"]{color:#fff;background:rgba(109,89,219,.34)}
+
+/* ═══════════ steps ═══════════ */
+.steps{margin-top:40px;display:flex;flex-direction:column;gap:20px}
+.step{background:var(--glass);border:1px solid var(--hair-soft);border-radius:22px;overflow:hidden}
+.step-grid{display:grid;grid-template-columns:1fr 300px;gap:8px;align-items:stretch}
+.step-body{padding:26px clamp(20px,3vw,30px);display:flex;flex-direction:column;justify-content:center}
+.step-head{display:flex;align-items:center;gap:14px}
+.step-num{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+  font-weight:700;font-size:15px;color:#fff;background:var(--aurora);box-shadow:var(--el-float)}
+.step-title{font-family:'Space Grotesk';font-weight:700;font-size:19px;letter-spacing:-.01em}
+.step-lead{color:var(--text2);font-size:14.5px;margin-top:12px;line-height:1.6}
+.path{margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 4px;
+  font-size:13px;background:rgba(0,0,0,.22);border:1px solid var(--hair-soft);border-radius:12px;padding:11px 14px}
+.path .seg{color:#fff;font-weight:600}
+.path .arrow{color:var(--text3)}
+.path .target{color:#fff;background:rgba(232,36,157,.22);border:1px solid var(--magenta);border-radius:6px;padding:1px 7px}
+.gotcha{margin-top:14px;display:flex;gap:11px;background:rgba(246,160,55,.10);border:1px solid rgba(246,160,55,.34);
+  border-radius:12px;padding:12px 14px;font-size:13.5px;color:#ffe9cc;line-height:1.55}
+.gotcha svg{flex:none;width:17px;height:17px;color:var(--amber);margin-top:1px}
+.gotcha b{color:#fff}
+.note{margin-top:12px;font-size:13px;color:var(--text3);line-height:1.55}
+.note b{color:var(--text2)}
+/* the image/mockup panel */
+.step-visual{position:relative;background:linear-gradient(180deg,rgba(20,12,56,.5),rgba(10,6,32,.5));
+  display:grid;place-items:center;padding:22px 18px;border-left:1px solid var(--hair-soft)}
+.step-visual .phone{position:relative;width:186px;max-width:100%}
+.step-visual svg,.step-visual img{display:block;width:100%;height:auto;border-radius:24px}
+.step-visual .shot-tag{position:absolute;top:14px;left:14px;z-index:2;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--text2);background:rgba(10,6,32,.7);border:1px solid var(--hair);border-radius:999px;padding:4px 9px}
+.step-visual .shot-tag.real{color:#eafff5;background:rgba(61,220,151,.16);border-color:rgba(61,220,151,.4)}
+.step-visual .realshot{border:1px solid var(--hair-soft);box-shadow:0 12px 30px -14px rgba(0,0,0,.75)}
+.step-visual .approx{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:11px;color:var(--text3)}
+
+/* callout badge overlaid on the mockup */
+.callout{position:absolute;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
+  font-weight:700;font-size:14px;color:#fff;background:rgba(232,36,157,.92);
+  box-shadow:0 0 0 4px rgba(232,36,157,.28),0 6px 16px -4px rgba(0,0,0,.6);z-index:2}
+
+/* finish / footer */
+.finish{margin-top:34px;text-align:center;background:linear-gradient(160deg,rgba(42,31,110,.5),rgba(20,12,56,.5));
+  border:1px solid var(--hair);border-radius:22px;padding:34px clamp(20px,4vw,40px)}
+.finish h2{font-family:'Space Grotesk';font-weight:700;font-size:clamp(24px,3.6vw,34px);letter-spacing:-.02em}
+.finish h2 .grad{background:var(--aurora);-webkit-background-clip:text;background-clip:text;color:transparent}
+.finish p{color:var(--text2);margin-top:12px;font-size:15px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.6}
+.finish .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.stuck{margin-top:26px;font-size:13.5px;color:var(--text3)}
+.stuck a{color:var(--text2);text-decoration:underline;text-underline-offset:3px}
+.pagefoot{text-align:center;color:var(--text3);font-size:12.5px;margin-top:46px}
+.pagefoot a{color:var(--text2)}
+
+/* ═══════════ responsive ═══════════ */
+@media (max-width:720px){
+  .step-grid{grid-template-columns:1fr}
+  .step-visual{border-left:0;border-top:1px solid var(--hair-soft);order:-1;padding:20px}
+  .step-visual .phone{width:180px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="aurora"><span class="blob bl-m"></span><span class="blob bl-v"></span><span class="blob bl-a"></span></div>
+
+<nav class="sitenav">
+  <a class="brand" href="./index.html" aria-label="UPI Payment Alert"><img class="mark" src="assets/app_logo.png" alt="UPI Payment Alert" width="30" height="30" /></a>
+  <div class="nav-actions">
+    <a class="nav-back" href="./index.html">← Home</a>
+    <a class="nav-back" href="./privacy.html">Privacy</a>
+    <a class="nav-cta" href="./download.html">
+      <svg class="dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+      Download APK</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="hero">
+    <span class="eyebrow">Setup · about 2 minutes</span>
+    <h1>Get your soundbox running in a <span class="grad">few taps</span>.</h1>
+    <p class="sub">Install the APK, grant Notification Access so the app can hear incoming UPI payments, and set Battery to Unrestricted. Here's exactly where to tap for <em>your</em> phone brand.</p>
+    <div class="reassure">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      100% on your phone — zero cloud upload.
+    </div>
+  </header>
+
+  <section class="detector" aria-label="Choose your phone">
+    <div class="row1">
+      <div class="lead">Which phone are you on? <span class="muted">Tap detect, or pick below.</span></div>
+      <button class="detect-btn" id="detectBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M12 18h.01"/></svg>
+        Detect my phone</button>
+      <span class="pill-result" id="detectResult"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span id="detectText"></span></span>
+    </div>
+    <div class="picker">
+      <div class="plabel">Phone brand</div>
+      <div class="chips" id="oemChips" role="group" aria-label="Phone brand"></div>
+    </div>
+    <div class="ver-toggle">
+      <span>Your Android version:</span>
+      <div class="ver-seg" id="verSeg" role="group" aria-label="Android version">
+        <button data-ver="new" aria-pressed="true">Android 13 or newer</button>
+        <button data-ver="old" aria-pressed="false">Android 12 or older</button>
+      </div>
+      <span id="verHint" style="color:var(--text3);font-size:12.5px"></span>
+    </div>
+  </section>
+
+  <section class="steps" id="steps" aria-live="polite"></section>
+
+  <section class="finish">
+    <h2>That's it — <span class="grad">your soundbox is active</span>.</h2>
+    <p>Now every incoming PhonePe, Google Pay, Paytm, BHIM and Bank SMS payment is spoken out loud automatically in your selected voice language. Connect a counter Bluetooth speaker anytime for louder announcements.</p>
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="./index.html">See what it does</a>
+    </div>
+    <p class="stuck">One thing to avoid: <b>Force stop</b> in App info, or a phone cleaner that closes apps. If soundbox stops announcing, open UPI Payment Alert once to verify permissions are active.</p>
+    <p class="stuck">Need assistance? Ensure <b>Notification Access</b> is turned on for <b>UPI Payment Alert</b> and battery is set to <b>Unrestricted</b>.</p>
+  </section>
+
+  <p class="pagefoot">Crafted with ❤️ by Arvind Ji · <a href="./privacy.html">Privacy Policy</a> · <a href="./download.html">Download APK</a></p>
+</main>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════════
+   Install guide — device detection + a data-driven, per-OEM step engine.
+   Zero external requests. The website's job is the two OS gates the app can't
+   open itself (unknown-sources + Android-13 restricted-settings) then hand off
+   to the app's own onboarding. See web/README.md + memory install-guide-page.
+   ══════════════════════════════════════════════════════════════════════════ */
+(function(){
+  'use strict';
+  var APP_LABEL = 'UPI Payment Alert';   // the service label in Settings
+
+  /* ── per-OEM Settings paths + gotchas (from the researched exact paths) ──
+     The app's onboarding mirrors this table in app/.../util/OemGuide.kt — edit both together. */
+  var OEM = {
+    pixel: { label:'Pixel / Stock',
+      unknown:['Settings','Apps','Special app access','Install unknown apps','[your browser]'],
+      access:['Settings','Accessibility','Downloaded apps', APP_LABEL],
+      /* real Pixel 8 Pro (Android 16) screenshots — cx/cy = callout centre as % of the image */
+      shots:{ unknown:{src:'assets/install/unknown_sources.png', cx:86, cy:53},
+              protect:{src:'assets/install/play_protect.png', cx:87, cy:21},
+              trip:{src:'assets/install/denied_access.png', cx:80, cy:63},
+              access:{src:'assets/install/a11y_capture.png', cx:85, cy:26} } },
+    samsung: { label:'Samsung',
+      unknown:['Settings','Security and privacy','Install unknown apps','[your browser]'],
+      access:['Settings','Accessibility','Installed apps', APP_LABEL],
+      gotchas:{ unknown:{t:'Turn off Auto Blocker first.', d:'Samsung’s <b>Auto Blocker</b> silently blocks all sideloading. Go to Settings → Security and privacy → Auto Blocker and switch it <b>off</b> (you can turn it back on after).'} } },
+    xiaomi: { label:'Xiaomi / Redmi / POCO',
+      unknown:['Settings','Apps','Special app access','Install unknown apps','[your browser]'],
+      access:['Settings','Accessibility', APP_LABEL],
+      gotchas:{ install:{t:'MIUI scans the file.', d:'MIUI / HyperOS runs a quick <b>virus scan</b> before installing. Wait for it, then tap <b>Install anyway</b> if it warns you.'},
+                finish:{t:'Re-check after a reboot.', d:'MIUI can <b>revoke Accessibility after a restart</b>. If capture ever goes quiet, just turn <b>“'+APP_LABEL+'”</b> back on.'} } },
+    oneplus: { label:'OnePlus',
+      unknown:['Settings','Apps','Special app access','Install unknown apps','[your browser]'],
+      access:['Settings','System','Accessibility', APP_LABEL] },
+    oppo: { label:'Oppo / Realme',
+      unknown:['Settings','Apps','Special app access','Install unknown apps','[your browser]'],
+      access:['Settings','Accessibility', APP_LABEL],
+      gotchas:{ finish:{t:'Allow it to run in the background.', d:'ColorOS is aggressive about battery — in Settings → Battery, allow the app to <b>run in the background</b> so it doesn’t miss payments.'} } },
+    vivo: { label:'Vivo / iQOO',
+      unknown:['Settings','More settings','Permission management','Install unknown apps','[your browser]'],
+      access:['Settings','Shortcuts & Accessibility','Accessibility', APP_LABEL] },
+    motorola: { label:'Motorola',
+      unknown:['Settings','Apps','Special app access','Install unknown apps','[your browser]'],
+      access:['Settings','Accessibility', APP_LABEL] },
+    other: { label:'Other Android',
+      unknown:['Settings','Apps','Special app access','Install unknown apps','[your browser]'],
+      access:['Settings','Accessibility', APP_LABEL],
+      approx:true }
+  };
+  var OEM_ORDER = ['pixel','samsung','xiaomi','oneplus','oppo','vivo','motorola','other'];
+
+  /* ── the steps (rendered per-OEM + Android version; n is assigned by position below) ── */
+  function stepsFor(oem, verNew){
+    var d = OEM[oem];
+    var s = [];
+    s.push({ id:'unknown', title:'Let your phone install the file',
+      lead:'Android only installs apps from the Play Store by default. Give your browser (or Files app) a one-time OK to install this download.',
+      path:d.unknown, gotcha:d.gotchas&&d.gotchas.unknown,
+      mock:screen('Install unknown apps', [row(pickLast(d.unknown),true,true), row('Play Store',false,false), row('Files',false,false)], 1) });
+    s.push({ id:'protect', title:'Turn off Play Protect scanning',
+      lead:'Play Protect blocks apps that aren’t from the Play Store. Open the <b>Play Store</b> → your <b>profile picture</b> → <b>Play Protect</b> → <b>⚙</b>, and switch off <b>Scan apps with Play Protect</b>.',
+      path:['Play Store','Profile','Play Protect','⚙ Settings','Scan apps with Play Protect'],
+      note:'Turn it back on right after installing — everything keeps working.',
+      mock:screen('Play Protect settings', [row('Scan apps with Play Protect',true,true), row('Improve harmful app detection',false,true)], 1) });
+    s.push({ id:'install', title:'Open the file and tap Install',
+      lead:'Open the downloaded <b>.apk</b> from your notifications or Files and tap <b>Install</b>. If a Play Protect warning still pops up, tap <b>Install anyway</b> (or <b>More details → Install anyway</b>) — it only means the app isn’t from the Play Store.',
+      gotcha:d.gotchas&&d.gotchas.install,
+      mock:screen('UPI Payment Alert', [rowText('Do you want to install this app?')], null, {install:true}) });
+    if(verNew){
+      /* Android 13+ hides the "Allow restricted settings" menu item until the user has tapped the
+         blocked accessibility toggle once. So the order MUST be: trip the block, THEN unlock.
+         (The app's own onboarding walks these same steps in this same order.) */
+      s.push({ id:'trip', title:'Tap the capture switch once',
+        lead:'Go to Accessibility, find <b>“'+APP_LABEL+'”</b> and tap it. Your phone will say <b>“App was denied access”</b> (on older Androids: “Restricted setting”). That popup is expected. It is what unlocks the next step. Tap <b>Close</b>.',
+        path:d.access, gotcha:d.gotchas&&d.gotchas.trip,
+        mock:screen('Accessibility', [rowText('App was denied access',true)], null, {}) });
+      s.push({ id:'restricted', title:'Allow restricted settings',
+        lead:'Now the hidden option exists. Open the app’s info page, tap the <b>⋮ menu</b> at the top right, and choose <b>Allow restricted settings</b>. Confirm with your PIN or fingerprint.',
+        path:['App info','⋮ menu','Allow restricted settings'],
+        note:'Don’t see it in the menu? Go back one step and tap the capture switch until the denied popup shows, then try again.',
+        mock:screen('App info', [rowText(APP_LABEL,true)], null, {menu:['Uninstall','Force stop','Allow restricted settings'], menuTarget:2}) });
+    }
+    s.push({ id:'access', title:'Turn on capture',
+      lead:'This is the switch that lets the app read your payment confirmation screens (text only — no screenshots, nothing leaves your phone). Find <b>“'+APP_LABEL+'”</b> and switch it on.',
+      path:d.access, note:'Tip: once the app is open, it can jump you straight here — just tap the prompt it shows you.',
+      mock:screen(pen(d.access[1]), [row(APP_LABEL,true,true)], 1, {tall:true}) });
+    s.push({ id:'finish', title:'Let the app finish setting up',
+      lead:'Open the app and follow its short setup — it’ll ask to read your bank’s SMS and to keep running in the background. Tap <b>Allow</b> on each. That’s the last of it.',
+      gotcha:d.gotchas&&d.gotchas.finish,
+      mock:screen('UPI Payment Alert', [rowText('Allow UPI Payment Alert to announce incoming payment alerts?')], null, {allow:true}) });
+    s.forEach(function(st,i){ st.n = i+1; });
+    return s;
+  }
+
+  /* ── tiny on-brand phone-screen mockup renderer (inline SVG) ──
+     rows: [{label, target, toggle}] · target draws the magenta highlight ── */
+  function row(label,target,toggle){ return {label:label,target:!!target,toggle:toggle}; }
+  function rowText(label,target){ return {label:label,target:!!target,text:true}; }
+  function pickLast(arr){ return arr[arr.length-1]; }
+  function pen(s){ return s; }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function screen(title, rows, calloutRow, opt){
+    opt = opt||{};
+    var W=300, H=620, r=30;
+    var svg='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+esc(title)+' screen">';
+    svg+='<defs><linearGradient id="scr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1f6e"/><stop offset="1" stop-color="#140c38"/></linearGradient></defs>';
+    svg+='<rect x="1" y="1" width="'+(W-2)+'" height="'+(H-2)+'" rx="'+r+'" fill="url(#scr)" stroke="rgba(255,255,255,.14)"/>';
+    svg+='<rect x="120" y="18" width="60" height="7" rx="3.5" fill="rgba(255,255,255,.22)"/>';           // status pill
+    svg+='<text x="26" y="70" fill="#fff" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="19">'+esc(title)+'</text>';
+    var y=104, calloutXY=null;
+    if(opt.install||opt.allow){
+      // a system dialog card
+      svg+='<rect x="24" y="150" width="252" height="300" rx="20" fill="rgba(16,10,44,.9)" stroke="rgba(255,255,255,.14)"/>';
+      svg+='<circle cx="150" cy="205" r="26" fill="none" stroke="rgba(232,36,157,.9)" stroke-width="2.5"/>';
+      svg+='<path d="M138 205l8 8 16-16" fill="none" stroke="#E8249D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
+      svg+=wrapText(rows[0].label, 150, 258, 210, 13, 'rgba(255,255,255,.82)', 'middle');
+      var bl=opt.install?'Install':'Allow';
+      svg+='<rect x="150" y="392" width="104" height="40" rx="20" fill="url(#scr)" stroke="rgba(232,36,157,.9)"/>';
+      svg+='<rect x="150" y="392" width="104" height="40" rx="20" fill="rgba(232,36,157,.22)"/>';
+      svg+='<text x="202" y="417" fill="#fff" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="14" text-anchor="middle">'+bl+'</text>';
+      svg+='<rect x="46" y="392" width="94" height="40" rx="20" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.14)"/>';
+      svg+='<text x="93" y="417" fill="rgba(255,255,255,.7)" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="14" text-anchor="middle">Cancel</text>';
+      calloutXY={x:254,y:412};
+    } else if(opt.menu){
+      // App-info overflow menu
+      var mx=112, mw=172, my=96;
+      svg+='<rect x="'+mx+'" y="'+my+'" width="'+mw+'" height="'+(opt.menu.length*44+10)+'" rx="14" fill="rgba(16,10,44,.97)" stroke="rgba(255,255,255,.16)"/>';
+      for(var i=0;i<opt.menu.length;i++){
+        var ty=my+30+i*44, tgt=(i===opt.menuTarget);
+        if(tgt) svg+='<rect x="'+(mx+6)+'" y="'+(ty-22)+'" width="'+(mw-12)+'" height="38" rx="9" fill="rgba(232,36,157,.18)" stroke="rgba(232,36,157,.85)"/>';
+        svg+='<text x="'+(mx+18)+'" y="'+ty+'" fill="'+(tgt?'#fff':'rgba(255,255,255,.8)')+'" font-family="Inter,sans-serif" font-weight="'+(tgt?600:400)+'" font-size="12">'+esc(opt.menu[i])+'</text>';
+        if(tgt) calloutXY={x:mx+mw,y:ty-3};
+      }
+      // three-dot hint top-right
+      svg+='<circle cx="268" cy="52" r="2.4" fill="#fff"/><circle cx="268" cy="60" r="2.4" fill="#fff"/><circle cx="268" cy="68" r="2.4" fill="#fff"/>';
+      // faint app row behind
+      svg+='<rect x="24" y="150" width="252" height="1" fill="rgba(255,255,255,.08)"/>';
+    } else {
+      // a list of setting rows
+      for(var j=0;j<rows.length;j++){
+        var rr=rows[j], ry=y+j*(opt.tall?86:74);
+        var rh=opt.tall?70:60;
+        if(rr.target) svg+='<rect x="18" y="'+ry+'" width="264" height="'+rh+'" rx="16" fill="rgba(232,36,157,.14)" stroke="rgba(232,36,157,.8)"/>';
+        else svg+='<rect x="18" y="'+ry+'" width="264" height="'+rh+'" rx="16" fill="rgba(255,255,255,.03)"/>';
+        // icon dot
+        svg+='<circle cx="46" cy="'+(ry+rh/2)+'" r="13" fill="rgba(255,255,255,.07)"/>';
+        if(rr.target) svg+='<circle cx="46" cy="'+(ry+rh/2)+'" r="13" fill="none" stroke="rgba(232,36,157,.9)" stroke-width="1.6"/>';
+        // label (wrap if long)
+        svg+=wrapText(rr.label, 70, ry+(opt.tall?26:24), 150, 13, '#fff', 'start', rr.target?700:500);
+        // toggle
+        if(rr.toggle!==undefined){
+          var on=rr.target; var tx=250;
+          svg+='<rect x="'+(tx-2)+'" y="'+(ry+rh/2-11)+'" width="34" height="22" rx="11" fill="'+(on?'#E8249D':'rgba(255,255,255,.14)')+'"/>';
+          svg+='<circle cx="'+(on?tx+21:tx+7)+'" cy="'+(ry+rh/2)+'" r="8" fill="#fff"/>';
+        }
+        if(rr.target && calloutRow!==null) calloutXY={x:284,y:ry+rh/2};
+      }
+    }
+    svg+='</svg>';
+    return {svg:svg, callout:calloutXY};
+  }
+
+  /* simple SVG text wrapper (word-based) */
+  function wrapText(text, x, y, maxw, size, fill, anchor, weight){
+    anchor=anchor||'start'; weight=weight||500;
+    var words=String(text).split(' '), lines=[], line='';
+    var cpl=Math.max(6, Math.floor(maxw/(size*0.52)));
+    for(var i=0;i<words.length;i++){
+      var t=(line?line+' ':'')+words[i];
+      if(t.length>cpl && line){ lines.push(line); line=words[i]; } else line=t;
+    }
+    if(line) lines.push(line);
+    var out='';
+    for(var k=0;k<lines.length;k++){
+      out+='<text x="'+x+'" y="'+(y+k*(size+4))+'" fill="'+fill+'" font-family="Inter,sans-serif" font-size="'+size+'" font-weight="'+weight+'" text-anchor="'+anchor+'">'+esc(lines[k])+'</text>';
+    }
+    return out;
+  }
+
+  /* ── render ── */
+  var state = { oem:'pixel', verNew:true };
+  var stepsEl = document.getElementById('steps');
+
+  function pathHTML(segs){
+    var h='<div class="path">';
+    for(var i=0;i<segs.length;i++){
+      var last=(i===segs.length-1);
+      h+='<span class="'+(last?'target':'seg')+'">'+esc(segs[i])+'</span>';
+      if(!last) h+='<span class="arrow">›</span>';
+    }
+    return h+'</div>';
+  }
+  function warnSVG(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>'; }
+
+  function render(){
+    var d = OEM[state.oem];
+    var steps = stepsFor(state.oem, state.verNew);
+    var html='';
+    for(var i=0;i<steps.length;i++){
+      var s=steps[i];
+      html+='<article class="step"><div class="step-grid"><div class="step-body">';
+      html+='<div class="step-head"><div class="step-num">'+s.n+'</div><div class="step-title">'+s.title+'</div></div>';
+      html+='<p class="step-lead">'+s.lead+'</p>';
+      if(s.path) html+=pathHTML(s.path);
+      if(s.gotcha) html+='<div class="gotcha">'+warnSVG()+'<div><b>'+esc(s.gotcha.t)+'</b> '+s.gotcha.d+'</div></div>';
+      if(s.note) html+='<p class="note">'+s.note+'</p>';
+      html+='</div>';
+      // visual — a real Pixel screenshot when we have one for this step, else the on-brand mockup
+      var shot = d.shots && d.shots[s.id];
+      var vis='<div class="step-visual"><div class="phone">';
+      if(shot){
+        vis+='<span class="shot-tag real">Pixel 8 Pro</span>';
+        vis+='<img class="realshot" src="'+shot.src+'" alt="'+esc(s.title)+' — real Pixel screenshot" loading="lazy" />';
+        vis+='<span class="callout" style="left:'+shot.cx+'%;top:'+shot.cy+'%;transform:translate(-50%,-50%)">'+s.n+'</span>';
+      } else {
+        vis+='<span class="shot-tag">Illustration</span>';
+        vis+=s.mock.svg;
+        if(s.mock.callout) vis+='<span class="callout" style="left:'+(s.mock.callout.x/300*100)+'%;top:'+(s.mock.callout.y/620*100)+'%;transform:translate(-50%,-50%)">'+s.n+'</span>';
+        if(state.oem!=='pixel') vis+='<span class="approx">Your screen may look a little different</span>';
+      }
+      vis+='</div></div>';
+      html+=vis+'</div></article>';
+    }
+    stepsEl.innerHTML=html;
+  }
+
+  /* ── chips ── */
+  var chipsEl=document.getElementById('oemChips');
+  OEM_ORDER.forEach(function(k){
+    var b=document.createElement('button');
+    b.className='chip'; b.type='button'; b.textContent=OEM[k].label;
+    b.setAttribute('aria-pressed', k===state.oem?'true':'false');
+    b.dataset.oem=k;
+    b.addEventListener('click', function(){ setOem(k); });
+    chipsEl.appendChild(b);
+  });
+  function setOem(k){
+    state.oem=k;
+    [].forEach.call(chipsEl.children,function(b){ b.setAttribute('aria-pressed', b.dataset.oem===k?'true':'false'); });
+    render();
+  }
+
+  /* ── version toggle ── */
+  var verSeg=document.getElementById('verSeg');
+  [].forEach.call(verSeg.children,function(b){
+    b.addEventListener('click', function(){
+      state.verNew=(b.dataset.ver==='new');
+      [].forEach.call(verSeg.children,function(x){ x.setAttribute('aria-pressed', x===b?'true':'false'); });
+      document.getElementById('verHint').textContent = state.verNew? '' : 'Nice — older Android skips the security-unlock step.';
+      render();
+    });
+  });
+
+  /* ── detection ── */
+  function oemFromModel(model){
+    if(!model) return null;
+    var m=model.toLowerCase();
+    if(/pixel/.test(m)) return 'pixel';
+    if(/^sm-|samsung|galaxy/.test(m)) return 'samsung';
+    if(/redmi|poco|xiaomi|^m2\d|^2\d{3}|^24\d|^23\d/.test(m)) return 'xiaomi';
+    if(/oneplus|^in2\d|^cph2/.test(m)) return 'oneplus';
+    if(/^rmx|realme|^cph|oppo/.test(m)) return 'oppo';
+    if(/vivo|iqoo|^v2\d/.test(m)) return 'vivo';
+    if(/moto|motorola/.test(m)) return 'motorola';
+    return null;
+  }
+  function applyDetect(model, ver){
+    var res=document.getElementById('detectResult'), txt=document.getElementById('detectText');
+    var oem=oemFromModel(model);
+    var vNum=parseInt(ver,10);
+    if(oem){ setOem(oem); }
+    if(!isNaN(vNum)){
+      state.verNew=(vNum>=13);
+      [].forEach.call(verSeg.children,function(x){ x.setAttribute('aria-pressed', (x.dataset.ver==='new')===state.verNew?'true':'false'); });
+      render();
+    }
+    var name = model || (oem?OEM[oem].label:null);
+    if(name){
+      txt.textContent = 'You’re on '+name + (isNaN(vNum)?'':' · Android '+vNum) + ' — showing your steps';
+      res.classList.add('show');
+    } else {
+      txt.textContent = 'Couldn’t read your phone — pick your brand below';
+      res.classList.add('show');
+    }
+  }
+  document.getElementById('detectBtn').addEventListener('click', function(){
+    if(navigator.userAgentData && navigator.userAgentData.getHighEntropyValues){
+      navigator.userAgentData.getHighEntropyValues(['model','platformVersion']).then(function(u){
+        // platformVersion is the Android major (e.g. "16.0.0")
+        applyDetect(u.model, (u.platformVersion||'').split('.')[0]);
+      }).catch(function(){ fromUA(); });
+    } else { fromUA(); }
+  });
+  function fromUA(){
+    var ua=navigator.userAgent||'';
+    var mv=ua.match(/Android\s+([\d]+)/);
+    var mm=ua.match(/Android\s+[\d.]+;\s*([^;)]+?)(?:\s+Build|[;)])/);
+    var model = mm? mm[1].trim() : null;
+    // strip trailing model-code in parens
+    if(model) model=model.replace(/\s*\)+$/,'').trim();
+    applyDetect(model, mv?mv[1]:null);
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>

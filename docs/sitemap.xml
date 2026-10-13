@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://official-arvind.github.io/UPIPaymentAlert/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://official-arvind.github.io/UPIPaymentAlert/assets/app_logo.png</image:loc>
+      <image:title>UPI Payment Alert — Instant Voice Soundbox &amp; On-Device Ledger</image:title>
+    </image:image>
+  </url>
+
+  <!-- Download Page -->
+  <url>
+    <loc>https://official-arvind.github.io/UPIPaymentAlert/download.html</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Install Guide -->
+  <url>
+    <loc>https://official-arvind.github.io/UPIPaymentAlert/install.html</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Versions / Changelog -->
+  <url>
+    <loc>https://official-arvind.github.io/UPIPaymentAlert/versions.html</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://official-arvind.github.io/UPIPaymentAlert/privacy.html</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Versions · UPI Payment Alert &amp; Soundbox</title>
+<meta name="description" content="What changed in each version of UPI Payment Alert, newest first." />
+<meta property="og:title" content="Versions · UPI Payment Alert" />
+<meta property="og:description" content="What changed in each version, newest first." />
+<meta property="og:type" content="website" />
+<link rel="icon" type="image/png" href="assets/app_logo.png" />
+<!-- fonts vendored locally: the page must survive blocked CDNs -->
+<link href="vendor/fonts.css" rel="stylesheet">
+<!-- Vercel Web Analytics (first-party path; silent 404 off-Vercel) -->
+<!-- GitHub Pages Analytics ready -->
+<style>
+/* tokens: mirror landing.html :root */
+:root{
+  --bg:#1B1147; --bg-deep:#140C38; --bg-abyss:#0a0622;
+  --text:#FFFFFF; --text2:#B4ACEC; --text3:#9C91AC;
+  --credit:#3DDC97; --debit:#FF7A8A;
+  --amber:#F6A037; --coral:#ED6266; --magenta:#E8249D; --violet:#6D59DB;
+  --glass:rgba(255,255,255,.06); --glass-strong:rgba(255,255,255,.10);
+  --hair:rgba(255,255,255,.12); --hair-soft:rgba(255,255,255,.07);
+  --aurora:linear-gradient(125deg,#F6A037 0%,#ED6266 32%,#E8249D 62%,#6D59DB 100%);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --el-float:0 14px 34px -10px rgba(232,36,157,.55);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Space Grotesk','Inter',system-ui,-apple-system,sans-serif;color:var(--text);background:var(--bg-abyss);
+  min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.5}
+body::before{content:"";position:fixed;inset:0;z-index:-1;
+  background:radial-gradient(150% 90% at 50% -10%,#221950 0%,var(--bg-deep) 46%,var(--bg-abyss) 100%)}
+.aurora{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+.blob{position:absolute;border-radius:50%;filter:blur(80px)}
+.bl-m{width:46vw;height:46vw;background:var(--magenta);opacity:.14;top:-16vw;right:-12vw}
+.bl-v{width:42vw;height:42vw;background:var(--violet);opacity:.14;top:52vh;left:-18vw}
+.grain{position:fixed;inset:-50%;z-index:55;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+.nw{white-space:nowrap}
+.tab{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+::selection{background:rgba(232,36,157,.4)}
+
+/* nav: same as install.html */
+.sitenav{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
+  max-width:1180px;margin:0 auto;padding:18px clamp(18px,5vw,44px);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:#fff;font-weight:700;font-size:16.5px;letter-spacing:-.01em}
+.brand .mark{width:30px;height:30px;border-radius:9px;display:block;box-shadow:var(--el-float)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.nav-cta{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:#fff;text-decoration:none;
+  background:rgba(16,10,44,.72);border:1px solid var(--hair);padding:9px 16px;border-radius:999px;
+  transition:transform .16s var(--ease),background .2s}
+.nav-cta:hover{transform:translateY(-1px);background:rgba(28,18,72,.85)}
+.nav-cta .dl{width:15px;height:15px}
+.nav-back{font-size:13px;font-weight:600;color:var(--text2);text-decoration:none;padding:9px 6px;transition:color .2s}
+.nav-back:hover{color:#fff}
+
+.wrap{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:clamp(28px,6vh,56px) clamp(18px,5vw,44px) 56px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text2)}
+h1{font-family:'Space Grotesk';font-weight:700;letter-spacing:-.035em;line-height:1.05;
+  font-size:clamp(34px,6vw,52px);margin-top:10px}
+h1 .hl{background:var(--aurora);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{margin-top:12px;font-size:16px;color:var(--text2);max-width:520px}
+
+/* the current version */
+.current{margin-top:34px;border-radius:26px;padding:26px clamp(20px,4vw,32px);
+  background:rgba(13,9,32,.78);border:1px solid var(--hair);position:relative;overflow:hidden;
+  box-shadow:0 26px 70px -30px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.07)}
+.current::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--aurora)}
+.vhead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.vnum{font-family:'Space Grotesk';font-weight:700;letter-spacing:-.02em}
+.current .vnum{font-size:clamp(28px,4.4vw,36px)}
+.badge{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--credit);
+  border:1px solid rgba(61,220,151,.45);background:rgba(61,220,151,.08);border-radius:999px;padding:3px 10px;align-self:center}
+.vdate{font-size:13px;color:var(--text3)}
+.vmeta{margin-top:4px;font-size:13px;color:var(--text3)}
+.notes{margin-top:16px;display:flex;flex-direction:column;gap:9px;list-style:none}
+.notes li{position:relative;padding-left:20px;font-size:14.5px;color:var(--text2);line-height:1.55}
+.notes li::before{content:"";position:absolute;left:3px;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--aurora)}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:inherit;font-weight:600;font-size:15px;
+  padding:14px 24px;border-radius:999px;cursor:pointer;text-decoration:none;color:#fff;border:1px solid transparent;white-space:nowrap;
+  transition:transform .16s var(--ease),filter .16s var(--ease),background .2s}
+.btn svg{width:18px;height:18px}
+.btn-primary{background:var(--aurora);box-shadow:var(--el-float)}
+.btn-primary:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn-ghost{background:rgba(255,255,255,.08);border-color:var(--hair)}
+.btn-ghost:hover{transform:translateY(-2px);background:rgba(255,255,255,.14)}
+
+/* earlier versions */
+h2{font-family:'Space Grotesk';font-weight:700;font-size:clamp(20px,2.8vw,24px);letter-spacing:-.02em;margin-top:48px}
+.list{margin-top:14px;border-radius:22px;border:1px solid var(--hair);background:rgba(13,9,32,.55)}
+.ver{padding:20px clamp(18px,3.6vw,26px)}
+.ver + .ver{border-top:1px solid var(--hair-soft)}
+.ver .vnum{font-size:19px}
+.ver .vhead{justify-content:space-between}
+.vleft{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.gh{font-size:13px;font-weight:600;color:var(--text2);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.gh:hover{color:#fff}
+.ver .notes{margin-top:10px;gap:6px}
+.ver .notes li{font-size:14px}
+.ver .notes li::before{background:var(--text3)}
+.endnote{margin-top:18px;font-size:13.5px;color:var(--text3)}
+.endnote a{color:var(--text2);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.endnote a:hover{color:#fff}
+.pagefoot{text-align:center;color:var(--text3);font-size:12.5px;margin-top:46px}
+.pagefoot a{color:var(--text2)}
+
+@media (max-width:560px){
+  .nav-back{display:none}
+  .btn{width:100%;justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.nav-cta{transition:none}}
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><span class="blob bl-m"></span><span class="blob bl-v"></span></div>
+<div class="grain" aria-hidden="true"></div>
+
+<nav class="sitenav">
+  <a class="brand" href="./index.html" aria-label="UPI Payment Alert"><img class="mark" src="assets/app_logo.png" alt="UPI Payment Alert" width="30" height="30" /></a>
+  <div class="nav-actions">
+    <a class="nav-back" href="./index.html">← Home</a>
+    <a class="nav-back" href="./privacy.html">Privacy</a>
+    <a class="nav-cta" href="./download.html">
+      <svg class="dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+      Download APK</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <span class="eyebrow">What's new</span>
+  <h1>Every <span class="hl">version</span>, newest first.</h1>
+  <p class="lead">What changed in each release of UPI Payment Alert &amp; Soundbox. Updating keeps your data: install the new version over the old one.</p>
+
+  <article class="current" aria-labelledby="v102">
+    <div class="vhead">
+      <h2 class="vnum" id="v102" style="margin-top:0">v1.0.2</h2>
+      <span class="badge">Current</span>
+      <time class="vdate" datetime="2026-10-13">13 Oct 2026</time>
+    </div>
+    <p class="vmeta tab">5.1 MB · Android 8.0+ · Official Release</p>
+    <ul class="notes">
+      <li><b>Precision Forensic Parser Overhaul:</b> Upgraded regex engine based on production sync forensic audits; eliminated misclassification edge cases across all major UPI apps and banks.</li>
+      <li><b>FamPay Credit Soundbox Engine:</b> Added native parser support for FamPay <code>#fampaid</code> alerts with precise sender name and amount extraction.</li>
+      <li><b>Loan &amp; Bill False Positive Elimination:</b> Filtered out lender repayment acknowledgments (KreditBee, NBFCs), LPG gas refill bookings, policy renewal alerts, and gamification coin notifications.</li>
+      <li><b>Merchant Counterparty Accuracy:</b> Fixed PhonePe notification title masking to announce true sender names and preserved critical educational/tuition fee debits.</li>
+      <li><b>Zero-Spam Fallback Protection:</b> Eliminated zero-amount unconfirmed transaction fallbacks in Notification Listener and SMS Processing Worker.</li>
+    </ul>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="./download.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Download v1.0.2</a>
+      <a class="btn btn-ghost" href="./install.html">Install guide</a>
+    </div>
+  </article>
+
+  <h2 id="earlier">Earlier versions</h2>
+  <div class="list">
+    <article class="ver" aria-labelledby="v101">
+      <div class="vhead"><div class="vleft"><h3 class="vnum" id="v101">v1.0.1</h3><time class="vdate" datetime="2026-10-12">12 Oct 2026</time></div></div>
+      <ul class="notes">
+        <li><b>Instant Voice Soundbox:</b> Spoken payment alerts in Hindi, English, and regional accents for PhonePe, Google Pay, Paytm, BHIM, Cred, and Bank SMS.</li>
+        <li><b>Dual-Channel Engine:</b> Notification listener paired with offline raw Bank SMS parser (SBI, HDFC, ICICI, Axis, PNB, BOB, Kotak, Canara, IDBI, IndusInd).</li>
+        <li><b>Bluetooth Speaker Booster:</b> Volume override ensures loud alerts over shop Bluetooth or USB speakers even when the phone is on silent.</li>
+        <li><b>100% On-Device Offline Privacy:</b> Encrypted local SQLite ledger, zero analytics, zero data upload to third-party servers.</li>
+        <li><b>Dual Editions:</b> Shipped as Complete Edition (SMS + Notification Soundbox) and Play Store Edition (Notification-only).</li>
+      </ul>
+    </article>
+    <article class="ver" aria-labelledby="v100">
+      <div class="vhead"><div class="vleft"><h3 class="vnum" id="v100">v1.0.0</h3><time class="vdate" datetime="2026-09-28">28 Sep 2026</time></div></div>
+      <ul class="notes">
+        <li>Initial release of UPI Payment Alert voice soundbox engine.</li>
+        <li>Real-time speech announcement synthesis with multi-language voice engine.</li>
+        <li>On-device SQLite merchant ledger with automatic credit/debit calculation.</li>
+        <li>Bluetooth auto-reconnect and media stream routing for shop counter speakers.</li>
+        <li>Backup and CSV export of local transaction history.</li>
+      </ul>
+    </article>
+  </div>
+
+  <p class="pagefoot">Crafted with ❤️ by Arvind Ji · <a href="./privacy.html">Privacy Policy</a> · <a href="./install.html">Install Guide</a> · <a href="./download.html">Download APK</a></p>
+</main>
+</body>
+</html>

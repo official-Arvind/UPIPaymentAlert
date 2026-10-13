@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Privacy Policy — UPI Payment Alert &amp; Soundbox</title>
+<meta name="description" content="Privacy Policy for UPI Payment Alert &amp; Soundbox. 100% on-device processing, encrypted local SQLite ledger, zero cloud tracking." />
+<meta property="og:title" content="Privacy Policy — UPI Payment Alert &amp; Soundbox" />
+<meta property="og:description" content="We build helpful tools, not data trackers. Your transactions stay 100% on your device." />
+<meta property="og:type" content="website" />
+<link rel="icon" type="image/png" href="assets/app_logo.png" />
+<link href="vendor/fonts.css" rel="stylesheet" />
+<style>
+:root{
+  --bg:#1B1147; --bg-deep:#140C38; --bg-abyss:#0a0622;
+  --text:#FFFFFF; --text2:#B4ACEC; --text3:#9C91AC;
+  --credit:#3DDC97; --debit:#FF7A8A;
+  --amber:#F6A037; --coral:#ED6266; --magenta:#E8249D; --violet:#6D59DB;
+  --glass:rgba(255,255,255,.06); --glass-strong:rgba(255,255,255,.10);
+  --hair:rgba(255,255,255,.12); --hair-soft:rgba(255,255,255,.07);
+  --aurora:linear-gradient(125deg,#F6A037 0%,#ED6266 32%,#E8249D 62%,#6D59DB 100%);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --el-float:0 14px 34px -10px rgba(232,36,157,.55);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Space Grotesk','Inter',system-ui,-apple-system,sans-serif;color:var(--text);background:var(--bg-abyss);
+  min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
+body::before{content:"";position:fixed;inset:0;z-index:-1;
+  background:radial-gradient(150% 90% at 50% -10%,#221950 0%,var(--bg-deep) 46%,var(--bg-abyss) 100%)}
+a{color:inherit}
+::selection{background:rgba(232,36,157,.4)}
+
+.aurora{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+.blob{position:absolute;border-radius:50%;filter:blur(80px)}
+.bl-m{width:46vw;height:46vw;background:var(--magenta);opacity:.15;top:-16vw;right:-12vw}
+.bl-v{width:42vw;height:42vw;background:var(--violet);opacity:.15;top:52vh;left:-18vw}
+.grain{position:fixed;inset:-50%;z-index:55;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+
+.sitenav{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
+  max-width:1180px;margin:0 auto;padding:18px clamp(18px,5vw,44px);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:#fff;font-weight:700;font-size:16.5px;letter-spacing:-.01em}
+.brand .mark{width:30px;height:30px;border-radius:9px;display:block;box-shadow:var(--el-float)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.nav-cta{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:#fff;text-decoration:none;
+  background:rgba(16,10,44,.72);border:1px solid var(--hair);padding:9px 16px;border-radius:999px;
+  transition:transform .16s var(--ease),background .2s}
+.nav-cta:hover{transform:translateY(-1px);background:rgba(28,18,72,.85)}
+.nav-cta .dl{width:15px;height:15px}
+.nav-back{font-size:13px;font-weight:600;color:var(--text2);text-decoration:none;padding:9px 6px;transition:color .2s}
+.nav-back:hover{color:#fff}
+
+.wrap{position:relative;z-index:2;max-width:820px;margin:0 auto;padding:clamp(28px,6vh,56px) clamp(18px,5vw,44px) 70px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text2)}
+.eyebrow::before{content:"";width:22px;height:1px;background:linear-gradient(to right,var(--magenta),var(--violet))}
+h1{font-family:'Space Grotesk';font-weight:700;letter-spacing:-.035em;line-height:1.05;
+  font-size:clamp(32px,5.4vw,50px);margin-top:12px}
+h1 .grad{background:var(--aurora);-webkit-background-clip:text;background-clip:text;color:transparent}
+.subhead{color:var(--text2);font-size:clamp(15px,1.8vw,17.5px);margin-top:14px;line-height:1.6}
+
+.summary-card{margin-top:32px;border-radius:24px;padding:26px clamp(20px,4vw,32px);
+  background:radial-gradient(120% 120% at 50% 30%,rgba(42,31,110,.7) 0%,rgba(20,12,56,.75) 100%);
+  border:1px solid var(--hair);box-shadow:0 24px 64px -28px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.1)}
+.sum-title{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--credit)}
+.sum-title svg{width:18px;height:18px;stroke:var(--credit);stroke-width:2.4;fill:none}
+.sum-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:18px}
+.sum-item{background:rgba(10,6,32,.6);border:1px solid var(--hair-soft);border-radius:16px;padding:16px}
+.sum-item .val{font-size:16px;font-weight:700;color:#fff}
+.sum-item .desc{font-size:12.5px;color:var(--text2);margin-top:4px}
+
+.content-block{margin-top:36px;display:flex;flex-direction:column;gap:28px}
+.section-card{border-radius:22px;padding:26px clamp(20px,3.6vw,30px);
+  background:rgba(13,9,32,.72);border:1px solid var(--hair);
+  box-shadow:0 20px 50px -26px rgba(0,0,0,.8)}
+.section-card h2{font-family:'Space Grotesk';font-size:clamp(20px,2.6vw,25px);font-weight:700;letter-spacing:-.02em;color:#fff}
+.section-card p{color:var(--text2);font-size:14.5px;margin-top:12px;line-height:1.65}
+.section-card p b{color:#fff}
+
+.perm-list{margin-top:16px;display:flex;flex-direction:column;gap:12px}
+.perm-item{background:rgba(255,255,255,.03);border:1px solid var(--hair-soft);border-radius:14px;padding:14px 16px}
+.perm-head{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;color:#fff}
+.perm-tag{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-left:auto}
+.tag-req{background:rgba(232,36,157,.18);color:#ff7dc9;border:1px solid rgba(232,36,157,.4)}
+.tag-opt{background:rgba(61,220,151,.15);color:var(--credit);border:1px solid rgba(61,220,151,.35)}
+.perm-desc{font-size:13px;color:var(--text2);margin-top:6px;line-height:1.55}
+
+.guarantee-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+@media (max-width:640px){.guarantee-grid{grid-template-columns:1fr}}
+.guarantee-item{background:rgba(61,220,151,.06);border:1px solid rgba(61,220,151,.25);border-radius:14px;padding:14px}
+.guarantee-item .gt{font-size:13.5px;font-weight:700;color:#eafff5;display:flex;align-items:center;gap:7px}
+.guarantee-item .gt svg{width:15px;height:15px;stroke:var(--credit);stroke-width:2.5;fill:none}
+.guarantee-item .gd{font-size:12px;color:var(--text2);margin-top:5px}
+
+.cta-box{margin-top:40px;text-align:center;padding:32px 24px;border-radius:24px;
+  background:linear-gradient(160deg,rgba(42,31,110,.5),rgba(20,12,56,.5));border:1px solid var(--hair)}
+.cta-box h3{font-family:'Space Grotesk';font-size:22px;font-weight:700}
+.cta-box p{color:var(--text2);font-size:14px;margin-top:8px}
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:inherit;font-weight:600;font-size:14.5px;
+  padding:13px 24px;border-radius:999px;cursor:pointer;text-decoration:none;color:#fff;border:1px solid transparent;white-space:nowrap;
+  transition:transform .16s var(--ease),filter .16s var(--ease),background .2s}
+.btn svg{width:17px;height:17px}
+.btn-primary{background:var(--aurora);box-shadow:var(--el-float)}
+.btn-primary:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn-ghost{background:rgba(255,255,255,.08);border-color:var(--hair)}
+.btn-ghost:hover{transform:translateY(-2px);background:rgba(255,255,255,.14)}
+
+footer{text-align:center;color:var(--text3);font-size:12.5px;margin-top:50px}
+footer a{color:var(--text2);text-decoration:underline;text-underline-offset:3px}
+footer a:hover{color:#fff}
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><span class="blob bl-m"></span><span class="blob bl-v"></span></div>
+<div class="grain" aria-hidden="true"></div>
+
+<nav class="sitenav">
+  <a class="brand" href="./index.html" aria-label="UPI Payment Alert"><img class="mark" src="assets/app_logo.png" alt="UPI Payment Alert" width="30" height="30" /></a>
+  <div class="nav-actions">
+    <a class="nav-back" href="./index.html">← Home</a>
+    <a class="nav-back" href="./install.html">Install guide</a>
+    <a class="nav-cta" href="./download.html">
+      <svg class="dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+      Download APK</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <span class="eyebrow">Trust &amp; Privacy First</span>
+  <h1>Privacy Policy for <span class="grad">UPI Payment Alert</span></h1>
+  <p class="subhead">We built UPI Payment Alert as a helpful, independent soundbox utility for Indian shopkeepers and merchants. We are not data hungry: your payments, customer names, and bank alerts never leave your phone.</p>
+
+  <div class="summary-card">
+    <div class="sum-title">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      The Core Privacy Guarantee
+    </div>
+    <div class="sum-grid">
+      <div class="sum-item">
+        <div class="val">100% On-Device</div>
+        <div class="desc">All notification and SMS parsing executes entirely in local device memory.</div>
+      </div>
+      <div class="sum-item">
+        <div class="val">Zero Remote Servers</div>
+        <div class="desc">We do not own, maintain, or send your data to any remote cloud databases.</div>
+      </div>
+      <div class="sum-item">
+        <div class="val">Local SQLite Ledger</div>
+        <div class="desc">Records are stored exclusively in your phone's private app sandbox.</div>
+      </div>
+      <div class="sum-item">
+        <div class="val">Zero Advertising SDKs</div>
+        <div class="desc">No trackers, no third-party analytic profiling, and no ad networks.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-block">
+    <section class="section-card">
+      <h2>1. Our Purpose: A Helpful Tool, Not a Surveillance Platform</h2>
+      <p>Traditional fintech hardware soundboxes require recurring monthly rentals (₹125–₹150/month) and stream your shop's turnover details into corporate analytics pipelines. <b>UPI Payment Alert &amp; Soundbox</b> was created by Arvind Ji to give merchants complete autonomy.</p>
+      <p>The app turns your existing Android smartphone into an offline soundbox speaker that speaks incoming payments out loud in Hindi, English, and regional accents without charging monthly rental fees and without collecting your financial records.</p>
+    </section>
+
+    <section class="section-card">
+      <h2>2. What Information Is Processed and Stored</h2>
+      <p>To provide voice announcements and a helpful merchant ledger, the app processes the following data:</p>
+      <ul style="margin:12px 0 0 20px;color:var(--text2);font-size:14px;line-height:1.7;">
+        <li><b>Payment Transaction Records:</b> Credit amount, customer/payer name (when provided by PhonePe, Google Pay, Paytm, or BHIM), timestamp, and payment application source.</li>
+        <li><b>Bank Transaction References:</b> Transaction reference number (UTR) or last 4 digits of the bank account credited, as received in official bank SMS alerts (e.g. SBI, HDFC, ICICI, Axis).</li>
+        <li><b>Merchant Customizations:</b> User-selected speech engine, announcement language (Hindi/English/Hinglish), Bluetooth volume boosts, and merchant categories.</li>
+        <li><b>Optional Store Counter Location:</b> If you manually enable counter mapping, location coordinates are stored locally to group payments by your counter or kiosk.</li>
+      </ul>
+      <p style="margin-top:14px;"><b>Where is this stored?</b> All records reside in an encrypted SQLite database stored in your phone's secure private directory (<code>/data/data/com.arvind.upipaymentalert/databases/</code>). No employee, developer, or external company has access to this data.</p>
+    </section>
+
+    <section class="section-card">
+      <h2>3. Device Permissions &amp; Why We Request Them</h2>
+      <p>Android requires explicit permissions for background soundbox operations. Here is an honest breakdown of every permission:</p>
+      
+      <div class="perm-list">
+        <div class="perm-item">
+          <div class="perm-head">
+            <span>Notification Access (NotificationListenerService)</span>
+            <span class="perm-tag tag-req">Required</span>
+          </div>
+          <div class="perm-desc">
+            Allows the app to listen for incoming payment notifications from PhonePe, Google Pay, Paytm, BHIM, Cred, and banking apps. When a payment notification arrives, the amount and sender are read to trigger the voice announcement. Non-payment notifications (personal chats, social media, OTPs, system alerts) are instantly discarded in memory.
+          </div>
+        </div>
+
+        <div class="perm-item">
+          <div class="perm-head">
+            <span>SMS Read Permission (RECEIVE_SMS / READ_SMS)</span>
+            <span class="perm-tag tag-opt">Complete Edition Only</span>
+          </div>
+          <div class="perm-desc">
+            Provides a vital offline dual-channel fallback. In crowded markets or areas with weak internet, push notifications often fail. The SMS parser reads incoming bank credit alerts directly so your soundbox still speaks. Personal text messages and OTPs are ignored. <em>(Note: The Play Store Edition does not request this permission).</em>
+          </div>
+        </div>
+
+        <div class="perm-item">
+          <div class="perm-head">
+            <span>Bluetooth &amp; Audio Routing</span>
+            <span class="perm-tag tag-opt">Optional</span>
+          </div>
+          <div class="perm-desc">
+            Enables the app to route spoken voice announcements to your shop's Bluetooth or USB soundbox speaker, and temporarily override silent mode so you never miss an alert in a noisy shop.
+          </div>
+        </div>
+
+        <div class="perm-item">
+          <div class="perm-head">
+            <span>Battery Optimization Exemption (REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)</span>
+            <span class="perm-tag tag-req">Required</span>
+          </div>
+          <div class="perm-desc">
+            Prevents Android OS battery savers from killing the soundbox background listener when your screen is locked.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <h2>4. Zero Data Sharing &amp; Third-Party Services</h2>
+      <div class="guarantee-grid">
+        <div class="guarantee-item">
+          <div class="gt"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>No Analytics SDKs</div>
+          <div class="gd">We do not integrate Google Firebase Analytics, Facebook SDK, or adjust trackers in production builds.</div>
+        </div>
+        <div class="guarantee-item">
+          <div class="gt"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>No Cloud Transmission</div>
+          <div class="gd">The app operates without making outbound HTTP requests with your financial turnover.</div>
+        </div>
+        <div class="guarantee-item">
+          <div class="gt"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>No Data Monetization</div>
+          <div class="gd">We never sell, rent, broker, or monetize your transaction histories or customer lists.</div>
+        </div>
+        <div class="guarantee-item">
+          <div class="gt"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Local Speech Engines</div>
+          <div class="gd">TTS voice synthesis runs on Android's built-in offline speech system (e.g. Google TTS offline voice pack).</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <h2>5. Your Rights: Full Ownership &amp; Data Deletion</h2>
+      <p>Because your records live entirely on your own phone, you retain 100% control:</p>
+      <ul style="margin:12px 0 0 20px;color:var(--text2);font-size:14px;line-height:1.7;">
+        <li><b>Export Anytime:</b> You can generate clean CSV or HTML statements of your collections directly from the app's settings menu.</li>
+        <li><b>Manual Deletion:</b> You can delete individual transactions or reset the entire ledger at any time.</li>
+        <li><b>Permanent Removal:</b> Uninstalling the application from your Android phone instantly purges the local SQLite database and all cached files.</li>
+      </ul>
+    </section>
+
+    <section class="section-card">
+      <h2>6. Security Measures</h2>
+      <p>The application relies on Android's application sandboxing architecture. No other application installed on your device can read the private SQLite database without root privileges. Backups exported by the user are saved only to locations explicitly selected via the Android Storage Access Framework (SAF).</p>
+    </section>
+
+    <section class="section-card">
+      <h2>7. Contact and Support</h2>
+      <p>If you have any questions about this Privacy Policy or wish to provide feedback on merchant features, please contact Arvind Ji:</p>
+      <p style="margin-top:10px;">
+        <b>Developer:</b> Arvind Ji<br/>
+        <b>Application:</b> UPI Payment Alert &amp; Soundbox<br/>
+        <b>Website:</b> <a href="https://official-arvind.github.io/UPIPaymentAlert/" style="color:var(--credit);text-decoration:underline;">official-arvind.github.io/UPIPaymentAlert/</a><br/>
+        <b>Last Updated:</b> October 2026
+      </p>
+    </section>
+  </div>
+
+  <div class="cta-box">
+    <h3>Ready to turn your phone into a private soundbox?</h3>
+    <p>Zero rental fees. 100% offline privacy. Spoken voice alerts in seconds.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="./download.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Download APK</a>
+      <a class="btn btn-ghost" href="./install.html">Install Guide</a>
+    </div>
+  </div>
+
+  <footer>
+    Crafted with ❤️ by Arvind Ji · <a href="./index.html">Home</a> · <a href="./install.html">Install Guide</a> · <a href="./versions.html">Changelog</a>
+  </footer>
+</main>
+</body>
+</html>
