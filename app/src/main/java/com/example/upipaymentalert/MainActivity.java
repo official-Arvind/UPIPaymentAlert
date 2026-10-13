@@ -89,9 +89,17 @@ public class MainActivity extends AppCompatActivity {
     };
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.applyLocale(newBase));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Pre-warm Google TTS & Indian language voices (ported from C/S TtsEngineHelper.kt)
+        TtsEngineHelper.prewarmAndPrepareVoiceData(this);
 
         initMainUI();
     }
@@ -881,10 +889,10 @@ public class MainActivity extends AppCompatActivity {
         TextView langSubtitle = findViewById(R.id.app_language_subtitle_tv);
         if (langBtn == null) return;
 
-        String[] options = {"English", "हिंदी (Hindi)", "ગુજરાતી (Gujarati)", "मराठी (Marathi)", "தமிழ் (Tamil)", "తెలుగు (Telugu)", "বাংলা (Bengali)"};
-        String[] codes   = {"en",      "hi",            "gu",                 "mr",              "ta",            "te",              "bn"};
+        String[] options = LocaleHelper.SUPPORTED_NAMES;
+        String[] codes   = LocaleHelper.SUPPORTED_CODES;
 
-        String current = prefs.getString("app_ui_language", "en");
+        String current = LocaleHelper.getLanguage(this);
         String currentName = "English";
         for (int i = 0; i < codes.length; i++) {
             if (codes[i].equals(current)) {
@@ -910,11 +918,7 @@ public class MainActivity extends AppCompatActivity {
                     .setSingleChoiceItems(options, startIdx, (dialog, which) -> selected[0] = which)
                     .setPositiveButton("Apply", (dialog, which) -> {
                         String chosenCode = codes[selected[0]];
-                        prefs.edit().putString("app_ui_language", chosenCode).apply();
-
-                        AppCompatDelegate.setApplicationLocales(
-                                LocaleListCompat.forLanguageTags(chosenCode)
-                        );
+                        LocaleHelper.setAppLanguage(this, chosenCode, true);
                     })
                     .setNegativeButton("Cancel", null)
                     .show();

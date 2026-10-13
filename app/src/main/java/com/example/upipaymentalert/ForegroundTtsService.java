@@ -67,13 +67,17 @@ public class ForegroundTtsService extends Service {
             Log.w(TAG, "Could not generate audio session ID: " + e.getMessage());
         }
 
+        String preferredEngine = null;
+        if (TtsEngineHelper.isGoogleTtsInstalled(getApplicationContext())) {
+            preferredEngine = TtsEngineHelper.GOOGLE_TTS_PACKAGE;
+        }
         tts = new TextToSpeech(getApplicationContext(), status -> {
             if (status != TextToSpeech.ERROR) {
                 tts.setLanguage(new Locale("en", "IN"));
                 applyAudioAttributes();
                 setupTtsListener();
             }
-        });
+        }, preferredEngine);
     }
 
     private void applyAudioAttributes() {
@@ -253,6 +257,24 @@ public class ForegroundTtsService extends Service {
                 if (res == TextToSpeech.LANG_MISSING_DATA || res == TextToSpeech.LANG_NOT_SUPPORTED) {
                     res = tts.setLanguage(new Locale(locale.getLanguage()));
                 }
+
+                // Bind matching native voice (ported from ForegroundTtsService.kt)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    try {
+                        if (tts.getVoices() != null) {
+                            for (android.speech.tts.Voice voice : tts.getVoices()) {
+                                if (voice != null && voice.getLocale() != null &&
+                                        voice.getLocale().getLanguage().equalsIgnoreCase(locale.getLanguage())) {
+                                    tts.setVoice(voice);
+                                    res = TextToSpeech.LANG_AVAILABLE;
+                                    Log.d(TAG, "Bound native TTS voice: " + voice.getName() + " for " + locale.getDisplayLanguage());
+                                    break;
+                                }
+                            }
+                        }
+                    } catch (Exception ignored) {}
+                }
+
                 if (res == TextToSpeech.LANG_MISSING_DATA || res == TextToSpeech.LANG_NOT_SUPPORTED) {
                     tts.setLanguage(new Locale("en", "IN"));
                 }
