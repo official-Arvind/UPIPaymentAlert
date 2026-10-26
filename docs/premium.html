@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Get Premium — UPI Payment Alert &amp; Soundbox</title>
+<meta name="description" content="Unlock the full-feature UPI Payment Alert Premium — SMS Engine, Bluetooth Booster, 13 languages, advanced parser. One-time ₹199. Lifetime updates included." />
+<link rel="icon" type="image/png" href="assets/app_logo.png" />
+<link href="vendor/fonts.css" rel="stylesheet">
+<style>
+:root{
+  --bg:#1B1147; --bg-deep:#140C38; --bg-abyss:#0a0622;
+  --text:#FFFFFF; --text2:#B4ACEC; --text3:#9C91AC;
+  --credit:#3DDC97; --debit:#FF7A8A;
+  --amber:#F6A037; --coral:#ED6266; --magenta:#E8249D; --violet:#6D59DB;
+  --gold:#F6C937;
+  --glass:rgba(255,255,255,.06); --glass-strong:rgba(255,255,255,.10);
+  --hair:rgba(255,255,255,.12); --hair-soft:rgba(255,255,255,.07);
+  --aurora:linear-gradient(125deg,#F6A037 0%,#ED6266 32%,#E8249D 62%,#6D59DB 100%);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --el-float:0 14px 34px -10px rgba(232,36,157,.55);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Space Grotesk','Inter',system-ui,-apple-system,sans-serif;color:var(--text);background:var(--bg-abyss);
+  min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.5}
+body::before{content:"";position:fixed;inset:0;z-index:-1;
+  background:radial-gradient(150% 90% at 50% -10%,#221950 0%,var(--bg-deep) 46%,var(--bg-abyss) 100%)}
+.aurora{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+.blob{position:absolute;border-radius:50%;filter:blur(78px)}
+.bl-m{width:48vw;height:48vw;background:var(--magenta);opacity:.15;top:-14vw;right:-10vw}
+.bl-v{width:44vw;height:44vw;background:var(--violet);opacity:.14;top:38vh;left:-16vw}
+.grain{position:fixed;inset:-50%;z-index:55;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+::selection{background:rgba(232,36,157,.4)}
+
+/* NAV */
+.sitenav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
+  max-width:1280px;margin:0 auto;padding:20px clamp(20px,5vw,52px)}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:16.5px;letter-spacing:-.01em;color:#fff;text-decoration:none}
+.brand .mark{width:30px;height:30px;border-radius:9px;display:block;box-shadow:var(--el-float)}
+.nav-link{font-size:13px;font-weight:600;color:var(--text2);text-decoration:none;padding:9px 8px;transition:color .2s}
+.nav-link:hover{color:#fff}
+
+/* LAYOUT */
+.page{position:relative;z-index:2;max-width:680px;margin:0 auto;
+  padding:clamp(100px,14vh,140px) clamp(22px,5vw,48px) 80px;display:flex;flex-direction:column;gap:28px}
+
+/* BADGE */
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.eyebrow::before{content:"";width:22px;height:2px;background:linear-gradient(to right,var(--gold),var(--amber))}
+
+/* HEADING */
+.page-title{font-family:'Space Grotesk';font-weight:700;letter-spacing:-.035em;line-height:1.04;
+  font-size:clamp(32px,6vw,52px);margin-top:6px}
+.page-title .hl{background:var(--aurora);-webkit-background-clip:text;background-clip:text;color:transparent}
+.page-sub{font-size:clamp(15px,1.8vw,17px);color:var(--text2);margin-top:10px;line-height:1.65}
+
+/* PRICE CARD */
+.price-card{border-radius:26px;padding:26px clamp(20px,4vw,32px);background:rgba(13,9,32,.85);
+  border:1px solid var(--hair);box-shadow:0 26px 70px -30px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.08);
+  position:relative;overflow:hidden}
+.price-card::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--aurora)}
+.price-tag{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.price-amount{font-family:'Space Grotesk';font-size:clamp(40px,7vw,60px);font-weight:700;
+  background:var(--aurora);-webkit-background-clip:text;background-clip:text;color:transparent}
+.price-label{font-size:14px;color:var(--text2)}
+.price-note{margin-top:4px;font-size:12.5px;color:var(--credit);display:flex;align-items:center;gap:5px}
+.price-note svg{width:13px;height:13px;stroke:var(--credit);stroke-width:2.5;fill:none}
+
+/* FEATURE LIST */
+.feature-list{margin-top:18px;display:flex;flex-direction:column;gap:0;list-style:none}
+.feature-item{display:flex;align-items:flex-start;gap:12px;padding:11px 0;
+  border-bottom:1px solid var(--hair-soft)}
+.feature-item:last-child{border-bottom:none}
+.feature-icon{width:22px;height:22px;flex-shrink:0;display:grid;place-items:center;
+  border-radius:50%;background:rgba(61,220,151,.12);border:1px solid rgba(61,220,151,.3);margin-top:1px}
+.feature-icon svg{width:12px;height:12px;stroke:var(--credit);stroke-width:2.5;fill:none}
+.feature-text .ft{font-size:14px;font-weight:600;color:#fff}
+.feature-text .fd{font-size:12px;color:var(--text3);margin-top:1px}
+
+/* EDITIONS */
+.edition-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+@media(max-width:520px){.edition-grid{grid-template-columns:1fr}}
+.edition{border-radius:18px;padding:18px;background:rgba(255,255,255,.04);border:1px solid var(--hair-soft);cursor:pointer;
+  transition:border-color .2s, background .2s, box-shadow .2s;position:relative}
+.edition.selected{border-color:var(--magenta);background:rgba(232,36,157,.08);box-shadow:0 0 0 3px rgba(232,36,157,.2)}
+.edition input[type=radio]{position:absolute;opacity:0;width:0;height:0}
+.edition-head{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#fff}
+.edition-star{font-size:10px;background:var(--aurora);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900}
+.edition-body{font-size:11.5px;color:var(--text3);margin-top:6px;line-height:1.55}
+.edition-badge{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  background:rgba(246,169,55,.15);border:1px solid rgba(246,169,55,.4);color:var(--amber);
+  border-radius:99px;padding:2px 8px;margin-left:auto;white-space:nowrap}
+
+/* PAY SECTION */
+.pay-card{border-radius:26px;padding:26px clamp(20px,4vw,32px);background:rgba(13,9,32,.85);
+  border:1px solid var(--hair);box-shadow:0 26px 70px -30px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.08)}
+.pay-title{font-family:'Space Grotesk';font-size:18px;font-weight:700;margin-bottom:16px}
+
+/* UPI Input */
+.field-group{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.field-group label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text2)}
+.field-group input{width:100%;background:rgba(255,255,255,.06);border:1.5px solid var(--hair);border-radius:12px;
+  padding:12px 16px;font-size:14px;color:#fff;font-family:inherit;transition:border-color .2s}
+.field-group input::placeholder{color:var(--text3)}
+.field-group input:focus{outline:none;border-color:var(--magenta)}
+
+/* UPI apps row */
+.upi-apps{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.upi-app-btn{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.06);
+  border:1px solid var(--hair);border-radius:10px;padding:9px 14px;font-size:13px;font-weight:600;
+  color:var(--text2);cursor:pointer;transition:all .18s;font-family:inherit}
+.upi-app-btn:hover{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.25)}
+.upi-app-btn svg{width:18px;height:18px}
+
+/* Pay button */
+.pay-btn{width:100%;background:var(--aurora);box-shadow:var(--el-float);border:none;
+  border-radius:999px;padding:17px 28px;font-size:16px;font-weight:700;color:#fff;
+  cursor:pointer;font-family:inherit;letter-spacing:-.01em;transition:transform .16s var(--ease),filter .16s var(--ease);
+  display:flex;align-items:center;justify-content:center;gap:10px}
+.pay-btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.pay-btn:active{transform:scale(.98)}
+.pay-btn svg{width:20px;height:20px;stroke:#fff;stroke-width:2;fill:none}
+.pay-btn:disabled{opacity:.55;cursor:not-allowed;transform:none;filter:none}
+
+.pay-help{margin-top:14px;font-size:12.5px;color:var(--text3);text-align:center;line-height:1.6}
+.pay-help b{color:var(--text2)}
+
+/* STEP: verification */
+.verify-box{border-radius:20px;padding:22px;background:rgba(246,169,55,.07);
+  border:1px solid rgba(246,169,55,.3);display:none;flex-direction:column;gap:14px}
+.verify-box.visible{display:flex}
+.verify-title{font-size:14px;font-weight:700;color:var(--amber);display:flex;align-items:center;gap:8px}
+.verify-title svg{width:16px;height:16px;stroke:var(--amber);stroke-width:2.5;fill:none;flex-shrink:0}
+.verify-body{font-size:13px;color:var(--text2);line-height:1.65}
+.verify-ref-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.verify-ref-row input{flex:1;min-width:160px;background:rgba(255,255,255,.06);border:1.5px solid rgba(246,169,55,.35);
+  border-radius:10px;padding:10px 14px;font-size:13px;color:#fff;font-family:inherit}
+.verify-ref-row input:focus{outline:none;border-color:var(--amber)}
+.verify-btn{background:rgba(246,169,55,.15);border:1px solid rgba(246,169,55,.5);color:var(--amber);
+  border-radius:10px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;
+  transition:background .18s,filter .18s;white-space:nowrap}
+.verify-btn:hover{background:rgba(246,169,55,.25)}
+
+/* SUCCESS */
+.success-box{border-radius:20px;padding:22px;background:rgba(61,220,151,.07);
+  border:1px solid rgba(61,220,151,.3);display:none;flex-direction:column;gap:14px;text-align:center}
+.success-box.visible{display:flex}
+.success-icon{width:56px;height:56px;border-radius:50%;background:rgba(61,220,151,.15);
+  border:2px solid rgba(61,220,151,.5);display:grid;place-items:center;margin:0 auto}
+.success-icon svg{width:24px;height:24px;stroke:var(--credit);stroke-width:2.5;fill:none}
+.success-title{font-family:'Space Grotesk';font-size:22px;font-weight:700;color:var(--credit)}
+.success-body{font-size:13.5px;color:var(--text2);line-height:1.65}
+.dl-btns{display:flex;flex-direction:column;gap:10px}
+.dl-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:999px;
+  padding:15px 24px;font-size:15px;font-weight:700;color:#fff;text-decoration:none;
+  transition:transform .16s var(--ease),filter .16s var(--ease)}
+.dl-btn-primary{background:var(--aurora);box-shadow:var(--el-float)}
+.dl-btn-primary:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.dl-btn-ghost{background:rgba(255,255,255,.08);border:1px solid var(--hair)}
+.dl-btn-ghost:hover{transform:translateY(-2px);background:rgba(255,255,255,.14)}
+
+/* TRUST STRIP */
+.trust{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;font-size:11.5px;color:var(--text3)}
+.trust span{display:inline-flex;align-items:center;gap:6px}
+.trust svg{width:13px;height:13px;stroke:var(--credit);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* COMPARE TABLE */
+.compare{border-radius:22px;overflow:hidden;border:1px solid var(--hair);background:rgba(13,9,32,.6)}
+.compare table{width:100%;border-collapse:collapse;font-size:13.5px}
+.compare th{padding:14px 18px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text3);text-align:left;background:rgba(255,255,255,.03);border-bottom:1px solid var(--hair-soft)}
+.compare th:not(:first-child){text-align:center}
+.compare td{padding:13px 18px;border-bottom:1px solid var(--hair-soft);color:var(--text2);vertical-align:middle}
+.compare tr:last-child td{border-bottom:none}
+.compare td:not(:first-child){text-align:center}
+.compare .yes{color:var(--credit)}
+.compare .no{color:var(--text3);opacity:.5}
+.compare .col-free{color:var(--text2)}
+.compare .col-paid{background:var(--aurora);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700}
+.compare .highlight-row td{background:rgba(232,36,157,.04)}
+.compare td svg{width:15px;height:15px;stroke-width:2.5;fill:none;display:inline-block}
+
+footer{text-align:center;color:var(--text3);font-size:12.5px;margin-top:60px;padding-bottom:40px}
+footer a{color:var(--text2);text-decoration:underline;text-underline-offset:3px}
+footer a:hover{color:#fff}
+
+/* QR spinner */
+.spinner{width:28px;height:28px;border:3px solid rgba(255,255,255,.15);border-top-color:#fff;
+  border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><span class="blob bl-m"></span><span class="blob bl-v"></span></div>
+<div class="grain" aria-hidden="true"></div>
+
+<nav class="sitenav">
+  <a class="brand" href="./index.html" aria-label="UPI Payment Alert"><img class="mark" src="assets/app_logo.png" alt="UPI Payment Alert" width="30" height="30" /></a>
+  <div style="display:flex;gap:12px;align-items:center;">
+    <a class="nav-link" href="./index.html">Home</a>
+    <a class="nav-link" href="./versions.html">Changelog</a>
+    <a class="nav-link" href="./install.html">Install guide</a>
+  </div>
+</nav>
+
+<main class="page">
+
+  <!-- EYEBROW + TITLE -->
+  <div>
+    <span class="eyebrow">Premium Edition · One-time payment</span>
+    <h1 class="page-title" style="margin-top:10px">Get the <span class="hl">full soundbox</span> experience.</h1>
+    <p class="page-sub">Unlock every feature — SMS Engine, FamPay support, Bluetooth Booster, advanced forensic parser, and all future updates. Pay once, own forever.</p>
+  </div>
+
+  <!-- PRICE CARD -->
+  <div class="price-card">
+    <div class="price-tag">
+      <span class="price-amount">₹199</span>
+      <span class="price-label">one-time · no subscription · no renewal</span>
+    </div>
+    <p class="price-note">
+      <svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>
+      Lifetime updates included — you get every future release, free.
+    </p>
+    <ul class="feature-list" style="margin-top:20px">
+      <li class="feature-item">
+        <span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+        <span class="feature-text"><span class="ft">Dual-Channel SMS + Notification Engine</span><span class="fd">Works even in poor internet — bank SMS parsed fully offline</span></span>
+      </li>
+      <li class="feature-item">
+        <span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+        <span class="feature-text"><span class="ft">Precision Forensic Parser</span><span class="fd">Zero false positives — eliminates loan alerts, coin notifications, LPG bookings</span></span>
+      </li>
+      <li class="feature-item">
+        <span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+        <span class="feature-text"><span class="ft">FamPay #fampaid Support</span><span class="fd">Native parser for FamPay credit alerts with exact sender name extraction</span></span>
+      </li>
+      <li class="feature-item">
+        <span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+        <span class="feature-text"><span class="ft">Bluetooth Speaker Booster</span><span class="fd">Overrides silent mode — loud announcements to shop counter BT speakers</span></span>
+      </li>
+      <li class="feature-item">
+        <span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+        <span class="feature-text"><span class="ft">13-Language Full UI + Voice</span><span class="fd">Every screen, button, and TTS voice dynamically switches language</span></span>
+      </li>
+      <li class="feature-item">
+        <span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+        <span class="feature-text"><span class="ft">Automatic SMS Forwarder</span><span class="fd">Route payment alerts to a second number — partner, accountant, or supervisor</span></span>
+      </li>
+      <li class="feature-item">
+        <span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+        <span class="feature-text"><span class="ft">Lifetime Updates</span><span class="fd">Every future release, delivered free — no re-purchase ever</span></span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- EDITION SELECTOR -->
+  <div class="pay-card">
+    <p class="pay-title">Choose your edition</p>
+    <div class="edition-grid" id="editionGrid">
+      <label class="edition selected" id="edComplete">
+        <input type="radio" name="edition" value="complete" checked>
+        <div class="edition-head">
+          <span class="edition-star">★</span> Complete Edition
+          <span class="edition-badge">Recommended</span>
+        </div>
+        <div class="edition-body">SMS + Notification Listener + Bluetooth Booster. Full dual-channel engine. Best for shops.</div>
+      </label>
+      <label class="edition" id="edPlaystore">
+        <input type="radio" name="edition" value="playstore">
+        <div class="edition-head">
+          🏪 Play Store Edition
+        </div>
+        <div class="edition-body">Notification-only. No SMS permission. 100% Play Store policy-compliant build.</div>
+      </label>
+    </div>
+  </div>
+
+  <!-- PAYMENT CARD -->
+  <div class="pay-card" id="paySection">
+    <p class="pay-title">Pay ₹199 via UPI</p>
+
+    <!-- Name field -->
+    <div class="field-group">
+      <label for="buyerName">Your name (for our records)</label>
+      <input type="text" id="buyerName" placeholder="e.g. Ramesh Sharma" autocomplete="name">
+    </div>
+
+    <!-- Quick-launch UPI apps -->
+    <p style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text2);margin-bottom:10px">Pay with your UPI app</p>
+    <div class="upi-apps">
+      <button class="upi-app-btn" onclick="openUPI('gpay')">
+        <img src="assets/logos/gpay.svg" width="18" height="18" alt=""> Google Pay
+      </button>
+      <button class="upi-app-btn" onclick="openUPI('phonepe')">
+        <img src="assets/logos/phonepe.svg" width="18" height="18" style="border-radius:4px" alt=""> PhonePe
+      </button>
+      <button class="upi-app-btn" onclick="openUPI('paytm')">
+        <img src="assets/logos/paytm.svg" width="18" height="18" style="border-radius:4px" alt=""> Paytm
+      </button>
+      <button class="upi-app-btn" onclick="openUPI('bhim')">
+        <img src="assets/logos/bhim.svg" width="18" height="18" style="border-radius:4px" alt=""> BHIM
+      </button>
+      <button class="upi-app-btn" onclick="openUPI('any')" style="color:#fff">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M12 18h.01"/></svg>
+        Any UPI App
+      </button>
+    </div>
+
+    <p style="font-size:11.5px;color:var(--text3);margin-bottom:14px;text-align:center">
+      Pay <b style="color:var(--text2)">₹199</b> to UPI ID: <b style="color:#fff;font-family:monospace">arvindji@fam</b>
+      <br>Add your name in the UPI remarks/note field.
+    </p>
+
+    <!-- VERIFY STEP (shown after clicking Pay) -->
+    <div class="verify-box" id="verifyBox">
+      <div class="verify-title">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Almost there! Enter your UPI Transaction ID
+      </div>
+      <p class="verify-body">
+        After paying ₹199 on your UPI app, you'll receive a <b style="color:#fff">Transaction ID / UTR</b> (a 12-digit number in the success screen or SMS). Paste it below to unlock your download instantly.
+      </p>
+      <div class="verify-ref-row">
+        <input type="text" id="txnInput" placeholder="e.g. 426781234567" maxlength="30" inputmode="numeric"
+          oninput="this.value=this.value.replace(/[^0-9A-Za-z]/g,'')">
+        <button class="verify-btn" onclick="verifyPayment()">Unlock Download →</button>
+      </div>
+      <p style="font-size:11.5px;color:var(--text3)">
+        Your transaction ID is in the payment app's success page or in the SMS from your bank. It usually starts with "UTR" or is a 12-digit number.
+      </p>
+    </div>
+
+    <!-- SUCCESS BOX -->
+    <div class="success-box" id="successBox">
+      <div class="success-icon"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></div>
+      <div class="success-title">Payment Confirmed 🎉</div>
+      <p class="success-body" id="successMsg">Thank you! Your download is starting now. Install over your existing app to keep your data.</p>
+      <div class="dl-btns">
+        <a class="dl-btn dl-btn-primary" id="dlPrimary" href="#" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+          Download Now
+        </a>
+        <a class="dl-btn dl-btn-ghost" href="./install.html">Open Install Guide →</a>
+      </div>
+    </div>
+
+    <!-- PAY BUTTON (main trigger) -->
+    <button class="pay-btn" id="payBtn" onclick="initiatePay()" style="margin-top:4px">
+      <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+      Pay ₹199 &amp; Get Download Link
+    </button>
+
+    <p class="pay-help">
+      <b>100% secure.</b> We use standard UPI — no card details, no CVV, no OTP shared with us.<br>
+      Trouble paying? Mail us at <b>stararvindgaming@gmail.com</b>
+    </p>
+  </div>
+
+  <!-- COMPARE TABLE -->
+  <div>
+    <p style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text2);margin-bottom:12px">Free vs Premium comparison</p>
+    <div class="compare">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th class="col-free">Free (Open Source)</th>
+            <th class="col-paid">Premium ₹199</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Notification Listener</td>
+            <td class="yes"><svg viewBox="0 0 24 24" stroke="#3DDC97"><path d="M4 12.5l5 5L20 6.5"/></svg></td>
+            <td class="yes"><svg viewBox="0 0 24 24" stroke="#3DDC97"><path d="M4 12.5l5 5L20 6.5"/></svg></td></tr>
+          <tr><td>English + Hindi Voice</td>
+            <td class="yes"><svg viewBox="0 0 24 24" stroke="#3DDC97"><path d="M4 12.5l5 5L20 6.5"/></svg></td>
+            <td class="yes"><svg viewBox="0 0 24 24" stroke="#3DDC97"><path d="M4 12.5l5 5L20 6.5"/></svg></td></tr>
+          <tr class="highlight-row"><td>Offline Bank SMS Parser</td>
+            <td class="no"><svg viewBox="0 0 24 24" stroke="currentColor"><path d="M18 6L6 18M6 6l12 12"/></svg></td>
+            <td class="yes"><svg viewBox="0 0 24 24" stroke="#3DDC97"><path d="M4 12.5l5 5L20 6.5"/></svg></td></tr>
+          <tr class="highlight-row"><td>Bluetooth Speaker Booster</td>
+            <td class="no"><svg viewBox="0 0 24 24" stroke="currentColor"><path d="M18 6L6 18M6 6l12 12"/></svg></td>
+            <td class="yes"><svg viewBox="0 0 24 24" stroke="#3DDC97"><path d="M4 12.5l5 5L20 6.5"/></svg></td></tr>
+          <tr class="highlight-row"><td>13 Languages (Full UI)</td>
+            <td class="no"><svg viewBox="0 0 24 24" stroke="currentColor"><path d="M18 6L6 18M6 6l12 12"/></svg></td>
+            <td class="yes"><svg viewBox="0 0 24 24" stroke="#3DDC97"><path d="M4 12.5l5 5L20 6.5"/></svg></td></tr>
+          <tr class="highlight-row"><td>SMS Forwarder</td>
+            <td class="no"><svg viewBox="0 0 24 24" stroke="currentColor"><path d="M18 6L6 18M6 6l12 12"/></svg></td>
+            <td class="yes"><svg viewBox="0 0 24 24" stroke="#3DDC97"><path d="M4 12.5l5 5L20 6.5"/></svg></td></tr>
+          <tr class="highlight-row"><td>FamPay / NBFC Parser</td>
+            <td class="no"><svg viewBox="0 0 24 24" stroke="currentColor"><path d="M18 6L6 18M6 6l12 12"/></svg></td>
+            <td class="yes"><svg viewBox="0 0 24 24" stroke="#3DDC97"><path d="M4 12.5l5 5L20 6.5"/></svg></td></tr>
+          <tr class="highlight-row"><td>Lifetime Updates</td>
+            <td class="no"><svg viewBox="0 0 24 24" stroke="currentColor"><path d="M18 6L6 18M6 6l12 12"/></svg></td>
+            <td class="yes"><svg viewBox="0 0 24 24" stroke="#3DDC97"><path d="M4 12.5l5 5L20 6.5"/></svg></td></tr>
+          <tr><td>Price</td>
+            <td style="color:var(--credit);font-weight:700">Free</td>
+            <td style="font-weight:700;background:var(--aurora);-webkit-background-clip:text;background-clip:text;color:transparent">₹199 once</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TRUST -->
+  <div class="trust">
+    <span><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>No subscription ever</span>
+    <span><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>100% offline app</span>
+    <span><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>UPI — no card details needed</span>
+    <span><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Lifetime updates included</span>
+  </div>
+
+  <footer>
+    Crafted with ❤️ by Arvind Ji ·
+    <a href="./privacy.html">Privacy Policy</a> ·
+    <a href="./install.html">Install Guide</a> ·
+    <a href="./versions.html">Changelog</a> ·
+    <a href="./download.html">Free Edition</a>
+  </footer>
+
+</main>
+
+<script>
+// ─── config ───────────────────────────────────────────────────────────────
+const UPI_ID   = 'arvindji@fam';
+const UPI_NAME = 'Arvind Ji';
+const AMOUNT   = '199';
+
+// APK links on MediaFire (not hosted in repo — premium only)
+const APK = {
+  complete:  'https://www.mediafire.com/file/4kger6fszeoz5i8/UPIPaymentAlert-Complete.apk/file',
+  playstore: 'https://www.mediafire.com/file/wfkvmxi0jnwg36r/UPIPaymentAlert-Playstore.apk/file'
+};
+
+// ─── edition picker ────────────────────────────────────────────────────────
+const edComplete  = document.getElementById('edComplete');
+const edPlaystore = document.getElementById('edPlaystore');
+function pickEdition(el){
+  [edComplete, edPlaystore].forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+}
+edComplete.addEventListener('click',  () => pickEdition(edComplete));
+edPlaystore.addEventListener('click', () => pickEdition(edPlaystore));
+
+function getEdition(){ return document.querySelector('input[name="edition"]:checked').value; }
+
+// ─── build UPI intent URL ─────────────────────────────────────────────────
+function buildUpiUrl(app){
+  const name  = (document.getElementById('buyerName').value.trim() || 'Customer').substring(0, 50);
+  const edition = getEdition() === 'complete' ? 'Complete Edition' : 'Playstore Edition';
+  const note  = encodeURIComponent('UPIPaymentAlert ' + edition + ' - ' + name);
+  const base  = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}&am=${AMOUNT}&cu=INR&tn=${note}`;
+
+  const intentMap = {
+    gpay:     `intent://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}&am=${AMOUNT}&cu=INR&tn=${note}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`,
+    phonepe:  `intent://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}&am=${AMOUNT}&cu=INR&tn=${note}#Intent;scheme=upi;package=com.phonepe.app;end`,
+    paytm:    `intent://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}&am=${AMOUNT}&cu=INR&tn=${note}#Intent;scheme=upi;package=net.one97.paytm;end`,
+    bhim:     `intent://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}&am=${AMOUNT}&cu=INR&tn=${note}#Intent;scheme=upi;package=in.org.npci.upiapp;end`,
+    any:      base
+  };
+  return intentMap[app] || base;
+}
+
+// ─── open UPI app ─────────────────────────────────────────────────────────
+function openUPI(app){
+  const url = buildUpiUrl(app);
+  window.location.href = url;
+  // show verify box after short delay (user returns from UPI app)
+  setTimeout(showVerify, 2000);
+}
+
+// ─── main Pay button ──────────────────────────────────────────────────────
+function initiatePay(){
+  const name = document.getElementById('buyerName').value.trim();
+  if(!name){ alert('Please enter your name before paying.'); document.getElementById('buyerName').focus(); return; }
+  // open generic UPI intent (works on Android; on desktop shows instructions)
+  const url = buildUpiUrl('any');
+  window.location.href = url;
+  setTimeout(showVerify, 2200);
+}
+
+function showVerify(){
+  document.getElementById('verifyBox').classList.add('visible');
+  document.getElementById('payBtn').style.display = 'none';
+  document.getElementById('txnInput').focus();
+  document.getElementById('verifyBox').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+// ─── verify & unlock ─────────────────────────────────────────────────────
+function verifyPayment(){
+  const txn = document.getElementById('txnInput').value.trim();
+  if(txn.length < 6){
+    alert('Please enter a valid UPI Transaction ID (at least 6 characters).');
+    return;
+  }
+  const name    = document.getElementById('buyerName').value.trim() || 'Customer';
+  const edition = getEdition();
+  const dlUrl   = APK[edition];
+
+  // record locally (best-effort)
+  try{ localStorage.setItem('upa_premium_txn', JSON.stringify({txn, name, edition, ts: Date.now()})); } catch(e){}
+
+  // show success
+  document.getElementById('verifyBox').style.display = 'none';
+  const sb = document.getElementById('successBox');
+  sb.classList.add('visible');
+  document.getElementById('successMsg').textContent =
+    'Thank you, ' + name + '! Your ' + (edition === 'complete' ? 'Complete' : 'Play Store') +
+    ' Edition is ready. Install over your existing app — all your data stays safe.';
+  const dlBtn = document.getElementById('dlPrimary');
+  dlBtn.href = dlUrl;
+  dlBtn.textContent = 'Download ' + (edition === 'complete' ? 'Complete' : 'Play Store') + ' Edition';
+
+  // auto-open MediaFire download
+  setTimeout(() => { window.open(dlUrl, '_blank', 'noopener'); }, 700);
+
+  sb.scrollIntoView({behavior:'smooth', block:'center'});
+}
+</script>
+</body>
+</html>
