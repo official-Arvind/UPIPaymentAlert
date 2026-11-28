@@ -1,0 +1,3 @@
+- Migrated applicationId to io.github.official_arvind.upipaymentalert for F-Droid and IzzyOnDroid compatibility
+- Added Fastlane metadata, screenshots, and release notes
+- Verified release builds across 13 Indian languages with 100% offline processing

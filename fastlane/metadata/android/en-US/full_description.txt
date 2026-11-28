@@ -1,0 +1,15 @@
+<p>Turn any Android phone into a reliable UPI payment voice soundbox without monthly hardware rentals or subscriptions.</p>
+
+<p>UPI Payment Alert monitors incoming payment notifications and banking SMS on your device and speaks the received amount aloud immediately using on-device text-to-speech.</p>
+
+<b>Key Capabilities</b>
+<ul>
+<li><b>Dual SMS &amp; Notification Parsing:</b> Captures transactions from PhonePe, Google Pay, Paytm, BHIM, Amazon Pay, Cred, FamPay, SBI, HDFC, ICICI, Axis, Kotak, and bank SMS alerts with 60-second deduplication.</li>
+<li><b>13 Indian Languages:</b> English, Hindi, Gujarati, Marathi, Tamil, Telugu, Kannada, Malayalam, Punjabi, Bengali, Odia, Assamese, and Urdu.</li>
+<li><b>200% Hardware Loudness Boost:</b> Uses Android's LoudnessEnhancer (+1500 mB acoustic gain) for noisy shop counters.</li>
+<li><b>Segmented Speech Speed:</b> Controls currency-amount reading speed independently from surrounding phrases.</li>
+<li><b>SMS Forwarder:</b> Optionally forward transaction alerts to a partner or staff mobile number.</li>
+<li><b>Strict Zero Data Collection:</b> 100% offline local Room storage and speech synthesis. No analytics, no tracking, no accounts, and no external servers.</li>
+</ul>
+
+<p><b>Explore UPI Payment Alert Complete Edition:</b> Visit our official website at <a href="https://official-arvind.github.io/UPIPaymentAlert/">official-arvind.github.io/UPIPaymentAlert</a> to preview every screen and download the Compose Complete Edition — free for a limited 3-month launch window.</p>
