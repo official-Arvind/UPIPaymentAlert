@@ -170,10 +170,9 @@ footer a:hover{color:#fff}
       <ul style="margin:12px 0 0 20px;color:var(--text2);font-size:14px;line-height:1.7;">
         <li><b>Payment Transaction Records:</b> Credit amount, customer/payer name (when provided by PhonePe, Google Pay, Paytm, or BHIM), timestamp, and payment application source.</li>
         <li><b>Bank Transaction References:</b> Transaction reference number (UTR) or last 4 digits of the bank account credited, as received in official bank SMS alerts (e.g. SBI, HDFC, ICICI, Axis).</li>
-        <li><b>Merchant Customizations:</b> User-selected speech engine, announcement language (Hindi/English/Hinglish), Bluetooth volume boosts, and merchant categories.</li>
-        <li><b>Optional Store Counter Location:</b> If you manually enable counter mapping, location coordinates are stored locally to group payments by your counter or kiosk.</li>
+        <li><b>Merchant Customizations:</b> Selected announcement language, volume, speech speed, and optional SMS forwarder phone numbers configured by you.</li>
       </ul>
-      <p style="margin-top:14px;"><b>Where is this stored?</b> All records reside in an encrypted SQLite database stored in your phone's secure private directory (<code>/data/data/com.arvind.upipaymentalert/databases/</code>). No employee, developer, or external company has access to this data.</p>
+      <p style="margin-top:14px;"><b>Where is this stored?</b> All records reside inside your phone's sandboxed SQLite storage (<code>io.github.official_arvind.upipaymentalert</code> / local app data directory). No employee, developer, or external company has access to your ledger.</p>
     </section>
 
     <section class="section-card">
@@ -267,23 +266,23 @@ footer a:hover{color:#fff}
         <b>Developer:</b> Arvind Ji<br/>
         <b>Application:</b> UPI Payment Alert &amp; Soundbox<br/>
         <b>Website:</b> <a href="https://official-arvind.github.io/UPIPaymentAlert/" style="color:var(--credit);text-decoration:underline;">official-arvind.github.io/UPIPaymentAlert/</a><br/>
-        <b>Last Updated:</b> October 2026
+        <b>Last Updated:</b> November 2026
       </p>
     </section>
   </div>
 
   <div class="cta-box">
     <h3>Ready to turn your phone into a private soundbox?</h3>
-    <p>Zero rental fees. 100% offline privacy. Spoken voice alerts in seconds.</p>
+    <p>Zero rental fees. 100% on-device privacy. Instant voice alerts.</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="./download.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Download v1.0.2 APK</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Download APK</a>
       <a class="btn btn-ghost" href="./install.html">Install Guide</a>
     </div>
   </div>
 
   <footer>
-    Crafted with ❤️ by Arvind Ji · <a href="./index.html">Home</a> · <a href="./install.html">Install Guide</a> · <a href="./versions.html">v1.0.2 Changelog</a>
+    Built by Arvind Ji · <a href="./index.html">Home</a> · <a href="./install.html">Install Guide</a> · <a href="./versions.html">Changelog</a> · <a href="./download.html">Download</a>
   </footer>
 </main>
 </body>

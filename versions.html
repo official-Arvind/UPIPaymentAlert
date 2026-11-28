@@ -124,7 +124,7 @@ h2{font-family:'Space Grotesk';font-weight:700;font-size:clamp(20px,2.8vw,24px);
   <div class="nav-actions">
     <a class="nav-back" href="./index.html">← Home</a>
     <a class="nav-back" href="./privacy.html">Privacy</a>
-    <a class="nav-back" href="./premium.html" style="color:var(--gold,#F6C937);font-weight:700">★ Premium ₹199</a>
+    <a class="nav-back" href="./premium.html" data-promo-cta data-free-text="Complete Free" data-paid-text="Complete ₹199" style="color:var(--gold,#F6C937);font-weight:700">Complete Free</a>
     <a class="nav-cta" href="./download.html">
       <svg class="dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
       Download APK</a>
@@ -132,56 +132,52 @@ h2{font-family:'Space Grotesk';font-weight:700;font-size:clamp(20px,2.8vw,24px);
 </nav>
 
 <main class="wrap">
-  <span class="eyebrow">What's new</span>
-  <h1>Every <span class="hl">version</span>, newest first.</h1>
-  <p class="lead">What changed in each release of UPI Payment Alert &amp; Soundbox. Updating keeps your data: install the new version over the old one.</p>
+  <span class="eyebrow">Changelog</span>
+  <h1>Every <span class="hl">release</span>, newest first.</h1>
+  <p class="lead">Updates keep your local SQLite transaction ledger intact.</p>
 
   <article class="current" aria-labelledby="v102">
     <div class="vhead">
-      <h2 class="vnum" id="v102" style="margin-top:0">v1.0.2</h2>
-      <span class="badge">Current</span>
-      <time class="vdate" datetime="2026-10-14">14 Oct 2026</time>
+      <h2 class="vnum" id="v102" style="margin-top:0">v1.0.2 Complete &amp; v2.0.1 Open Source</h2>
+      <span class="badge">Latest</span>
+      <time class="vdate" datetime="2026-11-28">Nov 2026</time>
     </div>
-    <p class="vmeta tab">5.1 MB · Android 8.0+ · Official Release</p>
+    <p class="vmeta tab">Android 8.0+ · Complete Compose Edition + MIT Open-Source Edition</p>
     <ul class="notes">
-      <li><b>Precision Forensic Parser Overhaul:</b> Upgraded regex engine based on production sync forensic audits; eliminated misclassification edge cases across all major UPI apps and banks.</li>
-      <li><b>FamPay Credit Soundbox Engine:</b> Added native parser support for FamPay <code>#fampaid</code> alerts with precise sender name and amount extraction.</li>
-      <li><b>Loan &amp; Bill False Positive Elimination:</b> Filtered out lender repayment acknowledgments (KreditBee, NBFCs), LPG gas refill bookings, policy renewal alerts, and gamification coin notifications.</li>
-      <li><b>Merchant Counterparty Accuracy:</b> Fixed PhonePe notification title masking to announce true sender names and preserved critical educational/tuition fee debits.</li>
-      <li><b>Zero-Spam Fallback Protection:</b> Eliminated zero-amount unconfirmed transaction fallbacks in Notification Listener and SMS Processing Worker.</li>
+      <li><b>Masked Launch &amp; Monthly Auto-Reset (Complete):</b> Available balance launches hidden (<code>••••</code>) for counter privacy, pre-announcement chime defaults to off, and the monthly base setup balance resets automatically on the 1st of each month.</li>
+      <li><b>Audio Pipeline Diagnostics:</b> Direct pipeline status check showing working audio focus and TTS state alongside concise setup guidance.</li>
+      <li><b>SMS Forwarder Auto-Prefix &amp; Rate Cap:</b> Automatically detects +91 (India) and +977 (Nepal) country codes without manual typing, locked cleanly at 10 messages/minute.</li>
+      <li><b>F-Droid Package Alignment (Open Source v2.0.1):</b> Migrated open-source package identifier to <code>io.github.official_arvind.upipaymentalert</code> with Fastlane store metadata and 13-language speech templates.</li>
+      <li><b>Strictly On-Device Storage:</b> All transactions, settings, and voice parsing run inside Android's sandboxed SQLite storage with zero third-party ad or analytics trackers.</li>
     </ul>
     <div class="cta-row">
       <a class="btn btn-primary" href="./download.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Download v1.0.2</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Download</a>
       <a class="btn btn-ghost" href="./install.html">Install guide</a>
     </div>
   </article>
 
-  <h2 id="earlier">Earlier versions</h2>
+  <h2 id="earlier">Earlier releases</h2>
   <div class="list">
     <article class="ver" aria-labelledby="v101">
-      <div class="vhead"><div class="vleft"><h3 class="vnum" id="v101">v1.0.1</h3><time class="vdate" datetime="2026-10-12">12 Oct 2026</time></div></div>
+      <div class="vhead"><div class="vleft"><h3 class="vnum" id="v101">v1.0.1</h3><time class="vdate" datetime="2026-10-14">14 Oct 2026</time></div></div>
       <ul class="notes">
-        <li><b>Instant Voice Soundbox:</b> Spoken payment alerts in Hindi, English, and regional accents for PhonePe, Google Pay, Paytm, BHIM, Cred, and Bank SMS.</li>
-        <li><b>Dual-Channel Engine:</b> Notification listener paired with offline raw Bank SMS parser (SBI, HDFC, ICICI, Axis, PNB, BOB, Kotak, Canara, IDBI, IndusInd).</li>
-        <li><b>Bluetooth Speaker Booster:</b> Volume override ensures loud alerts over shop Bluetooth or USB speakers even when the phone is on silent.</li>
-        <li><b>100% On-Device Offline Privacy:</b> Encrypted local SQLite ledger, zero analytics, zero data upload to third-party servers.</li>
-        <li><b>Dual Editions:</b> Shipped as Complete Edition (SMS + Notification Soundbox) and Play Store Edition (Notification-only).</li>
+        <li><b>FamPay Support:</b> Added native parsing for FamPay credit alerts with sender extraction.</li>
+        <li><b>Noise Filtering:</b> Ignored loan repayment notices, reward coin popups, and zero-amount placeholders.</li>
+        <li><b>Dual-Channel Engine:</b> Notification listener paired with offline Bank SMS fallback for SBI, HDFC, ICICI, Axis, Kotak, and more.</li>
       </ul>
     </article>
     <article class="ver" aria-labelledby="v100">
       <div class="vhead"><div class="vleft"><h3 class="vnum" id="v100">v1.0.0</h3><time class="vdate" datetime="2026-09-28">28 Sep 2026</time></div></div>
       <ul class="notes">
         <li>Initial release of UPI Payment Alert voice soundbox engine.</li>
-        <li>Real-time speech announcement synthesis with multi-language voice engine.</li>
-        <li>On-device SQLite merchant ledger with automatic credit/debit calculation.</li>
-        <li>Bluetooth auto-reconnect and media stream routing for shop counter speakers.</li>
-        <li>Backup and CSV export of local transaction history.</li>
+        <li>On-device SQLite transaction ledger with credit/debit insights and CSV export.</li>
       </ul>
     </article>
   </div>
 
-  <p class="pagefoot">Crafted with ❤️ by Arvind Ji · <a href="./privacy.html">Privacy Policy</a> · <a href="./install.html">Install Guide</a> · <a href="./download.html">Download APK</a> · <a href="./premium.html" style="color:var(--gold,#F6C937);font-weight:600">Premium ₹199</a></p>
+  <p class="pagefoot">Built by Arvind Ji · <a href="./privacy.html">Privacy Policy</a> · <a href="./install.html">Install Guide</a> · <a href="./download.html">Download</a> · <a href="./premium.html" data-promo-cta data-free-text="Complete Free" data-paid-text="Complete ₹199" style="color:var(--gold,#F6C937);font-weight:600">Complete Free</a></p>
 </main>
+<script src="js/promo-timer.js"></script>
 </body>
 </html>

@@ -443,6 +443,31 @@ html.static .whatsdiff{margin-top:0;padding-top:clamp(40px,7vh,72px);background:
 .wd-cta{text-align:center;margin-top:clamp(56px,8vh,84px)}
 .wd-cta .cta-row{justify-content:center}
 .wd-ctasub{margin-top:14px;font-size:12px;color:var(--text3)}
+
+/* screen gallery & promo strip inside #different (solid #0a0622 surface) */
+.screens-wrap{margin-top:clamp(68px,10vh,108px);padding-top:clamp(40px,6vh,64px);border-top:1px solid var(--hair-soft)}
+.screens-head{text-align:center;max-width:680px;margin:0 auto}
+.screens-head h2{font-family:'Space Grotesk';font-weight:700;letter-spacing:-.035em;line-height:1.05;
+  font-size:clamp(26px,3.4vw,42px);margin:14px 0 0}
+.screens-head p{color:var(--text2);font-size:15px;margin-top:12px;line-height:1.6}
+.screens-grid{margin-top:34px;display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+@media(max-width:1020px){.screens-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.screens-grid{grid-template-columns:repeat(2,1fr)}}
+.scr-card{border-radius:18px;padding:10px;background:rgba(16,11,40,.92);border:1px solid var(--hair);
+  display:flex;flex-direction:column;gap:8px;transition:transform .2s var(--ease),border-color .2s var(--ease)}
+.scr-card:hover{transform:translateY(-3px);border-color:rgba(232,36,157,.55)}
+.scr-card img{width:100%;aspect-ratio:9/20;object-fit:cover;border-radius:12px;display:block;border:1px solid var(--hair-soft)}
+.scr-cap{padding:2px 4px 4px}
+.scr-cap b{display:block;font-size:12.5px;font-weight:700;color:#fff}
+.scr-cap span{display:block;font-size:11px;color:var(--text3);margin-top:2px;line-height:1.35}
+.promo-strip{margin-top:36px;border-radius:22px;padding:24px clamp(18px,3.6vw,30px);
+  background:linear-gradient(135deg,rgba(246,160,55,.10),rgba(232,36,157,.11) 55%,rgba(109,89,219,.12));
+  border:1px solid rgba(232,36,157,.38);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px}
+.promo-strip .ps-title{font-family:'Space Grotesk';font-size:clamp(19px,2.4vw,24px);font-weight:700;color:#fff}
+.promo-strip .ps-sub{font-size:13.5px;color:var(--text2);margin-top:4px;max-width:560px}
+.promo-strip .ps-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.ps-pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.08em;padding:4px 10px;border-radius:999px;background:rgba(61,220,151,.14);border:1px solid rgba(61,220,151,.35);color:var(--credit);margin-bottom:6px}
 /* scroll-in reveal — .pre is added by JS only (no-JS/static stays fully visible) */
 .whatsdiff .pre{opacity:0;transform:translateY(22px)}
 .whatsdiff .pre.inview{opacity:1;transform:none;transition:opacity .75s var(--ease),transform .75s var(--ease)}
@@ -574,12 +599,13 @@ html.static .outro .panel{background:transparent;padding-top:40px}
 <nav class="sitenav">
   <a class="brand" href="#" aria-label="UPI Payment Alert"><img class="mark" src="assets/app_logo.png" alt="UPI Payment Alert" width="30" height="30" /></a>
   <div class="nav-actions">
+    <a class="nav-guide" href="#screens">Screens</a>
     <a class="nav-guide" href="./install.html">Install guide</a>
     <a class="nav-guide" href="./privacy.html">Privacy</a>
-    <a class="nav-guide" href="./premium.html" style="color:var(--gold,#F6C937);font-weight:700">★ Premium ₹199</a>
+    <a class="nav-guide" href="./premium.html" data-promo-cta data-free-text="Complete Free" data-paid-text="Complete ₹199" style="color:var(--gold,#F6C937);font-weight:700">Complete Free</a>
     <a class="nav-cta" href="./download.html">
       <svg class="dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
-      Download APK</a>
+      Download</a>
   </div>
 </nav>
 
@@ -600,10 +626,10 @@ html.static .outro .panel{background:transparent;padding-top:40px}
 <div class="fbk intro"><div class="fb" style="border-bottom:none;padding-bottom:6px">
   <p class="fb-tag">Money arrives. <span class="grad">It announces.</span></p>
   <h1 class="fb-wm">UPI Payment <span class="fb-script">Alert</span></h1>
-  <p>Turn your phone into a high-volume UPI soundbox for PhonePe, Google Pay, Paytm, BHIM and Bank SMS. 100% offline on your device, zero cloud leaks.</p>
+  <p>Turn your phone into a reliable UPI voice soundbox for PhonePe, Google Pay, Paytm, BHIM, FamPay, and Bank SMS. Zero hardware rentals, 100% on-device privacy.</p>
   <div class="cta-row">
-    <a class="btn btn-primary" href="./download.html">Download APK</a>
-    <a class="btn btn-ghost" href="./premium.html" style="border-color:rgba(246,201,55,.45);color:var(--gold,#F6C937)">★ Premium ₹199</a>
+    <a class="btn btn-primary" href="./download.html">Download Complete (Free 3 Mo)</a>
+    <a class="btn btn-ghost" data-os-release-link href="https://github.com/official-Arvind/UPIPaymentAlert/releases/latest" target="_blank" rel="noopener noreferrer">Open-Source APK</a>
     <a class="btn btn-ghost" href="./install.html">Install guide</a>
   </div>
 </div></div>
@@ -613,16 +639,16 @@ html.static .outro .panel{background:transparent;padding-top:40px}
   <section class="beat b-hero" data-b="1">
     <div class="binner">
       <p class="hero-tag">Money arrives. <span class="grad">It speaks.</span></p>
-      <p class="sub">Turn your phone into a powerful UPI soundbox for PhonePe, GPay, Paytm, BHIM &amp; Bank SMS — 100% offline on your device, zero cloud leaks.</p>
+      <p class="sub">Turn your phone into a private UPI soundbox across 13 Indian languages — 100% on-device processing, zero cloud collection.</p>
     </div>
     <div class="hero-bottom"><div class="hbin">
       <div class="cta-row">
         <a class="btn btn-primary" href="./download.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Download APK</a>
-        <a class="btn btn-ghost" href="./premium.html" style="border-color:rgba(246,201,55,.45);color:var(--gold,#F6C937)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Premium ₹199</a>
-        <a class="btn btn-ghost" href="./install.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Install guide</a>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg><span data-promo-cta data-free-text="Get Complete Free" data-paid-text="Download APK">Get Complete Free</span></a>
+        <a class="btn btn-ghost" data-os-release-link href="https://github.com/official-Arvind/UPIPaymentAlert/releases/latest" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>Open-Source APK</a>
+        <a class="btn btn-ghost" href="#screens">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/></svg>All screens</a>
       </div>
       <div class="scroll-hint"><span class="shl">Start scrolling</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
     </div></div>
@@ -649,10 +675,10 @@ html.static .outro .panel{background:transparent;padding-top:40px}
   </div></section>
 
   <section class="beat b-where" data-b="5"><div class="binner">
-    <span class="eyebrow" style="justify-content:center">04 · Counter Insights</span>
-    <h2>Your store &amp; counter, <span class="hl">mapped in 3D.</span></h2>
-    <p class="sub">Every payment lands on a glowing map of your city. Track multiple shop counters or delivery zones with zero cloud data leak.</p>
-    <div class="minitoggle"><span>Chart</span><span>Categories</span><span class="on">Map</span></div>
+    <span class="eyebrow" style="justify-content:center">04 · Complete Control</span>
+    <h2>Every screen designed for <span class="hl">speed &amp; privacy.</span></h2>
+    <p class="sub">Masked balance by default, monthly auto-reset, review queue, and multi-number SMS forwarding in one unified ledger.</p>
+    <div class="minitoggle"><span>Chart</span><span>Categories</span><span class="on">Ledger</span></div>
   </div></section>
 
   <section class="beat b-mode" data-b="6"><div class="binner">
@@ -789,7 +815,73 @@ html.static .outro .panel{background:transparent;padding-top:40px}
           <div class="wd-ai">Financial data upload<span class="v good"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Never uploaded</span></div>
           <div class="wd-ai">Cloud analytics &amp; tracking<span class="v good"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Zero tracking</span></div>
           <div class="wd-ai">Transaction ledger<span class="v good"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Encrypted on-device SQLite</span></div>
-          <div class="wd-aifoot">Your transactions remain strictly between you, your bank, and your customer.</div>
+          <div class="wd-aifoot">Zero data collection: all parsing, speech synthesis, and Room SQLite storage stay strictly on your device.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ░ Complete App Screen Gallery (all 10 blurred screens) ░ -->
+    <div class="screens-wrap" id="screens">
+      <div class="screens-head">
+        <span class="eyebrow" style="justify-content:center">Complete Edition · Inside the app</span>
+        <h2>Every screen built for <span class="hl">real counters.</span></h2>
+        <p>Explore the Jetpack Compose Material 3 experience — live captures from Android with personal names, balances, and phone numbers masked for privacy.</p>
+      </div>
+
+      <div class="screens-grid">
+        <div class="scr-card">
+          <img src="assets/screenshots/home_masked.png" alt="Home dashboard with masked balance" loading="lazy" />
+          <div class="scr-cap"><b>Home (Masked Default)</b><span>Launches hidden (••••) on every open</span></div>
+        </div>
+        <div class="scr-card">
+          <img src="assets/screenshots/home_revealed.png" alt="Home dashboard revealed balance and weekly stats" loading="lazy" />
+          <div class="scr-cap"><b>Balance &amp; Weekly Totals</b><span>Resets base setup balance every 1st</span></div>
+        </div>
+        <div class="scr-card">
+          <img src="assets/screenshots/insights_chart.png" alt="Daily and monthly revenue chart" loading="lazy" />
+          <div class="scr-cap"><b>Revenue Trend Chart</b><span>Daily, Weekly, Monthly &amp; Yearly peaks</span></div>
+        </div>
+        <div class="scr-card">
+          <img src="assets/screenshots/insights_donut.png" alt="2D and 3D Credit and Debit donut breakdown" loading="lazy" />
+          <div class="scr-cap"><b>Credit &amp; Debit Donut</b><span>Instant 2D/3D inflow vs spend split</span></div>
+        </div>
+        <div class="scr-card">
+          <img src="assets/screenshots/review.png" alt="Review inbox for unconfirmed alerts" loading="lazy" />
+          <div class="scr-cap"><b>Review Queue</b><span>Confirm ambiguous alerts in one tap</span></div>
+        </div>
+        <div class="scr-card">
+          <img src="assets/screenshots/add_txn.png" alt="Add manual payment entry screen" loading="lazy" />
+          <div class="scr-cap"><b>Manual Entry</b><span>Log cash or custom counter transactions</span></div>
+        </div>
+        <div class="scr-card">
+          <img src="assets/screenshots/all_txns.png" alt="Full searchable transaction history with UPI app filters" loading="lazy" />
+          <div class="scr-cap"><b>Statement History</b><span>Filter by Type, UPI app, date, or keyword</span></div>
+        </div>
+        <div class="scr-card">
+          <img src="assets/screenshots/txn_detail.png" alt="Transaction detail sheet with payment app attribution" loading="lazy" />
+          <div class="scr-cap"><b>Transaction Detail</b><span>Confirmed app attribution &amp; alert source</span></div>
+        </div>
+        <div class="scr-card">
+          <img src="assets/screenshots/settings.png" alt="Voice language, volume, speed, and permissions settings" loading="lazy" />
+          <div class="scr-cap"><b>Voice &amp; Permissions</b><span>13 Indian languages &amp; 4-step health check</span></div>
+        </div>
+        <div class="scr-card">
+          <img src="assets/screenshots/settings_test_forwarder.png" alt="Pipeline diagnostic status and multi-number SMS forwarder" loading="lazy" />
+          <div class="scr-cap"><b>Diagnostics &amp; Forwarder</b><span>Live audio check + auto +91/+977 forwarder</span></div>
+        </div>
+      </div>
+
+      <div class="promo-strip">
+        <div>
+          <div class="ps-pill" data-promo-active>Free 3-Month Offer · <span class="tab" data-promo-countdown>Checking...</span></div>
+          <div class="ps-title" data-promo-active>Download Complete Edition (v1.0.2) free until 28 Feb 2027</div>
+          <div class="ps-title" data-promo-expired hidden>Complete Edition (v1.0.2) — ₹199 one-time</div>
+          <p class="ps-sub">Open-Source MIT Edition (`v2.0.1`) is always free on GitHub Releases. Play Store Edition (notification-only) is Coming Soon on Google Play.</p>
+        </div>
+        <div class="ps-actions">
+          <a class="btn btn-primary" data-promo-active data-complete-free-link href="https://www.mediafire.com/file/ptx6k7k7fiy8jly/app-complete-release.apk/file" target="_blank" rel="noopener noreferrer">Download Complete (Free)</a>
+          <a class="btn btn-primary" data-promo-expired hidden href="./premium.html">Unlock Complete — ₹199</a>
+          <a class="btn btn-ghost" data-os-release-link href="https://github.com/official-Arvind/UPIPaymentAlert/releases/latest" target="_blank" rel="noopener noreferrer">Open-Source APK</a>
         </div>
       </div>
     </div>
@@ -798,29 +890,28 @@ html.static .outro .panel{background:transparent;padding-top:40px}
 
 <!-- outro (closing footer — Download + Setup) -->
 <section class="outro"><div class="panel">
-  <h2>Your private UPI soundbox, <span class="grad">ready now</span>.</h2>
-  <p>100% Offline. On-Device Voice Soundbox &amp; Merchant Ledger.</p>
+  <h2>Private by design. <span class="grad">Ready for your counter.</span></h2>
+  <p>100% On-Device Voice Soundbox &amp; Ledger. Zero Data Collection.</p>
   <div class="cta-row">
-    <a class="btn btn-primary" href="./download.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Download Free APK</a>
-    <a class="btn btn-primary" href="./premium.html" style="background:linear-gradient(135deg,#f6c937,#f6a037);color:#1a0a00">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Get Premium — ₹199</a>
+    <a class="btn btn-primary" data-promo-active data-complete-free-link href="https://www.mediafire.com/file/ptx6k7k7fiy8jly/app-complete-release.apk/file" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Download Complete (Free)</a>
+    <a class="btn btn-primary" data-promo-expired hidden href="./premium.html" style="background:linear-gradient(135deg,#f6c937,#f6a037);color:#1a0a00">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Unlock Complete — ₹199</a>
+    <a class="btn btn-ghost" href="./download.html">All Editions</a>
     <a class="btn btn-ghost" href="./install.html">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Install guide</a>
   </div>
-  <p class="outro-guide">Need help setting up permissions? <a href="./install.html">Follow the 2-minute install guide →</a></p>
+  <p class="outro-guide">Play Store Edition (notification-only): <b>Coming Soon on Google Play</b> · <a href="./install.html">Follow the 2-minute setup guide →</a></p>
   <div class="meta">
-    <span>PhonePe · Google Pay · Paytm · BHIM</span><i></i>
-    <span>SBI · HDFC · ICICI · Axis &amp; All Indian Banks</span><i></i>
-    <span>100% on-device — no cloud</span><i></i>
-    <span>Android 8.0+</span><i></i>
-    <a href="./versions.html">v1.0.2 · What's new</a><i></i>
-    <a href="./premium.html" style="color:var(--gold,#F6C937);font-weight:600">Get Premium ₹199</a><i></i>
+    <span>PhonePe · Google Pay · Paytm · BHIM · FamPay</span><i></i>
+    <span>13 Indian Languages</span><i></i>
+    <span>Zero data collection</span><i></i>
+    <a href="./versions.html">Changelog</a><i></i>
     <a href="./privacy.html">Privacy Policy</a>
   </div>
 </div></section>
 
-<footer>Crafted with ❤️ by Arvind Ji · <a href="./privacy.html">Privacy Policy</a> · <a href="./install.html">Install Guide</a> · <a href="./versions.html">v1.0.2 Changelog</a> · <a href="./premium.html" style="color:var(--gold,#F6C937);font-weight:600">Premium ₹199</a></footer>
+<footer>Built by Arvind Ji · <a href="./privacy.html">Privacy Policy</a> · <a href="./install.html">Install Guide</a> · <a href="./versions.html">Changelog</a> · <a href="./download.html">Editions</a></footer>
 
 <div class="devnote">iteration 5 · three.js · lenis + gsap</div>
 
@@ -896,17 +987,6 @@ let __rsz; window.addEventListener('resize', () => { clearTimeout(__rsz);
 })();
 </script>
 <script type="module" src="landing3d.js"></script>
-<script>
-  // Vercel Web Analytics custom events — count button clicks (alongside automatic page views).
-  // Event delegation catches every Download and Install-guide link without per-button wiring.
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-  addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('a');
-    if (!a) return;
-    var href = a.getAttribute('href') || '';
-    if (/download\.html/.test(href)) window.va('event', { name: 'download_apk' });
-    else if (/install\.html/.test(href)) window.va('event', { name: 'install_guide' });
-  }, true);
-</script>
+<script src="js/promo-timer.js"></script>
 </body>
 </html>
